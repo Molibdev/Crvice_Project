@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "crvice-deb2b": {
+      "hosting": {
+        "Crvice_Project": [
+          "crvice-deb2b"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "crvice-deb2b"
+  }
+}

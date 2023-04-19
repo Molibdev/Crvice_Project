@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ingresar o Registrarse</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Ingresar o Registrarse</h1>
+        <form>
+          <label for="username">Email:</label>
+          <input type="text" [(ngModel)]="credenciales.correo" name="correo">
+          <label for="password">Contraseña:</label>
+          <input type="password" id="password" [(ngModel)]="credenciales.password" name="password" required>
+          <div class="buttons">
+            <button type="button" (click)="login()">Ingresar</button>
+            <button type="button" [routerLink]="['/register']">Registrarse</button>
+          </div>
+        </form>
+      </div>
+      
+</body>
+</html>
+

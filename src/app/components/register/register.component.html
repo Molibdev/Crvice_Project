@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Registro</title>
+</head>
+<body>
+	<div class="container">
+		<h1>Registro</h1>
+		<form>
+			<label for="nombre">Nombre:</label>
+			<input type="text" name="nombre" [(ngModel)]="datos.nombre" required>
+
+			<label for="apellido">Apellido:</label>
+			<input type="text" name="apellido" [(ngModel)]="datos.apellido" required>
+
+			<label for="rut">RUT:</label>
+			<input type="text" name="rut" [(ngModel)]="datos.rut" required>
+
+			<label for="dv">DV:</label>
+			<input type="text" name="dv" [(ngModel)]="datos.dv" required>
+
+			<label for="correo">Correo:</label>
+			<input type="text" name="correo" [(ngModel)]="datos.correo" required>
+
+			<label for="password">Password:</label>
+			<input type="password" name="password" [(ngModel)]="datos.password" required>
+
+			<label for="perfil">Tipo de cuenta:</label>
+			<select name="perfil" [(ngModel)]="datos.perfil">
+				<option value="1">Trabajador</option>
+				<option value="2">Cliente</option>
+			</select>
+
+			<button type="submit" (click)="registrar()">Registrarse</button>
+		</form>
+	</div>
+	
+</body>
+</html>
+

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Perfil de Usuario</title>
+</head>
+<body>
+    <div class="container" *ngIf="info">
+        <h1>Perfil de Usuario</h1>
+        <div class="datos">
+            <label>Nombre:</label>
+            <p>{{info.nombre}} </p><button (click)="mostrarPromptNombre()">Mostrar prompt</button>
+            <hr>
+            <label>Apellido:</label>
+            <p>{{info.apellido}}</p><button (click)="mostrarPromptApellido()">Mostrar prompt</button>
+            <hr>
+            <label>RUT:</label>
+            <p>{{info.rut}}-{{info.dv}}<button>editar</button></p>
+            <hr>
+            <label>Correo Electronico:</label>
+            <p>{{info.correo}}<button>editar</button></p>
+            <button class="cerrar-sesion" (click)="logout()">Cerrar Sesion</button>
+        </div>
+        
+    </div>
+</body>
+</html>
+
+
