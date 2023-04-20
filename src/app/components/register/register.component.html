@@ -4,7 +4,7 @@
 	<title>Registro</title>
 </head>
 <body>
-	<div class="container">
+	<!-- <div class="container">
 		<h1>Registro</h1>
 		<form>
 			<label for="nombre">Nombre:</label>
@@ -33,7 +33,78 @@
 
 			<button type="submit" (click)="registrar()">Registrarse</button>
 		</form>
-	</div>
+	</div> -->
+
+
+    <div class="contenedor">
+        <div class="contenedor-img">
+            <img src="../../../assets/img/logo_transparent.png" alt="">
+        </div>
+        <div class="info-formulario">
+                <div class="contenedor-formulario">
+                    <h2>Crear Cuenta Cliente</h2>
+
+                <form>
+
+                    <div class="formulario">
+                        <input type="text" class="form-nombre form-control" name="nombre" [(ngModel)]="datos.nombre" required>
+                        <label class="etiqueta form-label">Nombre:</label>
+                    </div>
+                    <div class="formulario">
+                        <input type="text" class="form-nombre form-control" name="apellido" [(ngModel)]="datos.apellido" required>
+                        <label class="etiqueta form-label">Apellido:</label>
+                    </div>
+                    <div class="formulario">
+                        <input type="text" class="form-nombre form-control">
+                        <label class="etiqueta form-label">Teléfono:</label>
+                    </div>
+                    
+
+                    <div class="formulario">
+                        <input type="text" class="form-nombre form-control" name="rut" [(ngModel)]="datos.rut" required>
+                        <label class="etiqueta form-label">Rut:</label>
+                    </div>
+                    <div class="formulario">
+                        <input type="text" class="form-nombre form-control" name="dv" [(ngModel)]="datos.dv" required>
+                        <label class="etiqueta form-label">Dígito Verificador:</label>
+                    </div>
+
+                    
+                    <div class="formulario">
+                        <input type="text" class="form-nombre form-control">
+                        <label class="etiqueta form-label">Dirección:</label>
+                    </div>
+                    <div class="formulario">
+                        <input type="password" class="form-nombre form-control" name="password" [(ngModel)]="datos.password" required>
+                        <label class="etiqueta form-label">Contraseña:</label>
+                    </div>
+                    <div class="formulario">
+                        <input type="text" class="form-nombre form-control" name="correo" [(ngModel)]="datos.correo" required>
+                        <label class="etiqueta form-label">Email:</label>
+                    </div>
+                    <div class="formulario">
+                        <input type="date" class="form-nombre fecha form-control">
+                        <label class="etiqueta-date form-label">Fecha de nacimiento:</label>
+                    </div>
+
+                    <label for="perfil" class="formulario">Tipo de cuenta:</label>
+                    <select name="perfil"  [(ngModel)]="datos.perfil">
+                        <option value="1">Trabajador</option>
+                        <option value="2">Cliente</option>
+                    </select>
+                    
+                    <div class="div-boton">
+                        <button class="button" type="submit" value="Crear Cuenta" (click)="registrar()">Crear Cuenta</button>
+                    </div>
+
+                </form>
+                <p class="acceder">Ya tienes una cuenta? <a href="">Accede aquí</a> </p>
+
+            </div>
+            
+
+        </div>
+    </div>
 	
 </body>
 </html>

@@ -1,53 +1,91 @@
-.container {
-	max-width: 500px;
-	margin: auto;
-	padding: 20px;
-	background-color: #f2f2f2;
-	border-radius: 10px;
-	box-shadow: 0 0 10px rgba(0,0,0,0.1);
+/* =========================L O G I N================================= */
+
+
+body, html{
+    background-color:#EBEDFD;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
 }
 
-h1 {
-	text-align: center;
+.div-inicio {
+    background-color: white;
+    width: 490px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-bottom: 20px;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5);
+
 }
 
-form {
-	display: flex;
-	flex-direction: column;
+.div-inicio img {
+    width: 200px;
+    height: auto;
+
 }
 
+.formulario {
+    position: relative;
+    height: auto;
+    padding: 1.5rem;
+    margin-bottom: 0;
+
+}
+.form-nombre:focus{
+    outline: none;
+}
+.form-nombre{
+
+    transition: top 0.1s ease-in-out, left 0.1s ease-in-out, padding 0.1s ease-in-out;
+    padding: 1rem;
+    border-style: none;
+    padding-top: 30px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    border-bottom: 2px solid rgba(168, 165, 165, 0.731);
+
+}
 label {
-	margin-bottom: 10px;
+    position: absolute;
+    top: 0;
+    left: 5px;
+    height: 100%;
+    padding: 1.5rem;
+    pointer-events: none;
+    transition: top 0.1s ease-in-out, left 0.1s ease-in-out, padding 0.1s ease-in-out;
+    color: var(--parrafo);
+}
+/* .etiqueta {
+    background-color: transparent;
+} */
+
+div h3 {
+    color: #231656;
+    margin-top: 0px;
+    font-size: 30px;
 }
 
-input {
-	padding: 10px;
-	border-radius: 5px;
-	border: none;
-	box-shadow: 0 0 5px rgba(0,0,0,0.1);
+.button {
+    padding: 10px 50px;
+    background: #228BFB;
+    border-radius: 10px;
+    color: white;
+    border: none;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+    font-weight: 600;
+    margin-bottom: 15px;
+    cursor: pointer;
 }
 
-.buttons {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-top: 20px;
-}
-
-button {
-	padding: 10px 20px;
-	border-radius: 5px;
-	border: none;
-	color: #fff;
-	font-size: 16px;
-	font-weight: bold;
-	cursor: pointer;
-}
-
-button[type="submit"] {
-	background-color: #4CAF50;
-}
-
-button[type="button"] {
-	background-color: #2196F3;
+p{
+    margin-top: 7px;
 }

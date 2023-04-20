@@ -4,20 +4,27 @@
 	<title>Ingresar o Registrarse</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Ingresar o Registrarse</h1>
+      <div class="div-inicio">
+        <img src="./assets/img/logo_transparent.png" alt="">
+        <h3>Iniciar Sesión</h3>
         <form>
-          <label for="username">Email:</label>
-          <input type="text" [(ngModel)]="credenciales.correo" name="correo">
-          <label for="password">Contraseña:</label>
-          <input type="password" id="password" [(ngModel)]="credenciales.password" name="password" required>
-          <div class="buttons">
-            <button type="button" (click)="login()">Ingresar</button>
-            <button type="button" [routerLink]="['/register']">Registrarse</button>
-          </div>
-        </form>
+            <div class="formulario">
+                <input type="text" class="form-nombre form-control" [(ngModel)]="credenciales.correo" name="correo">
+                <label class="etiqueta form-label">Email:</label>
+            </div>
+            <div class="formulario">
+                <input type="password" class="form-nombre form-control" id="password" [(ngModel)]="credenciales.password" name="password" required>
+                <label class="etiqueta form-label">Contraseña:</label>
+            </div>
+                <div class="buttons">
+                  <button type="button" class="button" (click)="login()">Ingresar</button>
+                  <button type="button" class="button" [routerLink]="['/register']">Registrarse</button>
+                </div>
+          </form>
       </div>
-      
+    <p>¿Aún no tienes cuenta? Crea una presionando <a href=""><span>Aquí</span></a></p>
+
+
 </body>
 </html>
 
