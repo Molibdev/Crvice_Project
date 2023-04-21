@@ -90,8 +90,27 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-
-
+  async resetPassword() {
+    const path = 'Usuarios';
+    const id = this.uid;
+    this.firestore.getDoc<User>(path, id).subscribe(res => {
+      if (res) {
+        this.info = res;
+        if (this.info?.correo) {
+          this.auth.resetPass(this.info.correo)
+            .then(() => {
+              // Email de recuperación de contraseña enviado
+              console.log('Email de recuperación de contraseña enviado');
+            })
+            .catch((error) => {
+              // Error al enviar el correo electrónico de recuperación de contraseña
+              console.log('Error al enviar el correo electrónico de recuperación de contraseña', error);
+            });
+        }
+      }
+      console.log('datos son ->', res);
+    });
+  }
 
 
   logout() {

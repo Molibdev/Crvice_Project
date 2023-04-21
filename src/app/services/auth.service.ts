@@ -21,6 +21,15 @@ export class AuthService {
     return this.authfirebase.createUserWithEmailAndPassword(datos.correo, datos.password)
   }
 
+  async resetPass(correo: string) {
+    try{
+      return this.authfirebase.sendPasswordResetEmail(correo);
+    }
+    catch(error){
+      console.log(error)
+    }
+  }
+
   stateUser(){
     return this.authfirebase.authState
   }
