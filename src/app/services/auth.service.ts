@@ -13,12 +13,27 @@ export class AuthService {
     return this.authfirebase.signInWithEmailAndPassword(correo, password)
   }
 
+  async verificationEmail(): Promise <void>  {
+    return (await this.authfirebase.currentUser)?.sendEmailVerification();
+  }
+
+
   logout(){
     this.authfirebase.signOut();
   }
 
-  register(datos: User) {
-    return this.authfirebase.createUserWithEmailAndPassword(datos.correo, datos.password)
+  // register(datos: User) {
+  //   this.verificationEmail();
+  //   console.log('Email  de verificacion enviado')
+  //   return this.authfirebase.createUserWithEmailAndPassword(datos.correo, datos.password);
+  // }
+
+  async register(datos: User) {
+    const userCredential = await this.authfirebase.createUserWithEmailAndPassword(datos.correo, datos.password);
+    console.log('Usuario creado');
+    this.verificationEmail();
+    console.log('Email de verificación enviado');
+    return userCredential;
   }
 
   async resetPass(correo: string) {
@@ -29,6 +44,7 @@ export class AuthService {
       console.log(error)
     }
   }
+
 
   stateUser(){
     return this.authfirebase.authState

@@ -35,7 +35,6 @@ export class ProfileComponent implements OnInit {
       console.log('en perfil - estado de autentificacion ->', res))
   }
 
-  getUid() {}
 
 
   getInfoUser() {

@@ -37,19 +37,14 @@ export class RegisterComponent implements OnInit{
     const res = await this.auth.register(this.datos).catch( res =>  {
       console.log('error')
     })
-    // if (res) {
-    //   console.log('exito al crear el usuario');
-    //   const path = 'Usuarios';
-    //   const id = res.user?.uid;
-    //   this.firestore.createDoc(this.datos, path, id?)
-    // }
     if (res && res.user) {
       const path = 'Usuarios';
       const id = res.user.uid;
       this.datos.uid = id;
       this.datos.password = '';
       await this.firestore.createDoc(this.datos, path, id)
-      this.router.navigate(['/login'])
+      localStorage.setItem('correo', this.datos.correo);
+      this.router.navigate(['/email-validation'])
     }
   }
 

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gracias por registrarte</title>
+</head>
+<body>
+    <div *ngIf="info">
+        <h1>Gracias por registrarte</h1>
+            <p>El correo electrónico es: {{info.correo}}</p>
+            <p>Por favor verifica tu correo electrónico y haz click en el enlace para poder validar tu cuenta.</p>
+         <a href="" class="button" (click)="verificationEmail()">Reenviar email de verificación</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+}
+.navlinks{
+    display: flex;
+    align-items: center;
+}
+.navlinks li {
+    margin: 0 20px;
+}
+.navlinks li a {
+    color: #304A76;
+}
+.boton {
+    padding: 10px 16px;
+    background: #228BFB;
+    border-radius: 30px;
+}
+.navlinks li .boton {
+    color:whitesmoke;
+}
+
+div .logo {
+    color:#304A76;
+}
+img{
+    width: 90px;
+    height: auto;
+}
+
+.menu-btn{
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 40px;
+    cursor: pointer;
+    display: none;
+}
+
+/* ===Vista Responsive=== */
+@media only screen and (max-width:770px) {
+
+    .navlinks li{
+        margin: 0 10px;
+    }
+}

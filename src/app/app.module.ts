@@ -27,6 +27,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { IndexComponent } from './components/index/index.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { EmailValidationComponent } from './components/email-validation/email-validation.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     NavbarComponent,
     FooterComponent,
     IndexComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    EmailValidationComponent
   ],
   imports: [
     BrowserModule,

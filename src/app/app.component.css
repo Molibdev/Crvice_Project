@@ -1,0 +1,178 @@
+/* Probando desde el discorddd Uwu  */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* :root {
+    --text: #304A76;
+    --parrafo: #4E4E4E;
+    --footerBg: #F5F5F5;
+    --btn: #228BFB;
+    --titulos: #231656;
+    --registroBg: #EBEDFD;          
+
+} */
+
+body{
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+h1,h2,h3,h4,h5 {
+    color: #231656;
+}
+p{
+    color: #4E4E4E;
+}
+a {
+    text-decoration: none;
+}
+ul {
+    list-style: none;
+}
+.container{
+    width:95%;
+    margin: auto;
+    
+}
+/* ==== HEADER ==== */
+header {
+    width: 100vw;
+    margin-bottom: 10px;
+}
+
+.header-content {
+    display: flex;
+    background-size: cover;
+    width: 95vw;
+    height: 400px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    
+}
+.header-info {
+    flex: 60%;
+    text-align: center;
+    word-wrap: break-word;
+}
+.header-info h1 {
+    font-size: 50px;
+    margin-bottom: 40px;
+}
+
+.header-content input {
+    border-radius: 20px;
+    padding: 10px 150px;
+    border: none; 
+    outline: none; 
+}
+
+.boton {
+    padding: 10px 16px;
+    background: #228BFB;
+    border-radius: 30px;
+}
+
+/* === Seccion 1 ===*/
+.seccion1 {
+
+    width: 100vw;
+    /* margin-bottom: 15px; */
+    display: flex;
+}
+.seccion1 .container{
+    background:#F5F5F5;
+    display: flex;
+    border-radius: 30px;
+    justify-content: space-evenly;
+    padding: 0px 15px 30px 10px;
+    margin-top: 10px;
+    text-align: center;
+    align-items: center;
+    gap: 15px;
+    word-wrap: break-word;
+
+}
+.seccion1 .col {
+    width: 33%;
+    height: auto;
+}
+
+.col img {
+    min-width: 30%;
+    max-width: 100%;
+    height: auto;
+}
+
+/* seccion registrate */
+
+.registrate-aqui{
+    width: 100vw;
+    display: flex;
+}
+
+.registrate-aqui div {
+    margin-top: 15px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 95vw;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;   
+    padding-bottom: 5px; 
+}
+
+.registrate-aqui .boton {
+    color: whitesmoke
+}
+
+.registrate-aqui h2 {
+    font-size: 40px;
+}
+
+
+
+/* ===Vista Responsive=== */
+@media only screen and (max-width:770px) {
+
+    .header-content {  
+        border-radius: 15px;    
+    }
+    .header-info {
+        flex: 60%;
+        text-align: center;
+    }
+    .header-info h1 {
+        font-size: 45px;
+        margin-bottom: 40px;
+    }
+    .header-content input {
+        border-radius: 20px;
+        padding: 8px 70px;
+    }
+
+    /* == Seccion 1 == */
+    .seccion1 .container{
+        flex-wrap: wrap;
+        /* flex-direction: row; */
+        border-radius: 15px;
+        justify-content: space-around;
+        padding-bottom: 10px;
+        word-wrap: break-word;
+        gap: 0px;
+    }
+    .seccion1 .col {
+        width: auto;
+        height: auto;
+    }
+
+    /* == Registrate aquí == */    
+    .registrate-aqui div {
+        border-radius: 15px;
+    }
+
+
+}

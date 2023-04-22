@@ -27,10 +27,19 @@ export class LoginComponent implements OnInit {
   async login() {
     console.log('credenciales ->', this.credenciales);
     const res = await this.auth.login(this.credenciales.correo, this.credenciales.password)
-    if (res){
+    if (res && res.user?.emailVerified){
       console.log('res ->', res);
       this.router.navigate(['/profile'])
+    } else if (res) {
+      this.router.navigate(['/email-validation'])
+      this.mostrarPromptValidacion;
+    } else{
+      this.router.navigate(['/login'])
     }
+  }
+
+  mostrarPromptValidacion() {
+    prompt("Porfavor, verifique su email antes de ingresar!");
   }
 
 }
