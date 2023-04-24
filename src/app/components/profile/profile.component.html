@@ -8,16 +8,26 @@
         <h1>Perfil de Usuario</h1>
         <div class="datos">
             <label>Nombre:</label>
-            <p>{{info.nombre}} </p><button (click)="mostrarPromptNombre()">Mostrar prompt</button>
+            <p>{{info.nombre}} </p><button (click)="mostrarPromptNombre()">Editar</button>
             <hr>
             <label>Apellido:</label>
-            <p>{{info.apellido}}</p><button (click)="mostrarPromptApellido()">Mostrar prompt</button>
+            <p>{{info.apellido}}</p><button (click)="mostrarPromptApellido()">Editar</button>
             <hr>
             <label>RUT:</label>
-            <p>{{info.rut}}-{{info.dv}}<button>editar</button></p>
+            <p>{{info.rut}}-{{info.dv}}</p>
             <hr>
             <label>Correo Electronico:</label>
-            <p>{{info.correo}}<button>editar</button></p>
+            <p>{{info.correo}}</p>
+            <hr>
+            <label>Telefono:</label>
+            <p>{{info.telefono}}</p><button (click)="mostrarPromptTelefono()">Editar</button>
+            <hr>
+            <label>Direccion:</label>
+            <p>{{info.direccion}}</p><button (click)="mostrarPromptDireccion()">Editar</button>
+            <hr>
+            <label>Fecha de Nacimiento:</label>
+            <p>{{info.nacimiento}}</p>
+            <hr>
             <button class="cerrar-sesion" (click)="resetPassword()">Cambiar contraseña</button>
             <button class="cerrar-sesion" (click)="logout()">Cerrar Sesion</button>
         </div>

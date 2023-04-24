@@ -19,6 +19,9 @@ export class ProfileComponent implements OnInit {
   rut: string = '';
   dv: string = '';
   correo: string = '';
+  telefono: string = '';
+  direccion: string = '';
+  nacimiento: string = '';
 
   constructor(private auth: AuthService,
               private router: Router,
@@ -49,23 +52,13 @@ export class ProfileComponent implements OnInit {
   }
 
   mostrarPromptNombre() {
-    const nombre = prompt("Por favor, ingrese un valor:");
+    const nombre = prompt("Ingrese Nombre para actualizar:");
     if (nombre != null) {
       console.log("El usuario ingresó el valor: " + nombre);
       const usuario = { nombre: nombre };
       this.saveNombre(usuario);
     }
   }
-
-  mostrarPromptApellido() {
-    const apellido = prompt("Por favor, ingrese un valor:");
-    if (apellido != null) {
-      console.log("El usuario ingresó el valor: " + apellido);
-      const usuario = { apellido: apellido };
-      this.saveApellido(usuario);
-    }
-  }
-
 
   saveNombre(usuario: any){
     const path = 'Usuarios';
@@ -74,8 +67,17 @@ export class ProfileComponent implements OnInit {
       nombre: usuario.nombre
     };
     this.firestore.updateDoc(path, id, updateDoc).then( () => {
-      console.log('actualizado con exito')
+      console.log('Nombre Actualizado con exito')
     })
+  }
+
+  mostrarPromptApellido() {
+    const apellido = prompt("Ingrese Apellido para actualizar:");
+    if (apellido != null) {
+      console.log("El usuario ingresó el valor: " + apellido);
+      const usuario = { apellido: apellido };
+      this.saveApellido(usuario);
+    }
   }
 
   saveApellido(usuario: any){
@@ -85,7 +87,47 @@ export class ProfileComponent implements OnInit {
       apellido: usuario.apellido
     };
     this.firestore.updateDoc(path, id, updateDoc).then( () => {
-      console.log('actualizado con exito')
+      console.log('Apellido actualizado con exito')
+    })
+  }
+
+  mostrarPromptTelefono() {
+    const telefono = prompt("Ingrese Nuevo Telefono");
+    if (telefono != null) {
+      console.log("El usuario ingresó el valor: " + telefono);
+      const usuario = { telefono: telefono };
+      this.saveTelefono(usuario);
+    }
+  }
+
+  saveTelefono(usuario: any){
+    const path = 'Usuarios';
+    const id = this.uid;
+    const updateDoc = {
+      telefono: usuario.telefono
+    };
+    this.firestore.updateDoc(path, id, updateDoc).then( () => {
+      console.log('Telefono actualizado con exito')
+    })
+  }
+
+  mostrarPromptDireccion() {
+    const direccion = prompt("Ingrese Nueva Direccion:");
+    if (direccion != null) {
+      console.log("El usuario ingresó el valor: " + direccion);
+      const usuario = { direccion: direccion };
+      this.saveDireccion(usuario);
+    }
+  }
+
+  saveDireccion(usuario: any){
+    const path = 'Usuarios';
+    const id = this.uid;
+    const updateDoc = {
+      direccion: usuario.direccion
+    };
+    this.firestore.updateDoc(path, id, updateDoc).then( () => {
+      console.log('Direccion actualizada con exito')
     })
   }
 

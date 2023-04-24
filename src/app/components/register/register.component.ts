@@ -20,7 +20,10 @@ export class RegisterComponent implements OnInit{
     dv: '',
     correo: '',
     password: '',
-    perfil: 0
+    perfil: 0,
+    telefono: 0,
+    direccion: '',
+    nacimiento: new Date()
   }
   
 
