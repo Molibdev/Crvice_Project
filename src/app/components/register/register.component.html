@@ -42,7 +42,7 @@
         </div>
         <div class="info-formulario">
                 <div class="contenedor-formulario">
-                    <h2>Crear Cuenta Cliente</h2>
+                    <h2>Crear Cuenta</h2>
 
                 <form>
 
@@ -50,40 +50,43 @@
                         <input type="text" class="form-nombre form-control" name="nombre" [(ngModel)]="datos.nombre" required>
                         <label class="etiqueta form-label">Nombre:</label>
                     </div>
+
                     <div class="formulario">
                         <input type="text" class="form-nombre form-control" name="apellido" [(ngModel)]="datos.apellido" required>
                         <label class="etiqueta form-label">Apellido:</label>
                     </div>
-                    <div class="formulario">
-                        <input type="text" class="form-nombre form-control">
-                        <label class="etiqueta form-label">Teléfono:</label>
-                    </div>
-                    
 
                     <div class="formulario">
                         <input type="text" class="form-nombre form-control" name="rut" [(ngModel)]="datos.rut" required>
                         <label class="etiqueta form-label">Rut:</label>
                     </div>
+
                     <div class="formulario">
                         <input type="text" class="form-nombre form-control" name="dv" [(ngModel)]="datos.dv" required>
                         <label class="etiqueta form-label">Dígito Verificador:</label>
                     </div>
 
-                    
                     <div class="formulario">
-                        <input type="text" class="form-nombre form-control">
+                        <input type="text" class="form-nombre form-control" name="telefono" [(ngModel)]="datos.telefono" required>
+                       <label class="etiqueta form-label">Teléfono:</label>
+                   </div>
+                    <div class="formulario">
+                        <input type="text" class="form-nombre form-control" name="direccion" [(ngModel)]="datos.direccion" required>
                         <label class="etiqueta form-label">Dirección:</label>
                     </div>
+
                     <div class="formulario">
                         <input type="password" class="form-nombre form-control" name="password" [(ngModel)]="datos.password" required>
                         <label class="etiqueta form-label">Contraseña:</label>
                     </div>
+
                     <div class="formulario">
                         <input type="text" class="form-nombre form-control" name="correo" [(ngModel)]="datos.correo" required>
                         <label class="etiqueta form-label">Email:</label>
                     </div>
+
                     <div class="formulario">
-                        <input type="date" class="form-nombre fecha form-control">
+                        <input type="date" class="form-nombre form-control" name="nacimiento" [(ngModel)]="datos.nacimiento" required>
                         <label class="etiqueta-date form-label">Fecha de nacimiento:</label>
                     </div>
 
