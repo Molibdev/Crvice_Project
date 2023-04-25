@@ -22,12 +22,14 @@ export class ProfileComponent implements OnInit {
   telefono: string = '';
   direccion: string = '';
   nacimiento: string = '';
+  perfil: string = '';
 
   constructor(private auth: AuthService,
               private router: Router,
               private firestore: FirebaseService) {
 
   }
+
 
   async ngOnInit() {
     console.log('estoy en perfil')
@@ -40,7 +42,7 @@ export class ProfileComponent implements OnInit {
 
 
 
-  getInfoUser() {
+ async getInfoUser() {
     const path = 'Usuarios';
     const id = this.uid;
     this.firestore.getDoc<User>(path, id).subscribe( res => {
@@ -160,5 +162,9 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/login'])
   }
 
+
+  crearPublicacion(){
+    this.router.navigate(['/nueva-publicacion'])
+  }
 
 }
