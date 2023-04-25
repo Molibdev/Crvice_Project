@@ -7,11 +7,15 @@ import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { IndexComponent } from './components/index/index.component';
 import { EmailValidationComponent } from './components/email-validation/email-validation.component';
+import { PublicacionComponent } from './components/publicacion/publicacion.component';
+import { NuevaPublicacionComponent } from './components/nueva-publicacion/nueva-publicacion.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'index', component: IndexComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'nueva-publicacion', component: NuevaPublicacionComponent },
+  { path: 'publicacion', component: PublicacionComponent },
   { path: 'email-validation', component: EmailValidationComponent, 
   ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
   { path: 'forgot-pass', component: ForgotPasswordComponent },

@@ -1,0 +1,26 @@
+<h1>Nueva Publicación</h1>
+
+<form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+        <label class="form-label">Titulo de la Publicacion</label>
+        <input type="text" class="form-control" formControlName="titulo">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Rubro</label>
+        <input type="text" class="form-control" formControlName="rubro">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Descripcion</label>
+        <textarea class="form-control" cols="30" rows="10" formControlName="descripcion"></textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Precio Estimado</label>
+        <input type="text" class="form-control" formControlName="precio">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Imagen</label>
+        <input type="text" class="form-control" formControlName="imagen">
+    </div>
+    <input type="hidden" formControlName="uid" [value]="uid">
+    <input type="submit" value="Enviar" class="btn btn-info">
+</form>

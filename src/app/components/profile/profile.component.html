@@ -30,6 +30,7 @@
             <hr>
             <button class="cerrar-sesion" (click)="resetPassword()">Cambiar contraseña</button>
             <button class="cerrar-sesion" (click)="logout()">Cerrar Sesion</button>
+            <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="crearPublicacion()">Crear publicación</button>
         </div>
     </div>
 </body>

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -28,6 +28,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { IndexComponent } from './components/index/index.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { EmailValidationComponent } from './components/email-validation/email-validation.component';
+import { PublicacionComponent } from './components/publicacion/publicacion.component';
+import { NuevaPublicacionComponent } from './components/nueva-publicacion/nueva-publicacion.component';
 
 @NgModule({
   declarations: [
@@ -39,12 +41,15 @@ import { EmailValidationComponent } from './components/email-validation/email-va
     FooterComponent,
     IndexComponent,
     ForgotPasswordComponent,
-    EmailValidationComponent
+    EmailValidationComponent,
+    PublicacionComponent,
+    NuevaPublicacionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireAuthModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
