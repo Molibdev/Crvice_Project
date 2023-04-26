@@ -1,0 +1,9 @@
+<div class="places">
+    <div class="place" *ngFor="let publicacion of publicaciones">
+      <div class="info">
+        <h2>{{ publicacion.titulo }}</h2>
+        <p>{{ publicacion.descripcion }}</p>
+        <button (click)="abrirPublicacion(publicacion.id)">Abrir</button>
+      </div>
+    </div>
+  </div>

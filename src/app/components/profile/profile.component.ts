@@ -167,4 +167,8 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/nueva-publicacion'])
   }
 
+  verMisPublicaciones() {
+    this.router.navigate(['/mis-publicaciones']);
+  }
+
 }

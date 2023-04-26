@@ -9,13 +9,19 @@ import { IndexComponent } from './components/index/index.component';
 import { EmailValidationComponent } from './components/email-validation/email-validation.component';
 import { PublicacionComponent } from './components/publicacion/publicacion.component';
 import { NuevaPublicacionComponent } from './components/nueva-publicacion/nueva-publicacion.component';
+import { BusquedaComponent } from './components/busqueda/busqueda.component';
+import { EditarPublicacionComponent } from './components/editar-publicacion/editar-publicacion.component';
+import { MisPublicacionesComponent } from './components/mis-publicaciones/mis-publicaciones.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'index', component: IndexComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'busqueda', component: BusquedaComponent },
   { path: 'nueva-publicacion', component: NuevaPublicacionComponent },
-  { path: 'publicacion', component: PublicacionComponent },
+  { path: 'mis-publicaciones', component: MisPublicacionesComponent },
+  { path: 'editar-publicacion/:id', component: EditarPublicacionComponent },
+  { path: 'publicacion/:id', component: PublicacionComponent },
   { path: 'email-validation', component: EmailValidationComponent, 
   ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
   { path: 'forgot-pass', component: ForgotPasswordComponent },
