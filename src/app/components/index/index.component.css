@@ -74,6 +74,7 @@ header {
     padding: 10px 16px;
     background: #228BFB;
     border-radius: 30px;
+    cursor: pointer;
 }
 
 /* === Seccion 1 ===*/

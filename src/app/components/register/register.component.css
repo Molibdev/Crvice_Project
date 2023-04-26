@@ -117,6 +117,14 @@ body{
     padding-bottom: 0px;
 }
 
+.tipo-cuenta{
+    padding-top: 20px;
+    padding-bottom: 16px;
+}
+div select {
+    border: none;
+}
+
 /* ===Vista Responsive=== */
 @media only screen and (max-width:770px) {
     .contenedor-img {
