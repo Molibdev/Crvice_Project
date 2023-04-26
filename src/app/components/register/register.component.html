@@ -4,41 +4,9 @@
 	<title>Registro</title>
 </head>
 <body>
-	<!-- <div class="container">
-		<h1>Registro</h1>
-		<form>
-			<label for="nombre">Nombre:</label>
-			<input type="text" name="nombre" [(ngModel)]="datos.nombre" required>
-
-			<label for="apellido">Apellido:</label>
-			<input type="text" name="apellido" [(ngModel)]="datos.apellido" required>
-
-			<label for="rut">RUT:</label>
-			<input type="text" name="rut" [(ngModel)]="datos.rut" required>
-
-			<label for="dv">DV:</label>
-			<input type="text" name="dv" [(ngModel)]="datos.dv" required>
-
-			<label for="correo">Correo:</label>
-			<input type="text" name="correo" [(ngModel)]="datos.correo" required>
-
-			<label for="password">Password:</label>
-			<input type="password" name="password" [(ngModel)]="datos.password" required>
-
-			<label for="perfil">Tipo de cuenta:</label>
-			<select name="perfil" [(ngModel)]="datos.perfil">
-				<option value="1">Trabajador</option>
-				<option value="2">Cliente</option>
-			</select>
-
-			<button type="submit" (click)="registrar()">Registrarse</button>
-		</form>
-	</div> -->
-
-
     <div class="contenedor">
         <div class="contenedor-img">
-            <img src="../../../assets/img/logo_transparent.png" alt="">
+            <img [routerLink]="['/index']"src="../../../assets/img/logo_transparent.png" alt="">
         </div>
         <div class="info-formulario">
                 <div class="contenedor-formulario">
@@ -86,22 +54,25 @@
                     </div>
 
                     <div class="formulario">
-                        <input type="date" class="form-nombre form-control" name="nacimiento" [(ngModel)]="datos.nacimiento" required>
+                        <input type="date" class="form-nombre fecha form-control" name="nacimiento" [(ngModel)]="datos.nacimiento" required>
                         <label class="etiqueta-date form-label">Fecha de nacimiento:</label>
                     </div>
 
-                    <label for="perfil" class="formulario">Tipo de cuenta:</label>
-                    <select name="perfil"  [(ngModel)]="datos.perfil">
-                        <option value="1">Trabajador</option>
-                        <option value="2">Cliente</option>
-                    </select>
-                    
+                    <div class="tipo-cuenta">
+                        <label for="perfil" class="formulario">Tipo de cuenta:</label>
+                        <select name="perfil"  [(ngModel)]="datos.perfil">
+                            <option value="1">Trabajador</option>
+                            <option value="2">Cliente</option>
+                        </select>
+
+                    </div>
+         
                     <div class="div-boton">
                         <button class="button" type="submit" value="Crear Cuenta" (click)="registrar()">Crear Cuenta</button>
                     </div>
 
                 </form>
-                <p class="acceder">Ya tienes una cuenta? <a href="">Accede aquí</a> </p>
+                <p class="acceder">Ya tienes una cuenta? <a href="" >Accede aquí</a> </p>
 
             </div>
             

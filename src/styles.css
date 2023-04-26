@@ -1,1 +1,39 @@
-/* You can add global styles to this file, and also import other style files */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* COLORES
+:root {
+    --text: #304A76;
+    --parrafo: #4E4E4E;
+    --footerBg: #F5F5F5;
+    --btn: #228BFB;
+    --titulos: #231656;
+    --registroBg: #EBEDFD;          
+
+} */
+
+body{
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+h1,h2,h3,h4,h5 {
+    color: #231656;
+}
+p{
+    color: #4E4E4E;
+}
+a {
+    text-decoration: none;
+}
+ul {
+    list-style: none;
+}
+.container{
+    width:95%;
+    margin: auto;
+    
+}
