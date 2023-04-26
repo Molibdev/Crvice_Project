@@ -64,6 +64,9 @@ label {
     transition: top 0.1s ease-in-out, left 0.1s ease-in-out, padding 0.1s ease-in-out;
     color: var(--parrafo);
 }
+img {
+    cursor: pointer;
+}
 /* .etiqueta {
     background-color: transparent;
 } */
@@ -87,5 +90,5 @@ div h3 {
 }
 
 p{
-    margin-top: 7px;
+    margin-top: 6px;
 }

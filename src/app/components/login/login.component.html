@@ -8,7 +8,7 @@
         Por favor, verifique su correo electrónico antes de ingresar.
       </div>
       <div class="div-inicio">
-        <img src="./assets/img/logo_transparent.png" alt="">
+        <img [routerLink]="['/index']" src="./assets/img/logo_transparent.png" alt="">
         <h3>Iniciar Sesión</h3>
         <form>
             <div class="formulario">
@@ -21,12 +21,11 @@
             </div>
                 <div class="buttons">
                   <button type="button" class="button" (click)="login()">Ingresar</button>
-                  <button type="button" class="button" [routerLink]="['/register']">Registrarse</button>
-                  <button type="button" class="button" [routerLink]="['/forgot-pass']">Olvidaste tu contraseña</button>
                 </div>
           </form>
       </div>
-    <p>¿Aún no tienes cuenta? Crea una presionando <a href=""><span>Aquí</span></a></p>
+    <p>¿Aún no tienes cuenta? Crea una presionando <a href="" [routerLink]="['/register']"><span>Aquí</span></a></p>
+    <p>¿Olvidaste tu contraseña? haz click <a href="" [routerLink]="['/forgot-pass']"><span>Aquí</span></a></p>
 
 
 </body>
