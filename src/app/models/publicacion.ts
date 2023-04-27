@@ -1,7 +1,7 @@
 export interface Publicacion {
     id?: string;
     titulo: string;
-    rubro: number;
+    rubro: string;
     descripcion: string;
     precio: string;
     imagen: string;
