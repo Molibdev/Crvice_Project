@@ -20,8 +20,7 @@
             <div class="header-content">
                 <div class="header-info">
                     <h1>Puedes comenzar buscando el servicio que necesitas aquí</h1>
-                    <input type="text" placeholder="Buscar..." name="buscar">
-                    <!-- size="80" -->
+                    <input type="text" placeholder="Buscar..." name="buscar" (keyup.enter)="buscar($event)">
                 </div>
             </div>
         </div>
