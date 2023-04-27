@@ -1,0 +1,20 @@
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <div *ngIf="publicacion">
+    <label>Título:</label>
+    <input type="text" name="titulo" [(ngModel)]="publicacion.titulo" />
+    <br />
+    <label>Rubro:</label>
+    <input type="text" name="rubro" [(ngModel)]="publicacion.rubro" />
+    <br />
+    <label>Descripción:</label>
+    <textarea name="descripcion" [(ngModel)]="publicacion.descripcion"></textarea>
+    <br />
+    <label>Precio:</label>
+    <input type="number" name="precio" [(ngModel)]="publicacion.precio" />
+    <br />
+    <label>Imagen:</label>
+    <input type="text" name="imagen" [(ngModel)]="publicacion.imagen" />
+    <br />
+    <button type="submit">Guardar cambios</button>
+  </div>
+</form>

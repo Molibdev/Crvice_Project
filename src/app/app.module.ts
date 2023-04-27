@@ -30,6 +30,9 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { EmailValidationComponent } from './components/email-validation/email-validation.component';
 import { PublicacionComponent } from './components/publicacion/publicacion.component';
 import { NuevaPublicacionComponent } from './components/nueva-publicacion/nueva-publicacion.component';
+import { BusquedaComponent } from './components/busqueda/busqueda.component';
+import { MisPublicacionesComponent } from './components/mis-publicaciones/mis-publicaciones.component';
+import { EditarPublicacionComponent } from './components/editar-publicacion/editar-publicacion.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,10 @@ import { NuevaPublicacionComponent } from './components/nueva-publicacion/nueva-
     ForgotPasswordComponent,
     EmailValidationComponent,
     PublicacionComponent,
-    NuevaPublicacionComponent
+    NuevaPublicacionComponent,
+    BusquedaComponent,
+    MisPublicacionesComponent,
+    EditarPublicacionComponent
   ],
   imports: [
     BrowserModule,
