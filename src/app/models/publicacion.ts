@@ -1,8 +1,8 @@
 export interface Publicacion {
     id?: string;
     titulo: string;
-    rubro: number;
-    descripcion: number;
+    rubro: string;
+    descripcion: string;
     precio: string;
     imagen: string;
     uid:string;

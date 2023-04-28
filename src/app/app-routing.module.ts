@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'index', component: IndexComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'busqueda', component: BusquedaComponent },
+  { path: 'busqueda/:termino', component: BusquedaComponent },
   { path: 'nueva-publicacion', component: NuevaPublicacionComponent },
   { path: 'mis-publicaciones', component: MisPublicacionesComponent },
   { path: 'editar-publicacion/:id', component: EditarPublicacionComponent },

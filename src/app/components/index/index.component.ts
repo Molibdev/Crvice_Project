@@ -8,12 +8,18 @@ import { Router } from '@angular/router';
 })
 export class IndexComponent {
 
-    constructor( private router: Router ){
+  constructor( private router: Router ){
 
-    }
+  }
 
-    registro() {
+  registro() {
       this.router.navigate(['/register'])
-    }
+  }
+
+  buscar(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const termino = target.value;
+    this.router.navigate(['/busqueda', termino]);
+  }
 
 }
