@@ -33,6 +33,7 @@ import { NuevaPublicacionComponent } from './components/nueva-publicacion/nueva-
 import { BusquedaComponent } from './components/busqueda/busqueda.component';
 import { MisPublicacionesComponent } from './components/mis-publicaciones/mis-publicaciones.component';
 import { EditarPublicacionComponent } from './components/editar-publicacion/editar-publicacion.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { EditarPublicacionComponent } from './components/editar-publicacion/edit
     NuevaPublicacionComponent,
     BusquedaComponent,
     MisPublicacionesComponent,
-    EditarPublicacionComponent
+    EditarPublicacionComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ import { NuevaPublicacionComponent } from './components/nueva-publicacion/nueva-
 import { BusquedaComponent } from './components/busqueda/busqueda.component';
 import { EditarPublicacionComponent } from './components/editar-publicacion/editar-publicacion.component';
 import { MisPublicacionesComponent } from './components/mis-publicaciones/mis-publicaciones.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'publicacion/:id', component: PublicacionComponent },
   { path: 'email-validation', component: EmailValidationComponent, 
   ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
+  { path: 'chat', component: ChatComponent },
   { path: 'forgot-pass', component: ForgotPasswordComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent,

@@ -32,15 +32,12 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/profile'])
     } else if (res) {
       this.router.navigate(['/email-validation'])
-      this.mostrarPromptValidacion;
     } else{
       this.router.navigate(['/login'])
     }
   }
 
-  mostrarPromptValidacion() {
-    prompt("Porfavor, verifique su email antes de ingresar!");
-  }
+
 
 }
 
