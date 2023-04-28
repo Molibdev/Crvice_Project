@@ -33,11 +33,8 @@ import { NuevaPublicacionComponent } from './components/nueva-publicacion/nueva-
 import { BusquedaComponent } from './components/busqueda/busqueda.component';
 import { MisPublicacionesComponent } from './components/mis-publicaciones/mis-publicaciones.component';
 import { EditarPublicacionComponent } from './components/editar-publicacion/editar-publicacion.component';
-<<<<<<< HEAD
 import { ChatComponent } from './components/chat/chat.component';
-=======
 import { FilterPipe } from './pipes/filter.pipe';
->>>>>>> b8905675c03683a37a98bf27b43c8483efccdf9a
 
 @NgModule({
   declarations: [
@@ -55,11 +52,9 @@ import { FilterPipe } from './pipes/filter.pipe';
     BusquedaComponent,
     MisPublicacionesComponent,
     EditarPublicacionComponent,
-<<<<<<< HEAD
-    ChatComponent
-=======
-    FilterPipe
->>>>>>> b8905675c03683a37a98bf27b43c8483efccdf9a
+    ChatComponent,
+    FilterPipe,
+
   ],
   imports: [
     BrowserModule,
