@@ -11,8 +11,8 @@ export class FilterPipe implements PipeTransform {
       return publicaciones;
     }
     return publicaciones.filter(publicacion =>
-      publicacion.titulo.toLowerCase().includes(termino.toLowerCase()) ||
-      publicacion.descripcion.toLowerCase().includes(termino.toLowerCase())
+      (publicacion.titulo && publicacion.titulo.toLowerCase().includes(termino.toLowerCase())) ||
+      (publicacion.descripcion && publicacion.descripcion.toLowerCase().includes(termino.toLowerCase()))
     );
   }
 
