@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { User } from '../models/models';
+import { authState ,Auth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private authfirebase: AngularFireAuth) { }
+  currentUser$ = authState(this.auth);
+
+  constructor(private authfirebase: AngularFireAuth, private auth: Auth) { }
 
   login(correo: string, password: string){
     return this.authfirebase.signInWithEmailAndPassword(correo, password)
@@ -28,6 +31,8 @@ export class AuthService {
   //   return this.authfirebase.createUserWithEmailAndPassword(datos.correo, datos.password);
   // }
 
+  
+
   async register(datos: User) {
     const userCredential = await this.authfirebase.createUserWithEmailAndPassword(datos.correo, datos.password);
     console.log('Usuario creado');
@@ -35,6 +40,8 @@ export class AuthService {
     console.log('Email de verificación enviado');
     return userCredential;
   }
+
+  
 
   async resetPass(correo: string) {
     try{

@@ -35,6 +35,15 @@ import { MisPublicacionesComponent } from './components/mis-publicaciones/mis-pu
 import { EditarPublicacionComponent } from './components/editar-publicacion/editar-publicacion.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import {MatAutocompleteModule} from '@angular/material/autocomplete'; 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list'
+import { MatDividerModule } from '@angular/material/divider'
+import { MatIconModule } from '@angular/material/icon';
+import { DateDisplayPipe } from './pipes/date-display.pipe';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -54,6 +63,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     EditarPublicacionComponent,
     ChatComponent,
     FilterPipe,
+    DateDisplayPipe,
 
   ],
   imports: [
@@ -62,6 +72,13 @@ import { FilterPipe } from './pipes/filter.pipe';
     FormsModule,
     ReactiveFormsModule,
     AngularFireAuthModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule,
+    BrowserAnimationsModule,
+    MatListModule,
+    MatDividerModule,
+    MatIconModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
@@ -75,7 +92,7 @@ import { FilterPipe } from './pipes/filter.pipe';
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
-    ScreenTrackingService,UserTrackingService
+    ScreenTrackingService,UserTrackingService,DatePipe
   ],
   bootstrap: [AppComponent]
 })
