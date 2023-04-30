@@ -1,10 +1,25 @@
-<h1>Mis Publicaciones</h1>
-<div class="places">
-    <div class="place" *ngFor="let publicacion of publicaciones$ | async">
-      <div class="info">
-        <h2>{{ publicacion.titulo }}</h2>
-        <p>{{ publicacion.descripcion }}</p>
-        <button (click)="abrirPublicacion(publicacion.id)">Abrir</button>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mis Publicaciones</title>
+</head>
+<header>
+    <app-navbar></app-navbar>
+</header>
+<div class="container">
+  <h1>Mis Publicaciones</h1>
+
+  <div class="places">
+      <div class="place" *ngFor="let publicacion of publicaciones$ | async">
+        <div class="info">
+          <h2>{{ publicacion.titulo }}</h2>
+          <small>Precio estimado: ${{publicacion.precio}}</small>
+          <p>{{ publicacion.descripcion }}</p>
+          <button (click)="abrirPublicacion(publicacion.id)">Editar</button>
+        </div>
       </div>
-    </div>
- </div>
+  </div>
+
+</div>
+
+<app-footer></app-footer>

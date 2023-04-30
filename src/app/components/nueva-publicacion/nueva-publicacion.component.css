@@ -37,8 +37,6 @@ input, textarea {
 .form-nombre {
     border: solid 1px #ccc;
     padding: 10px;
-    
-
 }
 
 .form-nombre:focus{
@@ -59,4 +57,10 @@ input, textarea {
     cursor: pointer;
 }
 
+.btn:hover {
+    background-color: #1e71ca;
+}
 
+textarea, input {
+    font-family: 'Poppins', sans-serif;
+}

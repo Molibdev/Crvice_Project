@@ -62,13 +62,13 @@ label {
     padding: 1.5rem;
     pointer-events: none;
     transition: top 0.1s ease-in-out, left 0.1s ease-in-out, padding 0.1s ease-in-out;
-    color: var(--parrafo);
+    color: #4E4E4E;
 }
 img {
     cursor: pointer;
 }
-/* .etiqueta {
-    background-color: transparent;
+/* input {
+    background-color: white;
 } */
 
 div h3 {
@@ -87,6 +87,9 @@ div h3 {
     font-weight: 600;
     margin-bottom: 15px;
     cursor: pointer;
+}
+.button:hover {
+    background-color: #1e71ca;
 }
 
 p{

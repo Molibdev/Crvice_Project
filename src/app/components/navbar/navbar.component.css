@@ -53,3 +53,9 @@ img{
         margin: 0 10px;
     }
 }
+@media only screen and (max-width:480px) {
+
+    .navlinks li{
+        font-size: 14px;
+    }
+}

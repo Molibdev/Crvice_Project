@@ -1,20 +1,8 @@
-/* body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-} */
-/* .containers {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-} */
+
 h1 {
     text-align: center;
 }
-/* .datos {
-    margin-top: 30px;
-} */
+
 label {
     font-weight: bold;
     color: #231656;
@@ -23,9 +11,7 @@ p {
     display: inline;
     text-align: right;
 }
-hr {
-    
-}
+
 .cerrar-sesion {
     margin-top: 20px;
     background-color:#228BFB;
@@ -41,10 +27,12 @@ hr {
     background-color: #1e71ca;
 }
 
+h2 {
+    margin-bottom: 10px;
+}
+
 .datos-personales{
     margin-bottom: 40px;
-    /* background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%); */
-    /* background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); */
     margin-top:20px;
 }
 
@@ -77,21 +65,16 @@ hr {
     border-radius: 10px;
     object-fit: cover;
     box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.285);
-
 }
-
 
 .der{
     width: 60%;
     height: auto;
-    justify-content: space-between;
-   
+    justify-content: space-between; 
 }
 
 .datos {
     margin-right: 100px;
-
-   
 }
 
 hr {
@@ -116,9 +99,7 @@ button {
 
 .div-botones {
     display: flex;
-
     justify-content: space-around;
-
 }
 
 .img-comentario {
@@ -127,7 +108,6 @@ button {
     border-radius: 5%;
     object-fit: cover;
     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.162);
-   
 }
 
 .comentario {
@@ -138,22 +118,20 @@ button {
     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.162);
     border-radius: 10px;
     padding: 15px;
-    margin-top: 20px;
-    
+    margin-top: 20px;   
     /* background-color: #f1f7f9;
     background-image: linear-gradient(62deg, #f1f7f9 0%, #e2dde9 95%); */
-
-    background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+    /* background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); */
+    /* background-color: #D1E2FD; */
+    background-color:whitesmoke;
 }
 
 .contenedor-comentario {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    
+    flex-direction: column;  
 }
-
 
 .div-comentario {
     width: 60%;
@@ -174,11 +152,11 @@ button {
 .mas-comentarios {
     background-color: rgb(204, 200, 200);
     padding: 10px;
- 
 }
 
 header {
-    background-image: url(../../../assets/img/bg.png);
+    /* background-image: url(../../../assets/img/bg.png);
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
+    background-image: linear-gradient(to top, #48c6ef 0%, #6f86d6 100%);
 }
