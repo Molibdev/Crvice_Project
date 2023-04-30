@@ -11,11 +11,18 @@
 }
 .navlinks li a {
     color: #304A76;
+    font-weight: 600;
+}
+nav.navbar{
+    height: 80px;
 }
 .boton {
     padding: 10px 16px;
     background: #228BFB;
     border-radius: 30px;
+}
+.boton:hover {
+    background-color: #1e71ca;
 }
 .navlinks li .boton {
     color:whitesmoke;
@@ -25,8 +32,9 @@ div .logo {
     color:#304A76;
 }
 img{
-    width: 90px;
+    width: 80px;
     height: auto;
+    margin-left: 10px;
 }
 
 .menu-btn{

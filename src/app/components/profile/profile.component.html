@@ -3,38 +3,86 @@
 <head>
     <title>Perfil de Usuario</title>
 </head>
+<header>
+    <app-navbar></app-navbar>
+</header>
 <body>
-    <div class="container" *ngIf="info">
-        <h1>Perfil de Usuario</h1>
-        <div class="datos">
-            <label>Nombre:</label>
-            <p>{{info.nombre}} </p><button (click)="mostrarPromptNombre()">Editar</button>
-            <hr>
-            <label>Apellido:</label>
-            <p>{{info.apellido}}</p><button (click)="mostrarPromptApellido()">Editar</button>
-            <hr>
-            <label>RUT:</label>
-            <p>{{info.rut}}-{{info.dv}}</p>
-            <hr>
-            <label>Correo Electronico:</label>
-            <p>{{info.correo}}</p>
-            <hr>
-            <label>Telefono:</label>
-            <p>{{info.telefono}}</p><button (click)="mostrarPromptTelefono()">Editar</button>
-            <hr>
-            <label>Direccion:</label>
-            <p>{{info.direccion}}</p><button (click)="mostrarPromptDireccion()">Editar</button>
-            <hr>
-            <label>Fecha de Nacimiento:</label>
-            <p>{{info.nacimiento}}</p>
-            <hr>
-            <button class="cerrar-sesion" (click)="resetPassword()">Cambiar contraseña</button>
-            <button class="cerrar-sesion" (click)="logout()">Cerrar Sesion</button>
-            <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="crearPublicacion()">Crear publicación</button>
-            <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="verMisPublicaciones()">Ver mis publicaciones</button>
+    
+    <!-- seccion datos personales -->
+    <section class="datos-personales">
+
+        <div class="container"  *ngIf="info">
+            <div class="izq">
+                <div class="div-imagen">
+                    <img src="../../../assets/img/foto5.jpg" alt="">
+                </div>
+                <p class="estrellas">estrellas</p>
+            </div>
+            
+            <div class="der">
+                <!-- <h1>Perfil de Usuario</h1> -->
+                <h2>Datos Personales</h2>
+                <div class="datos">
+                    <label>Nombre:</label>
+                    <p class="p-datos">{{info.nombre}}  <span class="span-button"><button class="editar"(click)="mostrarPromptNombre()">Editar</button></span> </p>
+                    <hr>
+                    <label>Apellido:</label>
+                    <p class="p-datos">{{info.apellido}}<button class="editar span-button" (click)="mostrarPromptApellido()">Editar</button></p>
+                    <hr>
+                    <label>RUT:</label>
+                    <p>{{info.rut}}-{{info.dv}}</p>
+                    <hr>
+                    <label>Correo Electronico:</label>
+                    <p>{{info.correo}}</p>
+                    <hr>
+                    <label>Telefono:</label>
+                    <p class="p-datos">{{info.telefono}}<button class="editar span-button" (click)="mostrarPromptTelefono()">Editar</button></p>
+                    <hr>
+                    <label>Direccion:</label>
+                    <p class="p-datos">{{info.direccion}}<button class="editar span-button" (click)="mostrarPromptDireccion()">Editar</button></p>
+                    <hr>
+                    <label>Fecha de Nacimiento:</label>
+                    <p>{{info.nacimiento}}</p>
+                    <hr>
+                    <div class="div-botones">
+                        <button class="cerrar-sesion" (click)="resetPassword()">Cambiar contraseña</button>
+                        <!-- <button class="cerrar-sesion" (click)="logout()">Cerrar Sesion</button> -->
+                        <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="crearPublicacion()">Crear publicación</button>
+                        <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="verMisPublicaciones()">Ver mis publicaciones</button>
+
+                    </div>
+                    
+                </div>
+            </div>
         </div>
+    </section>
+    <!-- seccion comentarios -->
+    <div class="container contenedor-comentario">
+        <h2>Comentarios</h2>
+
+
+        <div class="comentario">
+            <div >
+                <img class="img-comentario" src="../../../assets/img/foto1.jpg" alt="">
+            </div>
+            <div class="div-comentario">
+                <h4>nombre</h4>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia a perspiciatis omnis! 
+                    Laudantium, odit placeat hic voluptas alias iste, nobis corporis sint adipisci dignissimos 
+                    tempore deleniti dicta reprehenderit explicabo earum!
+                </p>
+            </div>
+        </div>
+
+
+        <button class="mas-comentarios">cargar mas comentarios</button>
     </div>
+
+
+
 </body>
+
+<app-footer></app-footer>
 </html>
 
 
