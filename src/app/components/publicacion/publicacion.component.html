@@ -4,4 +4,7 @@
     <p>Descripción: {{ publicacion.descripcion }}</p>
     <p>Precio: {{ publicacion.precio }}</p>
     <p>Imagen: {{ publicacion.imagen }}</p>
-  </div>
+    <div *ngFor="let user of users$ | async">
+      <button *ngIf="user.uid === publicacion.uid" (click)="createChat(user)">click</button>
+    </div>
+</div>

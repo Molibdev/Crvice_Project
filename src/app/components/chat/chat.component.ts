@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   combineLatest,
   map,
@@ -54,9 +55,9 @@ export class ChatComponent  implements OnInit{
 );
 
 
-
-
-  constructor(private firebase: FirebaseService, private chatService: InteractionService){
+  constructor(private firebase: FirebaseService, 
+              private chatService: InteractionService,
+              private router: Router){
 
   }
 
@@ -83,6 +84,7 @@ export class ChatComponent  implements OnInit{
       this.chatListControl.setValue([chatId]);
     })
   }
+
 
   sendMessage() {
     const message = this.messageControl.value;

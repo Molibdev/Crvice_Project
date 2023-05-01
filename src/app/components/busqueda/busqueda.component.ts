@@ -12,7 +12,9 @@ export class BusquedaComponent implements OnInit {
   publicaciones!: Publicacion[];
   termino!: string;
 
-  constructor(private publicacionesService: PublicacionesService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private publicacionesService: PublicacionesService, 
+              private router: Router, 
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {
