@@ -11,9 +11,22 @@ export class FilterPipe implements PipeTransform {
       return publicaciones;
     }
     return publicaciones.filter(publicacion =>
-      (publicacion.titulo && publicacion.titulo.toLowerCase().includes(termino.toLowerCase())) ||
-      (publicacion.descripcion && publicacion.descripcion.toLowerCase().includes(termino.toLowerCase()))
+      (publicacion.titulo && this.buscarPalabra(publicacion.titulo, termino)) ||
+      (publicacion.descripcion && this.buscarPalabra(publicacion.descripcion, termino))
     );
+  }
+
+  buscarPalabra(texto: string, palabra: string): boolean {
+    const palabraSingular = this.convertirASingular(palabra);
+    return texto.toLowerCase().includes(palabra.toLowerCase()) ||
+           texto.toLowerCase().includes(palabraSingular.toLowerCase());
+  }
+
+  convertirASingular(palabra: string): string {
+    if (palabra.endsWith('s')) {
+      return palabra.slice(0, -1);
+    }
+    return palabra;
   }
 
 }
