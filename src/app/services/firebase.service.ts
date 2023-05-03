@@ -9,7 +9,7 @@ import { collection } from 'firebase/firestore';
 import { from, Observable, of, switchMap } from 'rxjs';
 import { User } from '../models/models';
 import { AuthService } from 'src/app/services/auth.service';
-
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -59,6 +59,12 @@ export class FirebaseService {
         const ref = doc(this.fstore, 'Usuarios', user?.uid);
         return docData(ref) as Observable<User>;
       })
+    );
+  }
+  
+  getUserName(): Observable<string> {
+    return this.currentUserProfile$.pipe(
+      map((user) => `${user?.nombre} ${user?.apellido}`)
     );
   }
 

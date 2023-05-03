@@ -5,5 +5,7 @@ export interface Publicacion {
     descripcion: string;
     precio: string;
     imagen: string;
+    nombre:string;
+    apellido: string;
     uid:string;
 }

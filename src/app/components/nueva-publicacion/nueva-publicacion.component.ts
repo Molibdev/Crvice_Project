@@ -25,7 +25,9 @@ export class NuevaPublicacionComponent implements OnInit {
         descripcion: new FormControl(),
         precio: new FormControl(),
         imagen: new FormControl(),
-        uid: new FormControl()
+        uid: new FormControl(),
+        nombre: new FormControl(),
+        apellido: new FormControl()
     });
       this.authService.getUid().then((uid) => {
         if (uid) {
@@ -36,6 +38,21 @@ export class NuevaPublicacionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.firebaseService.getUserName().subscribe((name) => {
+      // Separa el nombre y apellido
+      const [nombre, apellido] = name.split(' ');
+    
+      // Verifica que los controles de formulario no sean nulos antes de llamar al método setValue
+      const nombreControl = this.formulario.get('nombre');
+      if (nombreControl) {
+        nombreControl.setValue(nombre);
+      }
+    
+      const apellidoControl = this.formulario.get('apellido');
+      if (apellidoControl) {
+        apellidoControl.setValue(apellido);
+      }
+    });
   }
 
   async onSubmit() {
