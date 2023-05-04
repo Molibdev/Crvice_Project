@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/models';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { PublicacionesService } from 'src/app/services/publicaciones.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +14,7 @@ export class ProfileComponent implements OnInit {
 
   uid: string = ''
   info: User | null = null;
+  ratings = [];
 
   nombre: string = '';
   apellido: string = '';
@@ -26,7 +28,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(private auth: AuthService,
               private router: Router,
-              private firestore: FirebaseService) {
+              private firestore: FirebaseService,
+              private ratingService: PublicacionesService) {
 
   }
 
@@ -37,9 +40,8 @@ export class ProfileComponent implements OnInit {
     console.log('uid ->', this.uid);
     this.getInfoUser();
     this.auth.stateUser().subscribe(res => 
-      console.log('en perfil - estado de autentificacion ->', res))
+      console.log('en perfil - estado de autentificacion ->', res));
   }
-
 
 
  async getInfoUser() {
@@ -52,6 +54,8 @@ export class ProfileComponent implements OnInit {
       console.log('datos son ->', res);
   })
   }
+
+  
 
   mostrarPromptNombre() {
     const nombre = prompt("Ingrese Nombre para actualizar:");
@@ -154,6 +158,8 @@ export class ProfileComponent implements OnInit {
       console.log('datos son ->', res);
     });
   }
+
+
 
 
   logout() {

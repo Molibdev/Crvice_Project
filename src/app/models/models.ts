@@ -10,4 +10,7 @@ export interface User {
     telefono: number;
     direccion: string;
     nacimiento: Date;
+    calificaciones: number;
+    comentarios: string;
 }
+

@@ -44,6 +44,7 @@ import { MatDividerModule } from '@angular/material/divider'
 import { MatIconModule } from '@angular/material/icon';
 import { DateDisplayPipe } from './pipes/date-display.pipe';
 import { DatePipe } from '@angular/common';
+import { CalificacionComponent } from './components/calificacion/calificacion.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { DatePipe } from '@angular/common';
     ChatComponent,
     FilterPipe,
     DateDisplayPipe,
+    CalificacionComponent,
 
   ],
   imports: [

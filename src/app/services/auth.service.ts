@@ -25,14 +25,6 @@ export class AuthService {
     this.authfirebase.signOut();
   }
 
-  // register(datos: User) {
-  //   this.verificationEmail();
-  //   console.log('Email  de verificacion enviado')
-  //   return this.authfirebase.createUserWithEmailAndPassword(datos.correo, datos.password);
-  // }
-
-  
-
   async register(datos: User) {
     const userCredential = await this.authfirebase.createUserWithEmailAndPassword(datos.correo, datos.password);
     console.log('Usuario creado');

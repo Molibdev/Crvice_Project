@@ -1,0 +1,32 @@
+<h2>Calificar usuario {{ usuarioCalificado?.nombre }}</h2>
+<div>
+  <label for="calificacion">Calificación:</label>
+  <select [(ngModel)]="calificacion" id="calificacion">
+    <option value="0">0 estrellas</option>
+    <option value="1">1 estrella</option>
+    <option value="2">2 estrellas</option>
+    <option value="3">3 estrellas</option>
+    <option value="4">4 estrellas</option>
+    <option value="5">5 estrellas</option>
+  </select>
+  <div>
+    <label for="comentario">Comentario:</label>
+    <textarea id="comentario" [(ngModel)]="comentario"></textarea>
+  </div>
+</div>
+<button (click)="calificar()">Calificar</button>
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
