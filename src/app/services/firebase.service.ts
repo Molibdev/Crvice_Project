@@ -86,6 +86,11 @@ export class FirebaseService {
     usuarioRef.update({ promedioCalificaciones });
   }
   
+  getUserName(): Observable<string> {
+    return this.currentUserProfile$.pipe(
+      map((user) => `${user?.nombre} ${user?.apellido}`)
+    );
+  }
 }
 
 
