@@ -23,7 +23,9 @@ export class RegisterComponent implements OnInit{
     perfil: 0,
     telefono: 0,
     direccion: '',
-    nacimiento: new Date()
+    nacimiento: new Date(),
+    calificaciones: 0,
+    comentarios: '',
   }
   
 

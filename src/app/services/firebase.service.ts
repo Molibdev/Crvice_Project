@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { collectionData, query, Firestore } from '@angular/fire/firestore';
+import { collectionData, query, Firestore,  } from '@angular/fire/firestore';
 import {
   doc,
   docData,
 } from '@angular/fire/firestore';
 import { collection } from 'firebase/firestore';
-import { from, Observable, of, switchMap } from 'rxjs';
+import { from, map, Observable, of, switchMap } from 'rxjs';
 import { User } from '../models/models';
 import { AuthService } from 'src/app/services/auth.service';
-import { map } from 'rxjs/operators';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
+  
 
   constructor(private firestore:AngularFirestore,
               private fstore: Firestore,
@@ -68,4 +71,27 @@ export class FirebaseService {
     );
   }
 
+  getUserProfile(uid: string): Observable<User> {
+    return this.getDoc<User>('Usuarios', uid).pipe(
+      map((user) => {
+        if (!user) {
+          throw new Error(`User with uid ${uid} not found`);
+        }
+        return user;
+      })
+    );
+  }
+
+  updateUserCalificaciones(uid: string, calificacion: number, comentario: string) {
+    const calificacionesRef = this.firestore.collection('Usuarios').doc(uid).collection('calificaciones').doc();
+    return calificacionesRef.set({ calificacion, comentario });
+  }
+
+  updateUserPromedioCalificaciones(uid: string, promedioCalificaciones: number) {
+    const usuarioRef = this.firestore.collection('Usuarios').doc(uid);
+    usuarioRef.update({ promedioCalificaciones });
+  }
+  
 }
+
+
