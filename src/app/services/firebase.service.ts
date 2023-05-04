@@ -64,6 +64,12 @@ export class FirebaseService {
       })
     );
   }
+  
+  getUserName(): Observable<string> {
+    return this.currentUserProfile$.pipe(
+      map((user) => `${user?.nombre} ${user?.apellido}`)
+    );
+  }
 
   getUserProfile(uid: string): Observable<User> {
     return this.getDoc<User>('Usuarios', uid).pipe(
