@@ -6,14 +6,14 @@ import { Publicacion } from 'src/app/models/publicacion';
 import { User } from 'src/app/models/models';
 
 @Component({
-  selector: 'app-resp-solicitud',
-  templateUrl: './resp-solicitud.component.html',
-  styleUrls: ['./resp-solicitud.component.css']
+  selector: 'app-resp-trabajo',
+  templateUrl: './resp-trabajo.component.html',
+  styleUrls: ['./resp-trabajo.component.css']
 })
-export class RespSolicitudComponent implements OnInit {
+export class RespTrabajoComponent {
   public trabajo: Trabajo | undefined;
   public publicacion: Publicacion | undefined;
-  public nombreUsuarioSolicitante = '';
+  public nombreTrabajador = '';
   public mensajeTrabajador = '';
 
   constructor(private route: ActivatedRoute, private firestore: AngularFirestore) { }
@@ -29,10 +29,10 @@ export class RespSolicitudComponent implements OnInit {
       this.firestore.collection<Trabajo>('Trabajos').doc(trabajoId).get().toPromise().then((trabajoDoc) => {
         if (trabajoDoc && trabajoDoc.exists) {
           this.trabajo = trabajoDoc.data() as Trabajo;
-          this.firestore.collection<User>('Usuarios').doc(this.trabajo.idUsuarioSolicitante).get().toPromise().then((usuarioDoc) => {
+          this.firestore.collection<User>('Usuarios').doc(this.trabajo.idUsuarioPublicacion).get().toPromise().then((usuarioDoc) => {
             if (usuarioDoc && usuarioDoc.exists) {
               const usuario = usuarioDoc.data() as User;
-              this.nombreUsuarioSolicitante = usuario.nombre + ' ' + usuario.apellido;
+              this.nombreTrabajador = usuario.nombre + ' ' + usuario.apellido;
             }
           });
         }
@@ -46,10 +46,9 @@ export class RespSolicitudComponent implements OnInit {
     });
   }
 
-  actualizarTrabajo(): void {
+  aceptarTrabajo(): void {
     if (this.trabajo) {
-      this.trabajo.mensajeTrabajador = this.mensajeTrabajador;
-      this.trabajo.estado = 'Respondido'; // add this line to change the state to 'respondido'
+      this.trabajo.estado = 'Aceptado'; 
       const trabajoId = this.route.snapshot.queryParams['trabajoId'];
       this.firestore.collection<Trabajo>('Trabajos').doc(trabajoId).update(this.trabajo).then(() => {
         console.log('Trabajo actualizado con éxito');

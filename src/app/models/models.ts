@@ -23,7 +23,8 @@ export interface Trabajo {
     idUsuarioPublicacion: string;
     idUsuarioSolicitante: string;
     mensaje: string;
-    estado: 'pendiente' | 'aceptado' | 'rechazado';
+    mensajeTrabajador?: string;
+    estado: 'Pendiente' | 'Aceptado' | 'Cancelado' | 'Respondido' ;
     precio?: string;
     publicacion?: Publicacion;
   }

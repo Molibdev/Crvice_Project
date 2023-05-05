@@ -42,7 +42,7 @@ export class SolicitarTrabajoComponent implements OnInit {
       idUsuarioPublicacion: this.uid!,
       idUsuarioSolicitante: this.currentUserUid!,
       mensaje: this.mensaje,
-      estado: 'pendiente',
+      estado: 'Pendiente',
       precio: this.precioPublicacion,
     };
     this.firestore.collection('Trabajos').add(trabajo)

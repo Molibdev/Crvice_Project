@@ -1,0 +1,11 @@
+<h1>Detalles de la Solicitud</h1>
+<div *ngIf="publicacion && trabajo">
+  <h2>Trabajo</h2>
+  <p>Título de la publicación: {{ publicacion.titulo }}</p>
+  <p>Comentario del usuario: {{ trabajo.mensaje }}</p>
+  <p>Nombre del Trabajador: {{ nombreTrabajador }}</p>
+  <p>Estado: {{ trabajo.estado }}</p>
+  <p>Mensaje del Trabajador: {{ trabajo.mensajeTrabajador }}</p>
+<button type="submit" class="btn btn-primary" (click)="aceptarTrabajo()">Contratar</button>
+<button type="submit" class="btn btn-primary" (click)="rechazarTrabajo()">Rechazar Propuesta</button>
+</div>

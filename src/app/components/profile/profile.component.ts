@@ -181,4 +181,8 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/solicitudes']);
   }
 
+  verMisContrataciones() {
+    this.router.navigate(['/contrataciones']);
+  }
+
 }

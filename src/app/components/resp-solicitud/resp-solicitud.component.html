@@ -1,10 +1,18 @@
 <h1>Detalles de la Solicitud</h1>
-
 <div *ngIf="publicacion && trabajo">
   <h2>Trabajo</h2>
   <p>Título de la publicación: {{ publicacion.titulo }}</p>
-  <p>Precio Trabajo: {{ trabajo.precio }}</p>
+  <div class="form-group">
+    <label for="precioTrabajo">Precio Trabajo:</label>
+    <input type="text" class="form-control" id="precioTrabajo" [(ngModel)]="trabajo.precio" name="precioTrabajo">
+  </div>
   <p>Comentario del usuario: {{ trabajo.mensaje }}</p>
   <p>Nombre del usuario solicitante: {{ nombreUsuarioSolicitante }}</p>
   <p>Estado: {{ trabajo.estado }}</p>
+  <div class="form-group">
+    <label for="mensajeTrabajador">Mensaje para el solicitante:</label>
+    <textarea class="form-control" id="mensajeTrabajador" [(ngModel)]="mensajeTrabajador" name="mensajeTrabajador"></textarea>
+  </div>
+<button type="submit" class="btn btn-primary" (click)="actualizarTrabajo()">Responder</button>
+<button type="submit" class="btn btn-primary" (click)="rechazarTrabajo()">Rechazar Propuesta</button>
 </div>

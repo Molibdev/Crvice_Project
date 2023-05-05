@@ -49,6 +49,7 @@ import { SolicitarTrabajoComponent } from './components/solicitar-trabajo/solici
 import { TrabajosComponent } from './components/trabajos/trabajos.component';
 import { ContratacionesComponent } from './components/contrataciones/contrataciones.component';
 import { RespSolicitudComponent } from './components/resp-solicitud/resp-solicitud.component';
+import { RespTrabajoComponent } from './components/resp-trabajo/resp-trabajo.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { RespSolicitudComponent } from './components/resp-solicitud/resp-solicit
     TrabajosComponent,
     ContratacionesComponent,
     RespSolicitudComponent,
+    RespTrabajoComponent,
 
   ],
   imports: [
