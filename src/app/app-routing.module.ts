@@ -16,6 +16,8 @@ import { ChatComponent } from './components/chat/chat.component';
 import { SolicitarTrabajoComponent } from './components/solicitar-trabajo/solicitar-trabajo.component';
 import { RespSolicitudComponent } from './components/resp-solicitud/resp-solicitud.component';
 import { TrabajosComponent } from './components/trabajos/trabajos.component';
+import { ContratacionesComponent } from './components/contrataciones/contrataciones.component';
+import { RespTrabajoComponent } from './components/resp-trabajo/resp-trabajo.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -25,7 +27,9 @@ const routes: Routes = [
   { path: 'nueva-publicacion', component: NuevaPublicacionComponent },
   { path: 'mis-publicaciones', component: MisPublicacionesComponent },
   { path: 'resp-solicitud', component: RespSolicitudComponent },
+  { path: 'resp-trabajo', component: RespTrabajoComponent },
   { path: 'solicitudes', component: TrabajosComponent },
+  { path: 'contrataciones', component: ContratacionesComponent },
   { path: 'editar-publicacion/:id', component: EditarPublicacionComponent },
   { path: 'publicacion/:id', component: PublicacionComponent },
   { path: 'email-validation', component: EmailValidationComponent, 

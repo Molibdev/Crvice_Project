@@ -47,6 +47,7 @@
                     <div class="div-botones">
                         <button class="cerrar-sesion" (click)="resetPassword()">Cambiar contraseña</button>
                         <button class="cerrar-sesion" (click)="logout()">Cerrar Sesion</button> 
+                        <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '2'" (click)="verMisContrataciones()">Mis Contrataciones</button>
                         <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="crearPublicacion()">Crear publicación</button>
                         <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="verMisPublicaciones()">Mis publicaciones</button>
                         <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="verMisSolicitudes()">Mis Solicitudes</button>
