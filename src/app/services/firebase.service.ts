@@ -11,6 +11,7 @@ import { User } from '../models/models';
 import { AuthService } from 'src/app/services/auth.service';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,8 @@ export class FirebaseService {
 
   constructor(private firestore:AngularFirestore,
               private fstore: Firestore,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private auth: AngularFireAuth) { }
 
   createDoc(data: any, path: string, id:string) {
     const collection = this.firestore.collection(path);
@@ -91,7 +93,10 @@ export class FirebaseService {
     const usuarioRef = this.firestore.collection('Usuarios').doc(uid);
     usuarioRef.update({ promedioCalificaciones });
   }
-  
+
+  getCurrentUserUid(): Observable<string | null> {
+    return this.auth.authState.pipe(map(user => user ? user.uid : null));
+  }
 }
 
 

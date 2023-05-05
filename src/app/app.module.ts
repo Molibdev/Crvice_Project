@@ -45,6 +45,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { DateDisplayPipe } from './pipes/date-display.pipe';
 import { DatePipe } from '@angular/common';
 import { CalificacionComponent } from './components/calificacion/calificacion.component';
+import { SolicitarTrabajoComponent } from './components/solicitar-trabajo/solicitar-trabajo.component';
+import { TrabajosComponent } from './components/trabajos/trabajos.component';
+import { ContratacionesComponent } from './components/contrataciones/contrataciones.component';
+import { RespSolicitudComponent } from './components/resp-solicitud/resp-solicitud.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +70,10 @@ import { CalificacionComponent } from './components/calificacion/calificacion.co
     FilterPipe,
     DateDisplayPipe,
     CalificacionComponent,
+    SolicitarTrabajoComponent,
+    TrabajosComponent,
+    ContratacionesComponent,
+    RespSolicitudComponent,
 
   ],
   imports: [
