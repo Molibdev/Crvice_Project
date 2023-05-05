@@ -177,4 +177,8 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/mis-publicaciones']);
   }
 
+  verMisSolicitudes() {
+    this.router.navigate(['/solicitudes']);
+  }
+
 }

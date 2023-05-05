@@ -59,7 +59,14 @@ export class PublicacionComponent implements OnInit {
   }
 
 
-
-
-
+  solicitarTrabajo() {
+    const id = this.publicacion?.id;
+    const uid = this.publicacion?.uid;
+    this.firebase.getCurrentUserUid().subscribe(currentUserUid => {
+      console.log('id:', id);
+      console.log('uid:', uid);
+      console.log('currentUserUid:', currentUserUid);
+      this.router.navigate(['/solicitar-trabajo', id, uid, currentUserUid]);
+    });
+  }
 }

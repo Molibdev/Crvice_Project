@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mis Solicitudes</title>
+</head>
+<header>
+    <app-navbar></app-navbar>
+</header>
+<div class="container">
+  <h1>Mis Solicitudes de Trabajo</h1>
+
+  <div class="places">
+    <div class="place" *ngFor="let trabajo of trabajos">
+      <div class="info">
+        <p>Titulo de la publicación: {{ trabajo.publicacion?.titulo }}</p>
+        <p>Precio Trabajo: {{ trabajo.precio }}</p>
+        <p>Estado: {{ trabajo.estado }}</p>
+        <button (click)="responderSolicitud(trabajo)">Responder</button>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<app-footer></app-footer>

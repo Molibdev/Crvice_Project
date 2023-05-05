@@ -1,3 +1,5 @@
+import { Publicacion } from "./publicacion";
+
 export interface User {
     uid: string;
     nombre: string;
@@ -14,3 +16,15 @@ export interface User {
     comentarios: string;
 }
 
+export interface Trabajo {
+    id?: string;
+    trabajoId?: string;
+    idPublicacion: string;
+    idUsuarioPublicacion: string;
+    idUsuarioSolicitante: string;
+    mensaje: string;
+    estado: 'pendiente' | 'aceptado' | 'rechazado';
+    precio?: string;
+    publicacion?: Publicacion;
+  }
+  

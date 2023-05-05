@@ -13,6 +13,9 @@ import { BusquedaComponent } from './components/busqueda/busqueda.component';
 import { EditarPublicacionComponent } from './components/editar-publicacion/editar-publicacion.component';
 import { MisPublicacionesComponent } from './components/mis-publicaciones/mis-publicaciones.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { SolicitarTrabajoComponent } from './components/solicitar-trabajo/solicitar-trabajo.component';
+import { RespSolicitudComponent } from './components/resp-solicitud/resp-solicitud.component';
+import { TrabajosComponent } from './components/trabajos/trabajos.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,6 +24,8 @@ const routes: Routes = [
   { path: 'busqueda/:termino', component: BusquedaComponent },
   { path: 'nueva-publicacion', component: NuevaPublicacionComponent },
   { path: 'mis-publicaciones', component: MisPublicacionesComponent },
+  { path: 'resp-solicitud', component: RespSolicitudComponent },
+  { path: 'solicitudes', component: TrabajosComponent },
   { path: 'editar-publicacion/:id', component: EditarPublicacionComponent },
   { path: 'publicacion/:id', component: PublicacionComponent },
   { path: 'email-validation', component: EmailValidationComponent, 
@@ -29,8 +34,8 @@ const routes: Routes = [
   { path: 'forgot-pass', component: ForgotPasswordComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent,
-  ...canActivate(() => redirectUnauthorizedTo(['/login']))
-}
+  ...canActivate(() => redirectUnauthorizedTo(['/login']))}, 
+  { path: 'solicitar-trabajo/:id/:uid/:currentUserUid', component: SolicitarTrabajoComponent },
 ];
 
 @NgModule({

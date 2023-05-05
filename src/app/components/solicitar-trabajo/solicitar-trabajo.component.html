@@ -1,0 +1,16 @@
+<div *ngIf="publicacion">
+    <h2>Solicitud de Trabajo</h2>
+    <h3>Estás solicitando un trabajo a: {{ publicacion.nombre }} {{ publicacion.apellido }}</h3>
+    <h3>De la publicación: {{ publicacion.titulo }}</h3>
+    <h3>Recuerda que el precio es un estimativo y no refleja el precio final del trabajo realizado</h3>
+    <h3>Precio: {{ publicacion.precio }}</h3>
+    <h3>Descripción: {{ publicacion.descripcion }}</h3>
+    <p>Imagen: {{ publicacion.imagen }}</p>
+    <form>
+        <label for="mensaje">Si deseas comentarle algo al trabajador:</label><br>
+        <textarea name="mensaje" [(ngModel)]="mensaje"></textarea><br>
+        <button type="button" (click)="enviarSolicitud()">Enviar Solicitud</button>
+        <button type="button" (click)="volver()">Volver</button>
+      </form>
+  </div>
+  
