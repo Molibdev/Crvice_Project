@@ -22,6 +22,7 @@ export class TrabajosComponent implements OnInit {
       }
     });
   }
+  
   private cargarTrabajos(usuarioId: string): void {
     this.firestore
       .collection<Trabajo>('Trabajos', (ref) =>

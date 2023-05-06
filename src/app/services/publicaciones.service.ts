@@ -55,4 +55,7 @@ export class PublicacionesService {
       console.error('Error al editar:', error);
     }
   }
+
+  public uidUsuario: string = '';
+  
 }

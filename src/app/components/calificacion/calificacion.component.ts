@@ -3,6 +3,7 @@ import { User } from 'src/app/models/models';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { PublicacionesService } from 'src/app/services/publicaciones.service';
 
 @Component({
   selector: 'app-calificacion',
@@ -20,19 +21,31 @@ export class CalificacionComponent implements OnInit {
 
   constructor(private firebaseService: FirebaseService, 
               private route: ActivatedRoute,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private publicaciones: PublicacionesService) { }
+
+  // ngOnInit(): void {
+  //   // Obtener el UID del usuario conectado
+  //   this.authService.getUid().then(uid => {
+  //     this.usuarioId = uid || '';
+  //     // Obtener el perfil del usuario que está siendo calificado
+  //     this.firebaseService.getUserProfile(this.usuarioId).subscribe((user) => {
+  //       this.usuarioCalificado = user;
+  //       this.calificacionAnterior = user.calificaciones || null;
+  //     });
+  //   });
+  // }
 
   ngOnInit(): void {
-    // Obtener el UID del usuario conectado
-    this.authService.getUid().then(uid => {
-      this.usuarioId = uid || '';
-      // Obtener el perfil del usuario que está siendo calificado
+      this.usuarioId = this.publicaciones.uidUsuario || ''; // Asignamos el valor a la variable
+      console.log('ID DEL USUARIO A CALIFICAR ->', this.usuarioId);
       this.firebaseService.getUserProfile(this.usuarioId).subscribe((user) => {
         this.usuarioCalificado = user;
         this.calificacionAnterior = user.calificaciones || null;
-      });
-    });
+       });
   }
+
+
 
   async calificar() {
     // Revisa si el usuario ya ha sido calificado, si no lo ha sido, detiene la ejecución de la función
@@ -49,6 +62,7 @@ export class CalificacionComponent implements OnInit {
   
     // Resetea la variable calificacion a 0
     this.calificacion = 0;
+    this.publicaciones.uidUsuario = '';
   }
 
   

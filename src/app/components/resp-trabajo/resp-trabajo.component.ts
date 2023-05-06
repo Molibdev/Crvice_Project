@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Trabajo } from 'src/app/models/models';
 import { Publicacion } from 'src/app/models/publicacion';
 import { User } from 'src/app/models/models';
+import { PublicacionesService } from 'src/app/services/publicaciones.service';
 
 @Component({
   selector: 'app-resp-trabajo',
@@ -15,8 +16,9 @@ export class RespTrabajoComponent {
   public publicacion: Publicacion | undefined;
   public nombreTrabajador = '';
   public mensajeTrabajador = '';
+  public uidTrabajador = '';
 
-  constructor(private route: ActivatedRoute, private firestore: AngularFirestore) { }
+  constructor(private route: ActivatedRoute, private firestore: AngularFirestore, private router: Router, private publicaciones: PublicacionesService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -33,6 +35,7 @@ export class RespTrabajoComponent {
             if (usuarioDoc && usuarioDoc.exists) {
               const usuario = usuarioDoc.data() as User;
               this.nombreTrabajador = usuario.nombre + ' ' + usuario.apellido;
+              this.publicaciones.uidUsuario = usuario.uid;
             }
           });
         }
@@ -69,4 +72,10 @@ export class RespTrabajoComponent {
       });
     }
   }  
+
+
+
+  calificar() {
+    this.router.navigate(['/calificacion'])
+  }
 }
