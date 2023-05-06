@@ -65,9 +65,20 @@ header {
 
 .header-content input {
     border-radius: 20px;
-    padding: 10px 150px;
+    padding: 10px 280px 10px 15px;
     border: none; 
     outline: none; 
+}
+.input-container{
+    position: relative;
+    display: inline-block;
+}
+.input-container mat-icon {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%); 
+    color: darkgrey;
 }
 
 .boton {
@@ -155,7 +166,7 @@ header {
     }
     .header-content input {
         border-radius: 20px;
-        padding: 8px 70px;
+        padding: 8px 100px 8px 15px;
     }
 
     /* == Seccion 1 == */
