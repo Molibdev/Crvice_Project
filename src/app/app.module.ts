@@ -50,6 +50,8 @@ import { TrabajosComponent } from './components/trabajos/trabajos.component';
 import { ContratacionesComponent } from './components/contrataciones/contrataciones.component';
 import { RespSolicitudComponent } from './components/resp-solicitud/resp-solicitud.component';
 import { RespTrabajoComponent } from './components/resp-trabajo/resp-trabajo.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -91,6 +93,8 @@ import { RespTrabajoComponent } from './components/resp-trabajo/resp-trabajo.com
     MatListModule,
     MatDividerModule,
     MatIconModule,
+    MatToolbarModule,
+    MatMenuModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),

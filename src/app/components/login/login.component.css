@@ -95,3 +95,40 @@ div h3 {
 p{
     margin-top: 6px;
 }
+@media only screen and (max-width:550px){
+    .div-inicio {
+        width: 430px;
+        padding-bottom: 20px;
+    }
+
+    div h3 {
+        font-size: 27px;
+    }
+    p{
+        font-size: 14px;
+    }
+}
+
+
+@media only screen and (max-width:473px){
+    .div-inicio {
+        width: 350px;
+        padding-bottom: 20px;
+    }
+    .div-inicio img {
+        width: 150px;
+        height: auto;
+    
+    }
+    div h3 {
+        font-size: 23px;
+    }
+    .button {
+        padding: 8px 45px;
+        margin-bottom: 10px;  
+    }
+    p{
+        font-size: 12px;
+    }
+
+}
