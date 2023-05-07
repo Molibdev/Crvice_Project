@@ -1,12 +1,45 @@
-<div class="places">
-  <div class="place" *ngFor="let publicacion of publicaciones | filter: termino">
-    <div class="info">
-      <h2>{{ publicacion.titulo }}</h2>
-      <p>{{ publicacion.descripcion }}</p>
-      <button (click)="abrirPublicacion(publicacion.id)">Abrir</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Busqueda</title>
+</head>
+<header>
+  <app-navbar></app-navbar>
+</header>
+<body>
+  <div class="container">
+    <div class="input-container">      
+       <input  type="text" placeholder="Buscar..." name="buscar"><!--(keyup.enter)="buscar($event)" -->
+       <mat-icon>search</mat-icon> 
     </div>
+
+
+    <div class="places">
+      <div class="place" *ngFor="let publicacion of publicaciones | filter: termino">
+        <div >
+          <img class="img-publiacion" src="../../../assets/img/foto5.jpg" alt="">
+        </div>
+        <div class="info">
+          <h2>{{ publicacion.titulo }}</h2>
+          <p>{{ publicacion.descripcion }}</p>
+          <button (click)="abrirPublicacion(publicacion.id)">Ver</button>
+        </div>
+        
+      </div>
+      <div *ngIf="(publicaciones | filter: termino)?.length === 0">
+        Lo sentimos, no hay publicaciones relacionadas a su búsqueda de "{{termino}}".
+      </div>
+    </div>
+    
+
+
+
   </div>
-  <div *ngIf="(publicaciones | filter: termino)?.length === 0">
-    Lo sentimos, no hay publicaciones relacionadas a su búsqueda de "{{termino}}".
-  </div>
-</div>
+</body>
+<footer>
+  <app-footer></app-footer>
+</footer>
+</html>

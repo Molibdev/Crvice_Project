@@ -51,3 +51,19 @@ img{
         padding-bottom: 10px;
     }
 }
+
+@media only screen and (max-width:473px){
+    .footer-texto {
+        font-size: 15px;
+    }
+    .container{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .col li{
+        font-size: 15px;
+    }
+    .col p {
+        font-size: 15px;
+    }
+}

@@ -1,14 +1,43 @@
-<div *ngIf="publicacion">
-    <h2>{{ publicacion.titulo }}</h2>
-    <p>Trabajador: {{ publicacion.nombre }} {{ publicacion.apellido }}</p>
-    <p>Rubro: {{ publicacion.rubro }}</p>
-    <p>Descripción: {{ publicacion.descripcion }}</p>
-    <p>Precio: {{ publicacion.precio }}</p>
-    <p>Imagen: {{ publicacion.imagen }}</p>
-    <div *ngFor="let user of users$ | async">
-      <button *ngIf="user.uid === publicacion.uid" (click)="createChat(user)">Hablar con el trabajador</button>
-    </div>    
-    <div *ngFor="let user of users$ | async">
-      <button *ngIf="user.uid === publicacion.uid" (click)="solicitarTrabajo()">Solicitar Trabajo</button>
-    </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publicación</title>
+</head>
+<body>
+  <div class="nueva-publicacion" *ngIf="publicacion">
+      <h2>{{ publicacion.titulo }}</h2>
+      <div class="contenerdor-info">
+
+        <div class="info">
+          <p><b>Trabajador:</b>  {{ publicacion.nombre }} {{ publicacion.apellido }}</p>
+          <p><b>Rubro:</b>  {{ publicacion.rubro }}</p>
+          <p><b>Descripción:</b> {{ publicacion.descripcion }}</p>
+          <p><b>Precio:</b> ${{ publicacion.precio }}</p>
+        </div>
+        
+        <div class="div-botones">
+          <div *ngFor="let user of users$ | async">
+            <button *ngIf="user.uid === publicacion.uid" (click)="createChat(user)">Enviar Mensajer</button>
+          </div>    
+          <div *ngFor="let user of users$ | async">
+            <button *ngIf="user.uid === publicacion.uid" (click)="solicitarTrabajo()">Solicitar Trabajo</button>
+          </div>
+        </div>
+       
+      </div>
+      
+      
+      <div class="imagenes">
+        <!-- <p>Imagen: {{ publicacion.imagen }}</p> -->
+        <img class="img-publiacion" src="../../../assets/img/foto5.jpg" alt="">
+        <img class="img-publiacion" src="../../../assets/img/foto5.jpg" alt="">
+        <img class="img-publiacion" src="../../../assets/img/foto5.jpg" alt="">
+        <img class="img-publiacion" src="../../../assets/img/foto5.jpg" alt="">
+      </div>
+  </div>
+  
+</body>
+</html>

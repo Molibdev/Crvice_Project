@@ -56,6 +56,14 @@ img{
 @media only screen and (max-width:480px) {
 
     .navlinks li{
-        font-size: 14px;
+        font-size: 12px;
+    }
+    .boton {
+        padding: 5px 8px;
+    }
+    img{
+        width: 70px;
+        height: auto;
+        margin-left: 10px;
     }
 }

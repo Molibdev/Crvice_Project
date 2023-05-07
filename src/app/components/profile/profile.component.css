@@ -1,4 +1,25 @@
-
+mat-toolbar {
+    justify-content: space-between;
+    background-color: #1e71ca;
+    /* background-image: linear-gradient(to top, #48c6ef 0%, #6f86d6 100%); */
+    color: whitesmoke;
+  }
+  
+.profile-image-toolbar {
+    border-radius: 100%;
+    margin-right: 8px;
+}
+.profile-image > img {
+    border-radius: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+button mat-icon{
+    color: rgb(168, 168, 168);
+}
+mat-toolbar button {
+    color: whitesmoke;
+}
 h1 {
     text-align: center;
 }
@@ -17,7 +38,7 @@ p {
     background-color:#228BFB;
     color: #fff;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 10px;
     border-radius: 10px;
     cursor: pointer;
     font-weight: 600;
@@ -119,10 +140,6 @@ button {
     border-radius: 10px;
     padding: 15px;
     margin-top: 20px;   
-    /* background-color: #f1f7f9;
-    background-image: linear-gradient(62deg, #f1f7f9 0%, #e2dde9 95%); */
-    /* background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); */
-    /* background-color: #D1E2FD; */
     background-color:whitesmoke;
 }
 
@@ -154,9 +171,3 @@ button {
     padding: 10px;
 }
 
-header {
-    /* background-image: url(../../../assets/img/bg.png);
-    background-size: cover;
-    background-repeat: no-repeat; */
-    background-image: linear-gradient(to top, #48c6ef 0%, #6f86d6 100%);
-}

@@ -4,7 +4,38 @@
     <title>Perfil de Usuario</title>
 </head>
 <header>
-    <app-navbar></app-navbar>
+    <mat-toolbar >
+        Crvice
+         <ng-container *ngIf="info"> <!--*ngIf="user$ | async as user; else loginButton" -->
+          <button mat-button [matMenuTriggerFor]="userMenu" >
+            <img
+              width="30"
+              height="30"
+              class="profile-image-toolbar"
+              [src]="'../../../assets/img/foto5.jpg'"
+            /><!-- [src]="user.photoURL ?? 'assets/images/image-placeholder.png'" -->
+             {{ info.nombre }}
+            <mat-icon>expand_more</mat-icon>
+          </button>
+        </ng-container>
+      
+        <ng-template #loginButton>
+          <button mat-button routerLink="login">
+            <mat-icon>login</mat-icon>
+            Login
+          </button>
+        </ng-template>
+      </mat-toolbar>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item routerLink="/profile">
+          <mat-icon>account_circle</mat-icon>
+          Perfil
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Cerrar Sesión
+        </button>
+      </mat-menu>
 </header>
 <body>
     
@@ -46,7 +77,7 @@
                     <hr>
                     <div class="div-botones">
                         <button class="cerrar-sesion" (click)="resetPassword()">Cambiar contraseña</button>
-                        <button class="cerrar-sesion" (click)="logout()">Cerrar Sesion</button> 
+                        <!-- <button class="cerrar-sesion" (click)="logout()">Cerrar Sesion</button>  -->
                         <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '2'" (click)="verMisContrataciones()">Mis Contrataciones</button>
                         <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="crearPublicacion()">Crear publicación</button>
                         <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="verMisPublicaciones()">Mis publicaciones</button>
