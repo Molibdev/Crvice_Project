@@ -31,6 +31,10 @@
           <mat-icon>account_circle</mat-icon>
           Perfil
         </button>
+        <button mat-menu-item (click)="resetPassword()">
+            <mat-icon>vpn_key</mat-icon>
+            Cambiar Contraseña
+        </button>
         <button mat-menu-item (click)="logout()">
           <mat-icon>logout</mat-icon>
           Cerrar Sesión
@@ -76,7 +80,7 @@
                     <p>{{info.nacimiento}}</p>
                     <hr>
                     <div class="div-botones">
-                        <button class="cerrar-sesion" (click)="resetPassword()">Cambiar contraseña</button>
+                        <!-- <button class="cerrar-sesion" (click)="resetPassword()">Cambiar contraseña</button> -->
                         <!-- <button class="cerrar-sesion" (click)="logout()">Cerrar Sesion</button>  -->
                         <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '2'" (click)="verMisContrataciones()">Mis Contrataciones</button>
                         <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="crearPublicacion()">Crear publicación</button>
