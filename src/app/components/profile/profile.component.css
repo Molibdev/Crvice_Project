@@ -64,7 +64,7 @@ h2 {
 }
 
 .izq {
-    width: 40%;
+    width: 35%;
     height: auto;   
     margin-right: 40px;
     display: flex;
@@ -89,13 +89,13 @@ h2 {
 }
 
 .der{
-    width: 60%;
+    width: 65%;
     height: auto;
     justify-content: space-between; 
 }
 
 .datos {
-    margin-right: 100px;
+    margin-right: 90px;
 }
 
 hr {
@@ -132,7 +132,7 @@ button {
 }
 
 .comentario {
-    width: 80%;
+    width: 95%;
     display: flex;
     align-content: space-around;
     justify-content: space-around;
@@ -171,3 +171,141 @@ button {
     padding: 10px;
 }
 
+
+/* ===Vista Responsive=== */
+@media only screen and (max-width:1070px) {
+    .datos {
+        margin-right: 30px;
+    }
+    .div-imagen img {
+        width: 250px;
+        height: 250px;
+    }
+    .der{
+        width: 70%;
+        height: auto;
+        justify-content: space-between; 
+    }
+    .izq {
+        width: 30%;
+        height: auto;   
+        margin-right: 40px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+    }
+}
+
+@media only screen and (max-width:770px) {
+    .datos {
+        margin-right: 20px;
+    }
+    .div-imagen img {
+        width: 200px;
+        height: 200px;
+    }
+    .comentario {
+        width: 95%;
+       
+    }
+}
+@media only screen and (max-width:690px) {
+
+    .datos-personales .container{
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+    }
+ 
+    .izq {
+        width: auto;
+    }
+
+    .div-imagen img {
+        width: 250px;
+        height: 250px;
+    }
+
+    .der{
+        width: auto;
+    }
+    .der h2 {
+        margin-left: 20px;
+    }
+
+    .datos {
+        margin: 0 20px;
+    }
+
+    .div-botones {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .img-comentario {
+        width: 100px;
+        height: 100px;
+        align-items: center;
+    }
+
+    .comentario {
+        padding: 10px;
+        margin-top: 15px;   
+    }
+
+    .div-comentario {
+        width: 70%;
+    }
+    .div-comentario p{
+        text-align: left;
+        font-size: 14px;
+    }
+
+    .mas-comentarios {
+        margin-top: 20px;
+    }
+
+    .mas-comentarios {
+        padding: 8px;
+    }
+
+}
+@media only screen and (max-width:473px){
+    .div-imagen img {
+        width: 150px;
+        height: 150px;
+    }
+    .der h2 {
+        font-size: 20px;
+    }
+    label {
+        font-size: 14px;
+    }
+    p {
+        font-size: 14px;
+    }
+    .cerrar-sesion {
+        margin-top: 0;
+        font-size: 11px;
+    }
+    .img-comentario {
+        width: 70px;
+        height: 70px;
+    }
+
+    .comentario {
+        width: 95%;
+        padding: 8px;
+        margin-top: 10px;   
+    }
+
+    .div-comentario p{
+        text-align: left;
+        font-size: 14px;
+    }
+
+    .mas-comentarios {
+        margin-top: 15px;
+    }
+}
