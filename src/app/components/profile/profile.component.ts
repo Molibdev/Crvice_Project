@@ -3,7 +3,11 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/models';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
-import { PublicacionesService } from 'src/app/services/publicaciones.service';
+import { UploadImageService } from 'src/app/services/upload-image.service';
+import { UsersService } from 'src/app/services/users.service';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { switchMap, tap } from 'rxjs';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +19,8 @@ export class ProfileComponent implements OnInit {
   uid: string = ''
   info: User | null = null;
   ratings = [];
-
+  user$ = this.usersService.currentUserProfile$;
+  
   nombre: string = '';
   apellido: string = '';
   rut: string = '';
@@ -29,7 +34,9 @@ export class ProfileComponent implements OnInit {
   constructor(private auth: AuthService,
               private router: Router,
               private firestore: FirebaseService,
-              private ratingService: PublicacionesService) {
+              private imageUploadService: UploadImageService,
+              private usersService: UsersService,
+              private toast: HotToastService) {
 
   }
 
@@ -157,6 +164,26 @@ export class ProfileComponent implements OnInit {
       }
       console.log('datos son ->', res);
     });
+  }
+
+  uploadFile(event: any, user: User) {
+    const { uid } = user;
+    this.imageUploadService
+      .uploadImage(event.target.files[0], `images/profile/${uid}`)
+      .pipe(
+        this.toast.observe({
+          loading: 'Uploading profile image...',
+          success: 'Image uploaded successfully',
+          error: 'There was an error in uploading the image',
+        }),
+        switchMap((photoURL) =>
+          this.usersService.updateUser({
+            ...user,
+            photoURL: photoURL,
+          })
+        )
+      )
+      .subscribe();
   }
 
 

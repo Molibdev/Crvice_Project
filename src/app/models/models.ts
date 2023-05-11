@@ -14,6 +14,7 @@ export interface User {
     nacimiento: Date;
     calificaciones: number;
     comentarios: string;
+    photoURL?: string;
 }
 
 export interface Trabajo {

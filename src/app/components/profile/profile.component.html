@@ -45,14 +45,25 @@
     
     <!-- seccion datos personales -->
     <section class="datos-personales">
-
+      <div
+      class="form-container mat-elevation-z5 text-center"
+      *ngIf="user$ | async as user"
+      >
+      <div class="profile-image">
+        <img
+          width="120"
+          height="120"
+          class="margin-top mat-elevation-z1"
+          [src]="user.photoURL ?? '/assets/img/image-placeholder.png'"
+        />
+        <button mat-mini-fab (click)="inputField.click()">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+      <input #inputField hidden type="file" (change)="uploadFile($event, user)" />
+      </div>
         <div class="container"  *ngIf="info">
-            <div class="izq">
-                <div class="div-imagen">
-                    <img src="../../../assets/img/foto5.jpg" alt="">
-                </div>
-                <p class="estrellas">estrellas</p>
-            </div>
+
             
             <div class="der">
                 <!-- <h1>Perfil de Usuario</h1> -->
