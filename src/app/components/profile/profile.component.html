@@ -45,50 +45,44 @@
     
     <!-- seccion datos personales -->
     <section class="datos-personales">
-      <div
-      class="form-container mat-elevation-z5 text-center"
-      *ngIf="user$ | async as user"
-      >
-      <div class="profile-image">
-        <img
-          width="120"
-          height="120"
-          class="margin-top mat-elevation-z1"
-          [src]="user.photoURL ?? '/assets/img/image-placeholder.png'"
-        />
-        <button mat-mini-fab (click)="inputField.click()">
-          <mat-icon>edit</mat-icon>
-        </button>
-      </div>
-      <input #inputField hidden type="file" (change)="uploadFile($event, user)" />
-      </div>
-        <div class="container"  *ngIf="info">
-
-            
-            <div class="der">
-                <!-- <h1>Perfil de Usuario</h1> -->
-                <h2>Datos Personales</h2>
-                <div class="datos">
+      <div class="container" *ngIf="user$ | async as user">
+        <div class="izq">
+          <div class="div-imagen">
+            <img [src]="user.photoURL ?? '/assets/img/image-placeholder.png'" />
+          </div>
+          <div id="wrap" (click)="inputField.click()">
+            <a class="btn-slide">
+              <span class="circle"><mat-icon>edit</mat-icon></span>
+              <span class="title">Editar</span>
+              <span class="title-hover">...</span>
+            </a>
+          </div>
+        </div>
+        <input #inputField hidden type="file" (change)="uploadFile($event, user)" />
+    
+        <div class="der">
+          <h2>Datos Personales</h2>
+          <div class="datos" *ngIf="info">
                     <label>Nombre:</label>
-                    <p class="p-datos">{{info.nombre}}  <span class="span-button"><button class="editar"(click)="mostrarPromptNombre()">Editar</button></span> </p>
+                    <p class="p-datos"> {{info.nombre}} <span class="span-button"><button class="editar"(click)="mostrarPromptNombre()">Editar</button></span> </p>
                     <hr>
                     <label>Apellido:</label>
-                    <p class="p-datos">{{info.apellido}}<button class="editar span-button" (click)="mostrarPromptApellido()">Editar</button></p>
+                    <p class="p-datos"> {{info.apellido}} <button class="editar span-button" (click)="mostrarPromptApellido()">Editar</button></p>
                     <hr>
                     <label>RUT:</label>
-                    <p>{{info.rut}}-{{info.dv}}</p>
+                    <p> {{info.rut}}-{{info.dv}} </p>
                     <hr>
                     <label>Correo Electronico:</label>
-                    <p>{{info.correo}}</p>
+                    <p> {{info.correo}} </p>
                     <hr>
                     <label>Telefono:</label>
-                    <p class="p-datos">{{info.telefono}}<button class="editar span-button" (click)="mostrarPromptTelefono()">Editar</button></p>
+                    <p class="p-datos"> {{info.telefono}} <button class="editar span-button" (click)="mostrarPromptTelefono()">Editar</button></p>
                     <hr>
                     <label>Direccion:</label>
-                    <p class="p-datos">{{info.direccion}}<button class="editar span-button" (click)="mostrarPromptDireccion()">Editar</button></p>
+                    <p class="p-datos"> {{info.direccion}} <button class="editar span-button" (click)="mostrarPromptDireccion()">Editar</button></p>
                     <hr>
                     <label>Fecha de Nacimiento:</label>
-                    <p>{{info.nacimiento}}</p>
+                    <p> {{info.nacimiento}} </p>
                     <hr>
                     <div class="div-botones">
                         <!-- <button class="cerrar-sesion" (click)="resetPassword()">Cambiar contraseña</button> -->
