@@ -43,6 +43,15 @@
                         <label class="etiqueta form-label">Dirección:</label>
                     </div>
 
+                    <div class="tipo-cuenta">
+                        <label for="comuna" class="formulario">Seleccionar comuna</label>
+                        <select name="comuna" [(ngModel)]="datos.comuna">
+                            <option value="">...</option>
+                            <option *ngFor="let comuna of comunas" [value]="comuna">{{ comuna }}</option>
+                        </select>
+                    </div>
+                      
+
                     <div class="formulario">
                         <input type="password" class="form-nombre form-control" name="password" [(ngModel)]="datos.password" required>
                         <label class="etiqueta form-label">Contraseña:</label>

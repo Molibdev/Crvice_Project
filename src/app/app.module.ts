@@ -52,6 +52,8 @@ import { RespSolicitudComponent } from './components/resp-solicitud/resp-solicit
 import { RespTrabajoComponent } from './components/resp-trabajo/resp-trabajo.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
+import { MapaComponent } from './components/mapa/mapa.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -78,6 +80,7 @@ import { MatMenuModule } from '@angular/material/menu';
     ContratacionesComponent,
     RespSolicitudComponent,
     RespTrabajoComponent,
+    MapaComponent,
 
   ],
   imports: [
@@ -95,6 +98,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatIconModule,
     MatToolbarModule,
     MatMenuModule,
+    HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),

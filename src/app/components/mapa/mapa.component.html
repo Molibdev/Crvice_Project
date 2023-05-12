@@ -1,0 +1,15 @@
+<p>mapa works!</p>
+
+<div>
+    <button (click)="obtenerCoordenadas()">Obtener Coordenadas</button>
+  </div>
+  
+  <div *ngIf="latitud && longitud">
+    <p>Latitud: {{ latitud }}</p>
+    <p>Longitud: {{ longitud }}</p>
+   
+</div>
+
+<div id="map" style="width: 400px; height: 300px;"></div>
+
+

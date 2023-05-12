@@ -57,5 +57,7 @@ export class PublicacionesService {
   }
 
   public uidUsuario: string = '';
-  
+  public uidUsuarioMapa: string = '';
+  public usuarioComuna: string = '';
+  public usuarioDireccion: string = '';
 }

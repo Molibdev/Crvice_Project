@@ -11,6 +11,7 @@ export interface User {
     perfil: number;
     telefono: number;
     direccion: string;
+    comuna: string;
     nacimiento: Date;
     calificaciones: number;
     comentarios: string;

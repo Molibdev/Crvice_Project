@@ -4,16 +4,11 @@
     <title>Perfil de Usuario</title>
 </head>
 <header>
-    <mat-toolbar >
+    <mat-toolbar *ngIf="user$ | async as user">
         Crvice
          <ng-container *ngIf="info"> <!--*ngIf="user$ | async as user; else loginButton" -->
           <button mat-button [matMenuTriggerFor]="userMenu" >
-            <img
-              width="30"
-              height="30"
-              class="profile-image-toolbar"
-              [src]="'../../../assets/img/foto5.jpg'"
-            /><!-- [src]="user.photoURL ?? 'assets/images/image-placeholder.png'" -->
+          <img width="30" height="30" class="profile-image-toolbar" [src]="user.photoURL ?? '/assets/img/image-placeholder.png'" />
              {{ info.nombre }}
             <mat-icon>expand_more</mat-icon>
           </button>
@@ -80,6 +75,9 @@
                     <hr>
                     <label>Direccion:</label>
                     <p class="p-datos"> {{info.direccion}} <button class="editar span-button" (click)="mostrarPromptDireccion()">Editar</button></p>
+                    <hr>
+                    <label>Comuna:</label>
+                    <p class="p-datos"> {{info.comuna}} <button class="editar span-button" (click)="mostrarPromptDireccion()">Editar</button></p>
                     <hr>
                     <label>Fecha de Nacimiento:</label>
                     <p> {{info.nacimiento}} </p>

@@ -36,6 +36,11 @@ export class RespSolicitudComponent implements OnInit {
               const usuario = usuarioDoc.data() as User;
               this.nombreUsuarioSolicitante = usuario.nombre + ' ' + usuario.apellido;
               this.publicaciones.uidUsuario = usuario.uid;
+              this.publicaciones.uidUsuarioMapa = usuario.uid;
+              this.publicaciones.usuarioComuna = usuario.comuna;
+              this.publicaciones.usuarioDireccion = usuario.direccion;
+              console.log(this.publicaciones.usuarioComuna)
+              console.log(this.publicaciones.usuarioDireccion)
             }
           });
         }
@@ -87,7 +92,8 @@ export class RespSolicitudComponent implements OnInit {
     this.router.navigate(['/calificacion'])
   }  
 
-  calificar() {
-    this.router.navigate(['/calificacion'])
+  verUbicacion(){
+    this.router.navigate(['/mapa'])
   }
+
 }

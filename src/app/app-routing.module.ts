@@ -19,6 +19,7 @@ import { TrabajosComponent } from './components/trabajos/trabajos.component';
 import { ContratacionesComponent } from './components/contrataciones/contrataciones.component';
 import { RespTrabajoComponent } from './components/resp-trabajo/resp-trabajo.component';
 import { CalificacionComponent } from './components/calificacion/calificacion.component';
+import { MapaComponent } from './components/mapa/mapa.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -42,6 +43,7 @@ const routes: Routes = [
   ...canActivate(() => redirectUnauthorizedTo(['/login']))}, 
   { path: 'solicitar-trabajo/:id/:uid/:currentUserUid', component: SolicitarTrabajoComponent },
   { path: 'calificacion', component: CalificacionComponent },
+  { path: 'mapa', component: MapaComponent },
 ];
 
 @NgModule({

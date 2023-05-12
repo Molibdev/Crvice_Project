@@ -172,9 +172,9 @@ export class ProfileComponent implements OnInit {
       .uploadImage(event.target.files[0], `images/profile/${uid}`)
       .pipe(
         this.toast.observe({
-          loading: 'Uploading profile image...',
-          success: 'Image uploaded successfully',
-          error: 'There was an error in uploading the image',
+          loading: '',
+          success: '',
+          error: '',
         }),
         switchMap((photoURL) =>
           this.usersService.updateUser({
