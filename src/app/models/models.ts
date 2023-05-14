@@ -29,5 +29,6 @@ export interface Trabajo {
     estado: 'Pendiente' | 'Aceptado' | 'Cancelado' | 'Respondido' | 'Completado';
     precio?: string;
     publicacion?: Publicacion;
+    photoPost?: string;
   }
   

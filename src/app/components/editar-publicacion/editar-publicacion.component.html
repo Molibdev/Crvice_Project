@@ -23,7 +23,7 @@
         <textarea name="descripcion" class="form-nombre" [(ngModel)]="publicacion.descripcion"></textarea>
         <br />
         <p>Imagen:</p>
-        <input type="text" name="imagen" class="form-nombre" [(ngModel)]="publicacion.imagen" />
+        <input type="file" id="newFileInput" (change)="onNewFilesSelected($event)" accept="image/*" multiple>
         <br />
         <button type="submit" class="btn">Guardar cambios</button>
       </div>

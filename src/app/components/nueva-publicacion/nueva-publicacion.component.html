@@ -8,7 +8,7 @@
     <div class="nueva-publicacion">
         <h1>Nueva Publicación</h1>
         
-        <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <form [formGroup]="formulario" (ngSubmit)="onSubmit($event)">
             <div class="mb-3 form-publicacion">
                 <p class="form-label">Título de la Publicación:</p>
                 <input type="text" class="form-control form-nombre" formControlName="titulo">
@@ -27,12 +27,12 @@
             </div>
             <div class="mb-3 form-publicacion">
                 <p class="form-label">Imagen:</p>
-                <input type="text" class="form-control form-nombre" formControlName="imagen">
+                <input type="file" id="fileInput" formControlName="photoPost" multiple>
             </div>
             <input type="hidden" formControlName="uid" [value]="uid">
             <input type="hidden" formControlName="nombre">
             <input type="hidden" formControlName="apellido">
-            <input type="submit" value="Enviar" class="btn btn-info">
+            <input type="submit" value="Enviar" class="btn btn-info">   
         </form>
 
     </div>

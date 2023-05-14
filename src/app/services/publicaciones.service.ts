@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Firestore, addDoc, collection, collectionData, doc, docData, query, where, updateDoc } from '@angular/fire/firestore';
 import { Publicacion } from '../models/publicacion';
 import { Observable } from 'rxjs';
-import { FirebaseService } from './firebase.service';
 import { map } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +11,11 @@ import { map } from 'rxjs/operators';
 export class PublicacionesService {
 
   constructor( private firestore: Firestore,
-    private firebaseService: FirebaseService) { }
+              ) { }
 
   addPublicacion(publicacion: Publicacion) {
     const publicacionRef = collection(this.firestore, 'Publicaciones');
-    return addDoc(publicacionRef, publicacion);
+    return addDoc(publicacionRef, publicacion).then(docRef => docRef.id);
   }
 
   getPublicaciones(): Observable<Publicacion[]> {
@@ -27,6 +27,7 @@ export class PublicacionesService {
   //   const publicacionRef = doc(this.firestore, 'Publicaciones', id);
   //   return docData(publicacionRef) as Observable<Publicacion>;
   // } Metodo que ocupe antes, lo deje de momento por si pasa algun error
+
 
   getPublicacion(id: string): Observable<Publicacion> {
     const publicacionRef = doc(this.firestore, 'Publicaciones', id);
@@ -46,7 +47,7 @@ export class PublicacionesService {
   }
 
   async updatePublicacion(id: string, data: Partial<Publicacion>) {
-    console.log(`Actualizadno publicacion ${id} with data:`, data);
+    console.log(`Actualizando publicacion ${id} with data:`, data);
     const publicacionRef = doc(this.firestore, 'Publicaciones', id);
     try {
       await updateDoc(publicacionRef, data);
