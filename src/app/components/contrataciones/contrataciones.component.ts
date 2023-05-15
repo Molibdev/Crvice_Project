@@ -19,7 +19,7 @@ export class ContratacionesComponent implements OnInit {
       if (user) {
         this.cargarTrabajos(user.uid);
       }
-    });
+    }); 
   }
   private cargarTrabajos(usuarioId: string): void {
     this.firestore
@@ -69,4 +69,5 @@ export class ContratacionesComponent implements OnInit {
       console.error('El trabajo no tiene una publicación definida');
     }
   }
+  
 }

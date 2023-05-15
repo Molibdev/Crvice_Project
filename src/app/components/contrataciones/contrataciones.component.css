@@ -36,3 +36,11 @@ button:hover {
     color: #228BFB;
 
 }
+
+.visibility-block{
+    display: block;
+}
+
+.visibility-hidden{
+    display:  hidden;
+}
