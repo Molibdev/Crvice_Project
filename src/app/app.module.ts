@@ -54,6 +54,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MapaComponent } from './components/mapa/mapa.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxPayPalModule } from 'ngx-paypal';
+import { PagoComponent } from './components/pago/pago.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +83,7 @@ import { HttpClientModule } from '@angular/common/http';
     RespSolicitudComponent,
     RespTrabajoComponent,
     MapaComponent,
+    PagoComponent,
 
   ],
   imports: [
@@ -92,6 +95,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
+    NgxPayPalModule,
     BrowserAnimationsModule,
     MatListModule,
     MatDividerModule,

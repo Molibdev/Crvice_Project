@@ -26,7 +26,7 @@ export interface Trabajo {
     idUsuarioSolicitante: string;
     mensaje: string;
     mensajeTrabajador?: string;
-    estado: 'Pendiente' | 'Aceptado' | 'Cancelado' | 'Respondido' | 'Completado';
+    estado: 'Pendiente' | 'Aceptado' | 'Cancelado' | 'Respondido' | 'Completado' | 'Abonado';
     precio?: string;
     publicacion?: Publicacion;
     photoPost?: string;

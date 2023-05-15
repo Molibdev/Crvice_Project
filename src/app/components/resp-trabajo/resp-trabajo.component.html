@@ -4,9 +4,11 @@
   <p>Título de la publicación: {{ publicacion.titulo }}</p>
   <p>Comentario del usuario: {{ trabajo.mensaje }}</p>
   <p>Nombre del Trabajador: {{ nombreTrabajador }}</p>
+  <p>Precio Estimado {{ trabajo.precio }}</p>
   <p>Estado: {{ trabajo.estado }}</p>
   <p>Mensaje del Trabajador: {{ trabajo.mensajeTrabajador }}</p>
 <button type="submit" class="btn btn-primary" (click)="aceptarTrabajo()">Contratar</button>
 <button type="submit" class="btn btn-primary" (click)="rechazarTrabajo()">Rechazar Propuesta</button>
 <button type="submit" class="btn btn-primary" (click)="calificar()">Completar trabajo</button>
+<button type="submit" class="btn btn-primary" (click)="pagar()">Pagar Abono</button>
 </div>

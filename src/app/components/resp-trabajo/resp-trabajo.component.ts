@@ -78,4 +78,15 @@ export class RespTrabajoComponent {
   calificar() {
     this.router.navigate(['/calificacion'])
   }
+
+  pagar() {
+    if (this.trabajo) {
+      const trabajoId = this.route.snapshot.queryParams['trabajoId'];
+      const publicacionId = this.route.snapshot.queryParams['publicacionId'];
+      this.router.navigate(['/pago'], { queryParams: { trabajoId, publicacionId } });
+    }
+  }
+  
+  
 }
+

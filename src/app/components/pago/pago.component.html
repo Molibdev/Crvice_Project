@@ -1,0 +1,10 @@
+<div *ngIf="publicacion && trabajo">    
+    <h2>Pagar a: {{nombreTrabajador}}</h2>
+    <h2>Precio: {{ trabajo.precio }}</h2>
+    <h2>Trabajo: {{publicacion.titulo}}</h2>
+    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+    
+  </div>
+  <div class="alert alert-success" *ngIf="paymentCancel">
+    <h2>¡Pago Rechazado!</h2>
+  </div>
