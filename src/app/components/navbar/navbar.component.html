@@ -1,10 +1,58 @@
 <nav class="navbar">
     <div class="logo">
-        <img src="../../../assets/img/logo_transparent.png" alt="">
+      <img src="../../../assets/img/logo_transparent.png" alt="">
     </div>
     <ul class="navlinks">
-        <li><a href="#">Nosotros</a></li>
-        <li><a href="#">Servicios</a></li>
-        <li><a class="boton" href="#">Iniciar Sesión</a></li>
+      <li><a href="#">Nosotros</a></li>
+      <li><a href="#">Servicios</a></li>
+      <ng-template #loginButton>
+        <li>
+          <a mat-button [matMenuTriggerFor]="loginMenu">
+            Iniciar Sesión
+          </a>
+        </li>
+      </ng-template>
+      
+    <mat-toolbar>
+      <ng-container *ngIf="(user$ | async) as user; else loginButton">
+        <button mat-button [matMenuTriggerFor]="userMenu">
+          <div class="user-info">
+            <img width="30" height="30" class="profile-image-toolbar" [src]="user.photoURL ?? '/assets/img/image-placeholder.png'" />
+            {{ user?.nombre }}
+            <mat-icon>expand_more</mat-icon>
+          </div>                  
+        </button>
+      </ng-container>
+    </mat-toolbar>
     </ul>
-</nav>
+    <mat-menu #loginMenu="matMenu" class="login-menu">
+        <ng-template matMenuContent>
+          <form>
+            <mat-form-field>
+              <input matInput placeholder="Correo electrónico" name="correo" [(ngModel)]="credenciales.correo" (click)="$event.stopPropagation()">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="password" placeholder="Contraseña" name="password" [(ngModel)]="credenciales.password" (click)="$event.stopPropagation()">
+            </mat-form-field>
+            <button mat-raised-button type="button" (click)="login()" class="login-button">Iniciar Sesión</button>
+            <li><a [routerLink]="['/register']" class="li-menu">Aún no estas registrado? Registrate aquí</a></li>
+            <li><a [routerLink]="['/forgot-pass']" class="li-menu">Olvidaste tu contraseña?</a></li>
+          </form>
+        </ng-template>
+    </mat-menu>                                  
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item routerLink="/profile">
+        <mat-icon>account_circle</mat-icon>
+        Perfil
+      </button>
+      <button mat-menu-item (click)="resetPassword()">
+        <mat-icon>vpn_key</mat-icon>
+        Cambiar Contraseña
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Cerrar Sesión
+      </button>
+    </mat-menu>
+  </nav>
+  

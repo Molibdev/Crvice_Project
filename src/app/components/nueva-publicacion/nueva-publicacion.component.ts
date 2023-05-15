@@ -4,8 +4,8 @@ import { PublicacionesService } from 'src/app/services/publicaciones.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { Storage, ref, uploadBytes, listAll, getDownloadURL} from '@angular/fire/storage'
-import { Trabajo } from 'src/app/models/models';
-import { UsersService } from 'src/app/services/users.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -26,7 +26,8 @@ export class NuevaPublicacionComponent implements OnInit {
     private authService: AuthService,
     private firebaseService: FirebaseService,
     private storage: Storage,
-    private usersService: UsersService
+    private authfirebase: AngularFireAuth,
+    private route: Router
   ) {
       this.formulario = new FormGroup({
         titulo: new FormControl(),
@@ -65,8 +66,8 @@ export class NuevaPublicacionComponent implements OnInit {
     });
 
     try {
-      const uid = await this.authService.getUid();
-      this.uid = uid as string; // Verificación de tipo
+      const user = await this.authfirebase.currentUser
+      this.uid = user?.uid || '';// Verificación de tipo
       console.log('uid ->', this.uid);
     } catch (error) {
       console.log('Error al obtener el UID:', error);
@@ -96,10 +97,10 @@ export class NuevaPublicacionComponent implements OnInit {
         const file = files[j];
         console.log(file);
         console.log(this.uid);
-  
+        const user = await this.authfirebase.currentUser
         const imgRef = ref(
           this.storage,
-          `images/posts/${this.uid}/${publicacionId}/${file.name}`
+          `images/posts/${user?.uid}/${publicacionId}/${file.name}`
         );
   
         try {
@@ -110,6 +111,7 @@ export class NuevaPublicacionComponent implements OnInit {
         }
       }
     }
+    this.route.navigate(['/mis-publicaciones'])
   }
 
 }

@@ -1,49 +1,54 @@
-.navbar{
+.navbar {
     display: flex;
     justify-content: space-between;
-}
+    margin-bottom: 10px; 
+  }
+
 .navlinks{
     display: flex;
     align-items: center;
 }
+
 .navlinks li {
     margin: 0 20px;
 }
+
 .navlinks li a {
     color: #304A76;
     font-weight: 600;
 }
+
 nav.navbar{
     height: 80px;
 }
+
 .boton {
     padding: 10px 16px;
     background: #228BFB;
     border-radius: 30px;
 }
+
 .boton:hover {
-    background-color: #1e71ca;
+    background-color: #228BFB;
 }
+
 .navlinks li .boton {
-    color:whitesmoke;
+    color:rgb(255, 255, 255);
 }
+
+.logo img {
+    width: 85px; /* Establece el ancho deseado */
+    height: auto; /* Permite que la altura se ajuste automáticamente */
+  }
 
 div .logo {
-    color:#304A76;
-}
-img{
-    width: 80px;
-    height: auto;
-    margin-left: 10px;
+    color:#000000;
 }
 
-.menu-btn{
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    width: 40px;
-    cursor: pointer;
-    display: none;
+img{
+    width: 45px;
+    height: auto;
+    margin-left: 10px;
 }
 
 /* ===Vista Responsive=== */
@@ -62,8 +67,120 @@ img{
         padding: 5px 8px;
     }
     img{
-        width: 70px;
+        width: 45px;
         height: auto;
         margin-left: 10px;
+    }
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+mat-toolbar {
+    color: rgb(0, 0, 0);
+    background: none;
+    border: none;
+}
+
+.mat-toolbar button:hover {
+    background-color: transparent;
+}
+  
+.profile-image-toolbar {
+    border-radius: 100%;
+    margin-right: 10px;
+}
+
+button mat-icon{
+    color: rgb(168, 168, 168);
+}
+mat-toolbar button {
+    color: rgb(0, 0, 0);
+}
+
+button {
+    background:none;
+    cursor: pointer;
+    border-style: none;
+    color: gray;
+    margin-left: 0;
+}
+
+::ng-deep .login-menu .mat-menu-content {
+    padding: 10px;
+  }
+  
+  ::ng-deep .login-menu mat-form-field {
+    width: 90%;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+  }
+
+.login-button {
+display: block;
+margin: 0 auto;
+padding: 10px 16px;
+background-color: #228BFB;
+color: #fff;
+border: none;
+border-radius: 30px;
+font-size: 14px;
+font-weight: bold;
+text-transform: uppercase;
+transition: background-color 0.3s ease;
+cursor: pointer;
+}
+
+.login-button:hover {
+background-color: #1b6ac9;
+}
+
+.login-button:focus {
+outline: none;
+box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.li-menu {
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    background-color: #e7e7e7;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    color: #000000;
+  }
+  
+
+
+
+/* ===Vista Responsive=== */
+@media only screen and (max-width:1070px) {
+    .datos {
+        margin-right: 30px;
+    }
+    .div-imagen img {
+        width: 250px;
+        height: 250px;
+    }
+    .der{
+        width: 70%;
+        height: auto;
+        justify-content: space-between; 
+    }
+    .izq {
+        width: 30%;
+        height: auto;   
+        margin-right: 40px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
     }
 }

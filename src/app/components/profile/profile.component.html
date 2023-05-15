@@ -3,39 +3,7 @@
 <head>
     <title>Perfil de Usuario</title>
 </head>
-<header>
-    <mat-toolbar *ngIf="user$ | async as user">
-        Crvice
-         <ng-container *ngIf="info"> <!--*ngIf="user$ | async as user; else loginButton" -->
-          <button mat-button [matMenuTriggerFor]="userMenu" >
-          <img width="30" height="30" class="profile-image-toolbar" [src]="user.photoURL ?? '/assets/img/image-placeholder.png'" />
-             {{ info.nombre }}
-            <mat-icon>expand_more</mat-icon>
-          </button>
-        </ng-container>
-      
-        <ng-template #loginButton>
-          <button mat-button routerLink="login">
-            <mat-icon>login</mat-icon>
-            Login
-          </button>
-        </ng-template>
-      </mat-toolbar>
-      <mat-menu #userMenu="matMenu">
-        <button mat-menu-item routerLink="/profile">
-          <mat-icon>account_circle</mat-icon>
-          Perfil
-        </button>
-        <button mat-menu-item (click)="resetPassword()">
-            <mat-icon>vpn_key</mat-icon>
-            Cambiar Contraseña
-        </button>
-        <button mat-menu-item (click)="logout()">
-          <mat-icon>logout</mat-icon>
-          Cerrar Sesión
-        </button>
-      </mat-menu>
-</header>
+<app-navbar></app-navbar>
 <body>
     
     <!-- seccion datos personales -->
