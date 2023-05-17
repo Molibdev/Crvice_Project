@@ -36,6 +36,7 @@ import { EditarPublicacionComponent } from './components/editar-publicacion/edit
 import { ChatComponent } from './components/chat/chat.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import {MatAutocompleteModule} from '@angular/material/autocomplete'; 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
@@ -102,6 +103,7 @@ import { PagoComponent } from './components/pago/pago.component';
     MatIconModule,
     MatToolbarModule,
     MatMenuModule,
+    MatProgressSpinnerModule,
     HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),

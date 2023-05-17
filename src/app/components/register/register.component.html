@@ -12,69 +12,101 @@
                 <div class="contenedor-formulario">
                     <h2>Crear Cuenta</h2>
 
-                <form>
+                <form  [formGroup]="formRegister">
 
                     <div class="formulario">
-                        <input type="text" class="form-nombre form-control" name="nombre" [(ngModel)]="datos.nombre" required>
-                        <label class="etiqueta form-label">Nombre:</label>
+                        <input type="text" class="form-nombre form-control" name="nombre" formControlName="nombre">
+                        <label class="etiqueta form-label">Nombre:</label>   
                     </div>
+                    <small *ngIf="isValidField('nombre')">
+                        El nombre es obligatorio
+                    </small>
 
                     <div class="formulario">
-                        <input type="text" class="form-nombre form-control" name="apellido" [(ngModel)]="datos.apellido" required>
+                        <input type="text" class="form-nombre form-control" name="apellido" formControlName="apellido"  >
                         <label class="etiqueta form-label">Apellido:</label>
                     </div>
+                    <small *ngIf="isValidField('apellido')">
+                        El apellido es obligatorio
+                    </small>
 
                     <div class="formulario">
-                        <input type="text" class="form-nombre form-control" name="rut" [(ngModel)]="datos.rut" required>
+                        <input type="text" class="form-nombre form-control" name="rut" formControlName="rut">
                         <label class="etiqueta form-label">Rut:</label>
                     </div>
-
+                    <small *ngIf="isValidField('rut')">
+                        {{ getFieldError('rut') }}
+                    </small>
+                    
                     <div class="formulario">
-                        <input type="text" class="form-nombre form-control" name="dv" [(ngModel)]="datos.dv" required>
+                        <input type="text" class="form-nombre form-control" name="dv" formControlName="dv" >
                         <label class="etiqueta form-label">Dígito Verificador:</label>
                     </div>
+                    <small *ngIf="isValidField('dv')">
+                        {{ getFieldError('dv') }}
+                    </small>
 
                     <div class="formulario">
-                        <input type="text" class="form-nombre form-control" name="telefono" [(ngModel)]="datos.telefono" required>
+                        <input type="text" class="form-nombre form-control" name="telefono" formControlName="telefono" >
                        <label class="etiqueta form-label">Teléfono:</label>
-                   </div>
+                    </div>
+                    <small *ngIf="isValidField('telefono')">
+                        {{ getFieldError('telefono') }}
+                    </small>
                     <div class="formulario">
-                        <input type="text" class="form-nombre form-control" name="direccion" [(ngModel)]="datos.direccion" required>
+                        <input type="text" class="form-nombre form-control" name="direccion" formControlName="direccion">
                         <label class="etiqueta form-label">Dirección:</label>
                     </div>
+                    <small *ngIf="isValidField('direccion')">
+                        La dirección es obligatoria
+                    </small>
 
                     <div class="tipo-cuenta">
                         <label for="comuna" class="formulario">Seleccionar comuna</label>
-                        <select name="comuna" [(ngModel)]="datos.comuna">
-                            <option value="">...</option>
+                        <select name="comuna" formControlName="comuna">
+                            <option value=""> --- </option>
                             <option *ngFor="let comuna of comunas" [value]="comuna">{{ comuna }}</option>
                         </select>
                     </div>
+                    <small *ngIf="isValidField('comuna')">
+                        La comuna es obligatoria
+                    </small>
                       
 
                     <div class="formulario">
-                        <input type="password" class="form-nombre form-control" name="password" [(ngModel)]="datos.password" required>
+                        <input type="password" class="form-nombre form-control" name="password" formControlName="password" >
                         <label class="etiqueta form-label">Contraseña:</label>
                     </div>
+                    <small  *ngIf="isValidField('password')">
+                        {{ getFieldError('password') }}
+                    </small>
 
                     <div class="formulario">
-                        <input type="text" class="form-nombre form-control" name="correo" [(ngModel)]="datos.correo" required>
+                        <input type="text" class="form-nombre form-control" name="correo" formControlName="correo">
                         <label class="etiqueta form-label">Email:</label>
                     </div>
+                    <small *ngIf="isValidField('correo')">
+                        El email es obligatorio
+                    </small>
 
                     <div class="formulario">
-                        <input type="date" class="form-nombre fecha form-control" name="nacimiento" [(ngModel)]="datos.nacimiento" required>
+                        <input type="date" class="form-nombre fecha form-control" name="nacimiento" formControlName="nacimiento" >
                         <label class="etiqueta-date form-label">Fecha de nacimiento:</label>
                     </div>
+                    <small *ngIf="isValidField('nacimiento')">
+                        Seleccione su fecha de nacimiento
+                    </small>
 
                     <div class="tipo-cuenta">
                         <label for="perfil" class="formulario">Tipo de cuenta:</label>
-                        <select name="perfil"  [(ngModel)]="datos.perfil">
+                        <select formControlName="perfil" name="perfil" >
                             <option value="1">Trabajador</option>
                             <option value="2">Cliente</option>
                         </select>
-
                     </div>
+                    <small *ngIf="isValidField('perfil')">
+                        El tipo de cuenta es obligatorio
+                    </small>
          
                     <div class="div-boton">
                         <button class="button" type="submit" value="Crear Cuenta" (click)="registrar()">Crear Cuenta</button>
@@ -91,4 +123,3 @@
 	
 </body>
 </html>
-

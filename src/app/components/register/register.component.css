@@ -29,6 +29,10 @@
 .fecha {
     border-bottom:none;
 }
+small {
+    color: rgb(192, 19, 19);
+    margin-left: 29px;
+}
 label {
     position: absolute;
     top: 0;

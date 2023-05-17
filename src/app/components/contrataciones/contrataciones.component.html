@@ -8,12 +8,15 @@
     <app-navbar></app-navbar>
 </header>
 <div class="container">
+  
   <h1>Solicitud de Trabajo Relizadas</h1>
 
   <div class="places">
+    <mat-spinner *ngIf="trabajos.length===0"></mat-spinner>
     <div class="place" *ngFor="let trabajo of trabajos">
+      
       <div class="info">
-        <p>Titulo de la publicación: {{ trabajo.publicacion?.titulo }}</p>
+        <p>Titulo de la publicación: {{ trabajo.publicacion?.titulo }} </p>
         <p>Precio Trabajo: {{ trabajo.precio }}</p>
         <p>Estado: {{ trabajo.estado }}</p>
         <button *ngIf="trabajo.estado !== 'Cancelado'" (click)="responderSolicitud(trabajo)">Responder</button>
