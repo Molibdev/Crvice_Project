@@ -57,6 +57,7 @@ import { MapaComponent } from './components/mapa/mapa.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { PagoComponent } from './components/pago/pago.component';
+import { HotToastModule } from '@ngneat/hot-toast';
 
 @NgModule({
   declarations: [
@@ -105,6 +106,7 @@ import { PagoComponent } from './components/pago/pago.component';
     MatMenuModule,
     MatProgressSpinnerModule,
     HttpClientModule,
+    [HotToastModule.forRoot()],
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),

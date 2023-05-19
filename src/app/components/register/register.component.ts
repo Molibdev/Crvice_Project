@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/models';
 import { AuthService } from 'src/app/services/auth.service';
@@ -24,6 +24,7 @@ export class RegisterComponent implements OnInit{
     perfil: 0,
     telefono: 0,
     direccion: '',
+    numDireccion: 0,
     comuna: '',
     nacimiento: new Date(),
     calificaciones: 0,
@@ -76,24 +77,37 @@ export class RegisterComponent implements OnInit{
               private router: Router,
               private fb: FormBuilder) {}
 
-
-  public formRegister: FormGroup= this.fb.group({
-    nombre:['',[Validators.required] ],
-    apellido:['', [Validators.required]],
-    rut:['', [Validators.required, Validators.min(0),Validators.pattern(/^\d+$/)]],
-    dv:['', [Validators.required, Validators.min(0),Validators.maxLength(1)]],
-    correo:['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-    password:['',[Validators.required, Validators.minLength(6)]],
-    perfil:['', [Validators.required]],
-    telefono:['', [Validators.required, Validators.minLength(7),Validators.pattern(/^\d+$/)]],
-    direccion:['',[Validators.required]],
-    comuna:['',[Validators.required]],
-    nacimiento:['',[Validators.required]],
-  })
+public formRegister: FormGroup = this.fb.group({
+  nombre: ['', [Validators.required]],
+  apellido: ['', [Validators.required]],
+  rut: ['', [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)]],
+  dv: ['', [Validators.required, Validators.min(0), Validators.maxLength(1)]],
+  correo: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+  password: ['', [Validators.required, Validators.minLength(6)]],
+  confirmarPassword: ['', [Validators.required]],
+  perfil: ['', [Validators.required]],
+  telefono: ['', [Validators.required, Validators.minLength(7), Validators.pattern(/^\d+$/)]],
+  direccion: ['', [Validators.required]],
+  numDireccion: ['', [Validators.required, Validators.min(1), Validators.maxLength(7)]],
+  comuna: ['', [Validators.required]],
+  nacimiento: ['', [Validators.required]],
+}, { validators: this.passwordMatchValidator });
 
 
   ngOnInit(): void {
     
+  }
+
+  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmarPassword')?.value;
+  
+    if (password !== confirmPassword) {
+      control.get('confirmarPassword')?.setErrors({ passwordMismatch: true });
+      return { passwordMismatch: true };
+    }
+  
+    return null;
   }
 
   isValidField( field: string ): boolean | null {
@@ -142,6 +156,7 @@ export class RegisterComponent implements OnInit{
     this.datos.perfil = this.formRegister.get('perfil')?.value;
     this.datos.telefono = this.formRegister.get('telefono')?.value;
     this.datos.direccion = this.formRegister.get('direccion')?.value;
+    this.datos.numDireccion = this.formRegister.get('numDireccion')?.value;
     this.datos.comuna = this.formRegister.get('comuna')?.value;
     this.datos.nacimiento = this.formRegister.get('nacimiento')?.value;
     

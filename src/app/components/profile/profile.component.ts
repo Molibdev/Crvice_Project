@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UploadImageService } from 'src/app/services/upload-image.service';
 import { UsersService } from 'src/app/services/users.service';
-import { switchMap, tap } from 'rxjs';
+import { catchError, of, switchMap, tap, throwError } from 'rxjs';
 import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
@@ -167,26 +167,38 @@ export class ProfileComponent implements OnInit {
 
   uploadFile(event: any, user: User) {
     const { uid } = user;
-    this.imageUploadService
-      .uploadImage(event.target.files[0], `images/profile/${uid}`)
+    const upload$ = this.imageUploadService.uploadImage(event.target.files[0], `images/profile/${uid}`);
+  
+    const loading$ = of(null).pipe(
+      tap(() => {
+        this.toast.loading('Cargando imagen...', { duration: 2000 });
+      })
+    );
+  
+    loading$
       .pipe(
-        this.toast.observe({
-          loading: '',
-          success: '',
-          error: '',
-        }),
-        switchMap((photoURL) =>
-          this.usersService.updateUser({
-            ...user,
-            photoURL: photoURL,
-          })
+        switchMap(() =>
+          upload$.pipe(
+            switchMap((photoURL) =>
+              this.usersService.updateUser({
+                ...user,
+                photoURL: photoURL,
+              }).pipe(
+                tap(() => {
+                  this.toast.success('Imagen cargada con éxito!');
+                }),
+                catchError((error) => {
+                  this.toast.error('Ha ocurrido un error al subir la imagen');
+                  return throwError(error);
+                })
+              )
+            ),
+            catchError(() => of(null)) // Evita que se propague el error de carga y permite que continúe con el flujo
+          )
         )
       )
       .subscribe();
   }
-
-
-
 
   logout() {
     this.auth.logout();

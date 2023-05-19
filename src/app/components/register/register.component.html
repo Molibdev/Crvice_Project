@@ -61,6 +61,14 @@
                         La dirección es obligatoria
                     </small>
 
+                    <div class="formulario">
+                        <input type="text" class="form-nombre form-control" name="numDireccion" formControlName="numDireccion">
+                        <label class="etiqueta form-label">Dirección:</label>
+                    </div>
+                    <small *ngIf="isValidField('numDireccion')">
+                        El  numero de tú dirección es obligatoria
+                    </small>
+
                     <div class="tipo-cuenta">
                         <label for="comuna" class="formulario">Seleccionar comuna</label>
                         <select name="comuna" formControlName="comuna">
@@ -74,13 +82,23 @@
                       
 
                     <div class="formulario">
-                        <input type="password" class="form-nombre form-control" name="password" formControlName="password" >
+                        <input type="password" class="form-nombre form-control" name="password" formControlName="password">
                         <label class="etiqueta form-label">Contraseña:</label>
-                    </div>
-                    <small  *ngIf="isValidField('password')">
+                      </div>
+                      <small *ngIf="isValidField('password')">
                         {{ getFieldError('password') }}
-                    </small>
-
+                      </small>
+                      
+                      <div class="formulario">
+                        <input type="password" class="form-nombre form-control" name="confirmarPassword" formControlName="confirmarPassword">
+                        <label class="etiqueta form-label">Confirmar Contraseña:</label>
+                      </div>
+                      <small *ngIf="isValidField('confirmarPassword')">
+                        {{ getFieldError('confirmarPassword') }}
+                      </small>
+                      <small *ngIf="formRegister.hasError('passwordMismatch') && formRegister.get('confirmarPassword')?.dirty">
+                        Las contraseñas no coinciden
+                      </small>                      
                     <div class="formulario">
                         <input type="text" class="form-nombre form-control" name="correo" formControlName="correo">
                         <label class="etiqueta form-label">Email:</label>
