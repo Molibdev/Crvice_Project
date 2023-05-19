@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, doc, docData, query, where, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, doc, docData, query, where, updateDoc,deleteDoc } from '@angular/fire/firestore';
 import { Publicacion } from '../models/publicacion';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -56,7 +56,19 @@ export class PublicacionesService {
       console.error('Error al editar:', error);
     }
   }
-
+  async deletePublicacion(id: string) {
+    const publicacionRef = doc(this.firestore, 'Publicaciones', id);
+    try {
+      await deleteDoc(publicacionRef);
+      console.log('Publicación eliminada correctamente');
+      // Realizar acciones adicionales después de la eliminación
+    } catch (error) {
+      console.error('Error al eliminar la publicación:', error);
+      // Manejar el error de eliminación
+    }
+  }
+  
+  
   public uidUsuario: string = '';
   public uidUsuarioMapa: string = '';
   public usuarioComuna: string = '';

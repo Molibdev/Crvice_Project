@@ -57,6 +57,8 @@
                         <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="crearPublicacion()">Crear publicación</button>
                         <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="verMisPublicaciones()">Mis publicaciones</button>
                         <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="verMisSolicitudes()">Mis Solicitudes</button>
+                        <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '3'" (click)="gestPublicaciones()">Gestionar Publicaciones</button>
+
                     </div>
                 </div>
             </div>

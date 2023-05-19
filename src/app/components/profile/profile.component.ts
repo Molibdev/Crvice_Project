@@ -222,5 +222,7 @@ export class ProfileComponent implements OnInit {
   verMisContrataciones() {
     this.router.navigate(['/contrataciones']);
   }
-
+  gestPublicaciones() {
+    this.router.navigate(['/gestionar-publicaciones']);
+  }
 }

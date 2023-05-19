@@ -1,0 +1,21 @@
+<h2>Editar Publicación</h2>
+
+<form>
+  <label for="titulo">Título:</label>
+  <input type="text" id="titulo" name="titulo" [(ngModel)]="publicacion.titulo">
+
+  <label for="rubro">Rubro:</label>
+  <input type="text" id="rubro" name="rubro" [(ngModel)]="publicacion.rubro">
+
+  <label for="precio">Precio:</label>
+  <input type="text" id="precio" name="precio" [(ngModel)]="publicacion.precio">
+
+  <label for="descripcion">Descripción:</label>
+  <textarea id="descripcion" name="descripcion" [(ngModel)]="publicacion.descripcion"></textarea>
+
+  <label for="fotos">Fotos:</label>
+  <input type="text" id="fotos" name="fotos" [(ngModel)]="publicacion.fotos">
+
+  <button type="submit" (click)="guardarCambios()">Guardar</button>
+  
+</form>
