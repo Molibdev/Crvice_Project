@@ -33,3 +33,8 @@ export interface Trabajo {
     photoPost?: string;
   }
   
+ export interface Calificacion {
+    calificacion: number;
+    comentario: string;
+  }
+  

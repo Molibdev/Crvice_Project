@@ -7,7 +7,7 @@ import { UploadImageService } from 'src/app/services/upload-image.service';
 import { UsersService } from 'src/app/services/users.service';
 import { catchError, of, switchMap, tap, throwError } from 'rxjs';
 import { HotToastService } from '@ngneat/hot-toast';
-
+import { Calificacion } from 'src/app/models/models';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -17,9 +17,13 @@ export class ProfileComponent implements OnInit {
 
   uid: string = ''
   info: User | null = null;
-  ratings = [];
   user$ = this.usersService.currentUserProfile$;
-  
+
+  ratings: Calificacion[] = [];
+  contador: number = 1;
+  mostrarCargarMenos: boolean = false;
+  averageRating: number = 0;
+
   nombre: string = '';
   apellido: string = '';
   rut: string = '';
@@ -50,16 +54,38 @@ export class ProfileComponent implements OnInit {
   }
 
 
- async getInfoUser() {
+  async getInfoUser() {
     const path = 'Usuarios';
     const id = this.uid;
-    this.firestore.getDoc<User>(path, id).subscribe( res => {
+    this.firestore.getDoc<User>(path, id).subscribe(res => {
       if (res) {
         this.info = res;
+        this.getCalificaciones();
       }
       console.log('datos son ->', res);
-  })
+    });
   }
+  
+  getCalificaciones() {
+    const path = `Usuarios/${this.uid}/calificaciones`;
+    this.firestore.getCollection<Calificacion>(path).subscribe(calificaciones => {
+      this.ratings = calificaciones;
+      this.calculateAverageRating();
+    });
+  }
+  
+  calculateAverageRating() {
+    let totalRating = 0;
+    for (const rating of this.ratings) {
+      totalRating += +rating.calificacion; // Convertir a número utilizando el prefijo '+'
+    }
+    console.log('Calificación Total:', totalRating);
+    console.log('Cantidad de Calificaciones:', this.ratings.length);
+    this.averageRating = totalRating / this.ratings.length;
+    console.log('Calificación Promedio:', this.averageRating);
+  }
+  
+  
 
   
 
@@ -224,5 +250,16 @@ export class ProfileComponent implements OnInit {
   }
   gestPublicaciones() {
     this.router.navigate(['/gestionar-publicaciones']);
+  }
+
+  cargarMasComentarios() {
+    this.contador += 5;
+    this.mostrarCargarMenos = true;
+
+  }
+  cargarMenosComentarios() {
+    if (this.contador=1){
+      this.mostrarCargarMenos = false;
+    }
   }
 }
