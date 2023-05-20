@@ -417,3 +417,22 @@ button {
 .btn-slide span.title-hover, .btn-slide2 span.title-hover2 {
     color: #fff;
 }
+
+.estrellas {
+    color: yellow;
+    display: inline-flex; 
+    flex-direction: row;
+  }
+  
+  .llena {
+    color: gold;
+  }
+  
+  .vacia {
+    color: gray;
+  }
+  
+  .etiqueta {
+    margin-right: 5px; 
+  }
+  

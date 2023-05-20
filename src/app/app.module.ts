@@ -58,6 +58,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { PagoComponent } from './components/pago/pago.component';
 import { HotToastModule } from '@ngneat/hot-toast';
+import { GestPublicacionesComponent } from './components/gest-publicaciones/gest-publicaciones.component';
+import { AdminEditPComponent } from './components/admin-edit-p/admin-edit-p.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +88,8 @@ import { HotToastModule } from '@ngneat/hot-toast';
     RespTrabajoComponent,
     MapaComponent,
     PagoComponent,
+    GestPublicacionesComponent,
+    AdminEditPComponent,
 
   ],
   imports: [

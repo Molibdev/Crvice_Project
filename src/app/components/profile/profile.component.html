@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>Perfil de Usuario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
 </head>
 <app-navbar></app-navbar>
 <body>
@@ -57,6 +59,8 @@
                         <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="crearPublicacion()">Crear publicación</button>
                         <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="verMisPublicaciones()">Mis publicaciones</button>
                         <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="verMisSolicitudes()">Mis Solicitudes</button>
+                        <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '3'" (click)="gestPublicaciones()">Gestionar Publicaciones</button>
+
                     </div>
                 </div>
             </div>
@@ -64,25 +68,31 @@
     </section>
     <!-- seccion comentarios -->
     <div class="container contenedor-comentario">
-        <h2>Comentarios</h2>
-
-
-        <div class="comentario">
-            <div >
-                <img class="img-comentario" src="../../../assets/img/foto1.jpg" alt="">
-            </div>
-            <div class="div-comentario">
-                <h4>nombre</h4>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia a perspiciatis omnis! 
-                    Laudantium, odit placeat hic voluptas alias iste, nobis corporis sint adipisci dignissimos 
-                    tempore deleniti dicta reprehenderit explicabo earum!
-                </p>
-            </div>
+      <h2>Calificacion y Comentarios</h2>
+      <p>Calificacion General: {{ averageRating }}</p>
+      <div class="comentario" *ngFor="let calificacion of ratings.slice(0, contador)">
+        <div>
+          <img class="img-comentario" src="../../../assets/img/foto1.jpg" alt="">
         </div>
-
-
-        <button class="mas-comentarios">cargar mas comentarios</button>
+        <div class="div-comentario">
+          <p>
+            <span class="etiqueta">Calificación:</span>
+            <span class="estrellas">
+              <i class="fas fa-star llena" *ngFor="let i of [1, 2, 3, 4, 5]" [ngClass]="{'vacia': i > calificacion.calificacion}"></i>
+            </span>
+          </p>
+          <p>Comentario: {{ calificacion.comentario }}</p>
+        </div>
+      </div>
+    
+      <button class="mas-comentarios" (click)="cargarMasComentarios()">Cargar más comentarios</button>
+      <button class="mas-comentarios" *ngIf="mostrarCargarMenos" (click)="cargarMenosComentarios()">Mostrar menos comentarios</button>
     </div>
+    
+    
+    
+    
+    
 
 
 
