@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { User } from '../models/models';
-import { authState ,Auth } from '@angular/fire/auth';
+import { authState, Auth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +54,5 @@ export class AuthService {
     return user?.uid;
 
   }
-
 
 }

@@ -3,6 +3,7 @@
       <img src="../../../assets/img/logo_transparent.png" alt="">
     </div>
     <ul class="navlinks">
+      <li><a routerLink="/index">Inicio</a></li>
       <li><a href="#">Nosotros</a></li>
       <li><a href="#">Servicios</a></li>
       <ng-template #loginButton>
@@ -44,6 +45,18 @@
       <button mat-menu-item routerLink="/profile">
         <mat-icon>account_circle</mat-icon>
         Perfil
+      </button>
+      <button mat-menu-item routerLink="/crud-admin" *ngIf="info?.perfil == 3">
+        <mat-icon>supervised_user_circle</mat-icon>
+        Administración de Usuarios
+      </button>      
+      <button mat-menu-item *ngIf="info?.perfil == 3">
+        <mat-icon>archive</mat-icon>
+        Administración de Publicaciones
+      </button>
+      <button mat-menu-item routerLink="/chat">
+        <mat-icon> message</mat-icon>
+        Mensajería
       </button>
       <button mat-menu-item (click)="resetPassword()">
         <mat-icon>vpn_key</mat-icon>

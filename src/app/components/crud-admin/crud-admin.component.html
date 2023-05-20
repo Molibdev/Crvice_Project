@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CRUD de Usuarios</title>
+</head>
+<body>
+  <h1>CRUD de Usuarios</h1>
+  
+  <div class="container" >
+    <h2>Lista de Usuarios</h2>
+    <mat-icon [routerLink]="['/register']">add_circle_outline</mat-icon>
+    <table>
+      <thead>
+        <tr >
+          <th>UID</th>
+          <th>Nombre y Apellido</th>
+          <th>Email</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let user of listUsers">
+          <tr>
+            <td>{{ user.uid }}</td>
+            <td>{{ user.nombre }} {{ user.apellido }}</td>
+            <td>{{ user.correo }}</td>
+            <td>
+              <mat-icon mat-button [matMenuTriggerFor]="editUser">edit</mat-icon>
+              <mat-icon>visibility_off</mat-icon>
+            </td>
+          </tr>
+          <mat-menu #editUser="matMenu" class="login-menu">
+            <ng-template matMenuContent>
+              <form>
+                
+                <div>
+                  <label for="nombre">Nombre: {{ user.nombre }} <mat-icon (click)="mostrarPromptNombre(user)">edit</mat-icon> </label>
+                </div>
+                <div>
+                  <label for="apellido">Apellido: {{ user.apellido }} <mat-icon (click)="mostrarPromptApellido(user)">edit</mat-icon> </label>
+                </div>
+                <div>
+                  <label for="rut">Rut: {{ user.rut }} <mat-icon (click)="mostrarPromptRut(user)">edit</mat-icon> </label>
+                </div>
+                <div>
+                  <label for="dv">Digito Verificador: {{ user.dv }} <mat-icon (click)="mostrarPromptDv(user)">edit</mat-icon> </label>
+                </div>
+                <div>
+                  <label for="telefono">Telefono: {{ user.telefono }} <mat-icon (click)="mostrarPromptTelefono(user)">edit</mat-icon> </label>
+                </div>
+                <div>
+                  <label for="direccion">Direccion: {{ user.direccion }} <mat-icon (click)="mostrarPromptDireccion(user)">edit</mat-icon> </label>
+                </div>
+                <div>
+                  <label for="numDireccion">Numero Direccion: {{ user.numDireccion }} <mat-icon (click)="mostrarPromptNumDireccion(user)">edit</mat-icon> </label>
+                </div>
+                <div>
+                  <label for="comuna">Comuna: {{ user.comuna }} <mat-icon (click)="mostrarPromptComuna(user)">edit</mat-icon> </label>
+                </div>
+                <div>
+                  <label for="email">Email: {{ user.correo }} <mat-icon (click)="mostrarPromptCorreo(user)">edit</mat-icon> </label>
+                </div>
+                <div>
+                  <label for="fNacimiento">Fecha Nacimiento: {{ user.nacimiento }}<mat-icon (click)="mostrarPromptNacimiento(user)">edit</mat-icon> </label>
+                </div>
+                <div>
+                  <label for="tCuenta">Tipo de cuenta: {{ user.perfil }}<mat-icon (click)="mostrarPromptTipoCuenta(user)">edit</mat-icon> </label>
+                </div>
+              </form>
+            </ng-template>
+          </mat-menu>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

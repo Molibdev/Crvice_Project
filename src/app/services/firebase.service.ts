@@ -6,10 +6,9 @@ import {
   docData,
 } from '@angular/fire/firestore';
 import { collection } from 'firebase/firestore';
-import { from, map, Observable, of, switchMap } from 'rxjs';
+import {  map, Observable, of, switchMap } from 'rxjs';
 import { User } from '../models/models';
 import { AuthService } from 'src/app/services/auth.service';
-import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 

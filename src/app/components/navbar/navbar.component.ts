@@ -16,6 +16,8 @@ export class NavbarComponent implements OnInit {
   info: User | null = null;
   user$ = this.usersService.currentUserProfile$;
   showLoginButton = false;
+  uid: string = ''
+
 
   credenciales = {
     correo: '',
@@ -30,10 +32,12 @@ export class NavbarComponent implements OnInit {
               
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     setTimeout(() => {
       this.showLoginButton = true;
     }, 1500); 
+    this.uid = (await this.auth.getUid()) || '';
+    this.getInfoNavbar();
   }
 
   async login() {
@@ -47,6 +51,17 @@ export class NavbarComponent implements OnInit {
     } else{
       this.router.navigate(['/login'])
     }
+  }
+
+  async getInfoNavbar() {
+    const path = 'Usuarios';
+    const id = this.uid;
+    this.firestore.getDoc<User>(path, id).subscribe( res => {
+      if (res) {
+        this.info = res;
+        console.log(this.info.perfil)
+      }
+  })
   }
 
   async resetPassword() {

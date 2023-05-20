@@ -58,6 +58,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { PagoComponent } from './components/pago/pago.component';
 import { HotToastModule } from '@ngneat/hot-toast';
+import { CrudAdminComponent } from './components/crud-admin/crud-admin.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
     RespTrabajoComponent,
     MapaComponent,
     PagoComponent,
+    CrudAdminComponent,
 
   ],
   imports: [
