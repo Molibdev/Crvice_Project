@@ -30,12 +30,11 @@
       </div>
       
       
-      <div class="imagenes">
-        <!-- <p>Imagen: {{ publicacion.imagen }}</p> -->
-        <img class="img-publiacion" src="../../../assets/img/foto5.jpg" alt="">
-        <img class="img-publiacion" src="../../../assets/img/foto5.jpg" alt="">
-        <img class="img-publiacion" src="../../../assets/img/foto5.jpg" alt="">
-        <img class="img-publiacion" src="../../../assets/img/foto5.jpg" alt="">
+
+      <div class="contenedor-imagenes">
+        <div *ngFor="let fotoUrl of fotos" class="imagen">
+          <img [src]="fotoUrl" alt="Foto" class="img-publicacion">
+        </div>
       </div>
   </div>
   

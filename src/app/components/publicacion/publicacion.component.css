@@ -23,6 +23,25 @@ body, html{
     box-shadow: 0px 6px 20px rgba(86, 28, 186, 0.681);
 }
 
+.foto-publicacion {
+    width: 150px; /* Ajusta el tamaño según tus preferencias */
+    height: 150px; /* Ajusta el tamaño según tus preferencias */
+    border-radius: 50%; /* Aplica bordes redondeados */
+    object-fit: cover; /* Ajusta la imagen para que se ajuste al tamaño del contenedor */
+    margin: 5px; /* Añade un margen entre las imágenes */
+  }
+
+  .contenedor-imagenes {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  
+  .imagen {
+    margin: 5px;
+  }
+
 h2 {
     padding-top: 15px;
     padding-bottom: 10px;
@@ -51,7 +70,7 @@ button:hover {
     padding: 50px;
     
 }
-.img-publiacion {
+.img-publicacion {
     width: 150px;
     height: 150px;
     border-radius: 5%;

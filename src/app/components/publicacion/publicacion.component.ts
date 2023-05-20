@@ -18,6 +18,7 @@ export class PublicacionComponent implements OnInit {
 
   user$ = this.firebase.currentUserProfile$;
   searchControl = new FormControl('');
+  public fotos: string[] = [];
 
   users$ = combineLatest([this.firebase.allUsers$, this.user$, this.searchControl.valueChanges.pipe(startWith(''))]).pipe(
     map(([users, user, searchString]) => users.filter(u => u.nombre?.toLowerCase().includes(searchString?.toLowerCase() ?? '') && u.uid !== user?.uid))
@@ -39,8 +40,14 @@ export class PublicacionComponent implements OnInit {
       this.publicacionesService.getPublicacion(id).subscribe(publicacion => {
         this.publicacion = publicacion;
         localStorage.setItem('publicacionId', id);
+      // Obtener las URL de las fotos
+      this.firebase.getFotosURL(publicacion.uid, id).subscribe(urls => {
+        Promise.all(urls).then(resolvedUrls => {
+          this.fotos = resolvedUrls;
+        });
       });
-    }
+    });
+  }
   }
 
   createChat(otherUser: User) {

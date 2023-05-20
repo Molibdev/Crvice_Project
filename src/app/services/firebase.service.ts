@@ -11,6 +11,7 @@ import { User } from '../models/models';
 import { AuthService } from 'src/app/services/auth.service';
 import 'firebase/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ export class FirebaseService {
   constructor(private firestore:AngularFirestore,
               private fstore: Firestore,
               private authService: AuthService,
-              private auth: AngularFireAuth) { }
+              private auth: AngularFireAuth,
+              private storage: AngularFireStorage) { }
 
   createDoc(data: any, path: string, id:string) {
     const collection = this.firestore.collection(path);
@@ -95,6 +97,15 @@ export class FirebaseService {
 
   getCurrentUserUid(): Observable<string | null> {
     return this.auth.authState.pipe(map(user => user ? user.uid : null));
+  }
+
+  getFotosURL(userId: string, publicacionId: string) {
+    const path = `images/posts/${userId}/${publicacionId}`;
+    return this.storage.ref(path).listAll().pipe(
+      map(res => {
+        return res.items.map(item => item.getDownloadURL());
+      })
+    );
   }
 }
 
