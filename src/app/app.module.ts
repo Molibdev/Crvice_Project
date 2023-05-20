@@ -58,12 +58,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { PagoComponent } from './components/pago/pago.component';
 import { HotToastModule } from '@ngneat/hot-toast';
-<<<<<<< HEAD
 import { CrudAdminComponent } from './components/crud-admin/crud-admin.component';
-=======
 import { GestPublicacionesComponent } from './components/gest-publicaciones/gest-publicaciones.component';
 import { AdminEditPComponent } from './components/admin-edit-p/admin-edit-p.component';
->>>>>>> 5c63bd5418aaee63f528e81400035a7a40603c12
 
 @NgModule({
   declarations: [
@@ -92,12 +89,9 @@ import { AdminEditPComponent } from './components/admin-edit-p/admin-edit-p.comp
     RespTrabajoComponent,
     MapaComponent,
     PagoComponent,
-<<<<<<< HEAD
-    CrudAdminComponent,
-=======
     GestPublicacionesComponent,
     AdminEditPComponent,
->>>>>>> 5c63bd5418aaee63f528e81400035a7a40603c12
+    CrudAdminComponent,
 
   ],
   imports: [

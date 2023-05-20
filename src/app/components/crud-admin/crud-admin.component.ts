@@ -21,26 +21,11 @@ export class CrudAdminComponent implements OnInit{
 
   async ngOnInit() {
     this.uid = (await this.auth.getUid()) || '';
-    this.getInfoUser();
     this.firebase.allUsers$.subscribe((users: User[]) => {
       this.listUsers = users; // Corregir la asignación de los usuarios a listUsers
     });
   }
   
-  async getInfoUser() {
-    const path = 'Usuarios';
-    const id = this.uid;
-    this.firebase.getDoc<User>(path, id).subscribe(res => {
-      if (res) {
-        this.info = res;
-        console.log(this.info.perfil);
-  
-        if (this.info.perfil !== 3) {
-          this.router.navigate(['/index']);
-        }
-      }
-    });
-  }
 
   canActivate(): void {
     const userProfile = this.firebase.getUserProfile; // Replace with your own method to get the user's profile

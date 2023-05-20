@@ -23,9 +23,10 @@ import { MapaComponent } from './components/mapa/mapa.component';
 import { PagoComponent } from './components/pago/pago.component';
 import { GestPublicacionesComponent } from './components/gest-publicaciones/gest-publicaciones.component';
 import { AdminEditPComponent } from './components/admin-edit-p/admin-edit-p.component';
+import { CrudAdminComponent } from './components/crud-admin/crud-admin.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/index', pathMatch: 'full' },
   { path: 'index', component: IndexComponent },
   { path: 'login', component: LoginComponent },
   { path: 'busqueda/:termino', component: BusquedaComponent },
@@ -50,7 +51,9 @@ const routes: Routes = [
   { path: 'mapa', component: MapaComponent },
   { path: 'pago', component: PagoComponent },
   { path: 'gestionar-publicaciones', component: GestPublicacionesComponent },
-  { path: 'gest-editar-publicacion/:id', component: AdminEditPComponent }
+  { path: 'gest-editar-publicacion/:id', component: AdminEditPComponent },
+  { path: 'crud-admin', component: CrudAdminComponent,
+  ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
 
 ];
 
