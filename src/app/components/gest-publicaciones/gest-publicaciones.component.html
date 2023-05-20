@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Publicaciones</title>
+</head>
+<header>
+    <app-navbar></app-navbar>
+</header>
+<div class="container">
+    <h1>Publicaciones</h1>
+  
+    <div class="filter">
+      <label for="rutInput">Filtrar por RUT:</label>
+      <input type="text" id="rutInput" [(ngModel)]="rutUsuario" (input)="filtrarPublicaciones()" />
+    </div>
+  
+    <div class="places">
+      <div class="place" *ngFor="let publicacion of publicacionesFiltradas">
+        <div class="info">
+          <h2>Titulo: {{ publicacion.titulo }}</h2>
+          <small>Precio estimado: ${{ publicacion.precio }}</small>
+          <p>Descripcion: {{ publicacion.descripcion }}</p>
+          <p>RUT: {{ publicacion.rut }}-{{ publicacion.dv }}</p>
+          <p>Id de la Publicacion: {{publicacion.id}}</p>
+          <button (click)="editarPublicacion(publicacion.id)">Editar</button>
+          <button class="eliminar" (click)="eliminarPublicacion(publicacion.id)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<app-footer></app-footer>

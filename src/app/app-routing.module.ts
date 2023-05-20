@@ -21,6 +21,8 @@ import { RespTrabajoComponent } from './components/resp-trabajo/resp-trabajo.com
 import { CalificacionComponent } from './components/calificacion/calificacion.component';
 import { MapaComponent } from './components/mapa/mapa.component';
 import { PagoComponent } from './components/pago/pago.component';
+import { GestPublicacionesComponent } from './components/gest-publicaciones/gest-publicaciones.component';
+import { AdminEditPComponent } from './components/admin-edit-p/admin-edit-p.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -46,7 +48,10 @@ const routes: Routes = [
   { path: 'solicitar-trabajo/:id/:uid/:currentUserUid', component: SolicitarTrabajoComponent },
   { path: 'calificacion', component: CalificacionComponent },
   { path: 'mapa', component: MapaComponent },
-  { path: 'pago', component: PagoComponent }
+  { path: 'pago', component: PagoComponent },
+  { path: 'gestionar-publicaciones', component: GestPublicacionesComponent },
+  { path: 'gest-editar-publicacion/:id', component: AdminEditPComponent }
+
 ];
 
 @NgModule({
