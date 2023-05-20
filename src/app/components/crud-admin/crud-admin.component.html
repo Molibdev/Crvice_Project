@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CRUD de Usuarios</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
+<app-navbar></app-navbar>
 <body>
-  <h1>CRUD de Usuarios</h1>
-  
   <div class="container" >
-    <h2>Lista de Usuarios</h2>
-    <mat-icon [routerLink]="['/register']">add_circle_outline</mat-icon>
+    <div class="search">
+      <input type="text" [(ngModel)]="searchEmail" placeholder="Buscar por UID o Correo electrónico" class="searchTerm" (input)="filterUsers()" />
+      <button type="submit" class="searchButton">
+        <i class="fa fa-search"></i>
+     </button>
+    </div>
+    <div class="wrap2-wrapper">
+      <div id="wrap2" [routerLink]="['/register']">
+        <a class="btn-slide">
+          <span class="circle"><mat-icon>add_circle_outline</mat-icon></span>
+          <span class="title">Añadir usuario...</span>
+          <span class="title-hover"><mat-icon>keyboard_arrow_right</mat-icon></span>
+        </a>
+      </div>
+    </div>
     <table>
       <thead>
-        <tr >
+        <tr>
           <th>UID</th>
           <th>Nombre y Apellido</th>
           <th>Email</th>
@@ -19,59 +31,37 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let user of listUsers">
-          <tr>
+        <ng-container *ngIf="filteredUsers.length > 0; else noResults">
+          <tr *ngFor="let user of filteredUsers">
             <td>{{ user.uid }}</td>
             <td>{{ user.nombre }} {{ user.apellido }}</td>
             <td>{{ user.correo }}</td>
             <td>
-              <mat-icon mat-button [matMenuTriggerFor]="editUser">edit</mat-icon>
-              <mat-icon>visibility_off</mat-icon>
+              <div id="wrap" mat-button [matMenuTriggerFor]="editUser">
+                <a class="btn-slide">
+                  <span class="circle"><mat-icon>edit_attributes</mat-icon></span>
+                  <span class="title">Editar datos..</span>
+                  <span class="title-hover"><mat-icon>keyboard_arrow_down</mat-icon></span>
+                </a>
+                <a class="btn-slide">
+                  <span class="circle"><mat-icon>visibility_off</mat-icon></span>
+                  <span class="title">Deshabilitar..</span>
+                  <span class="title-hover"><mat-icon>keyboard_arrow_right</mat-icon></span>
+                </a>
+              </div>
             </td>
           </tr>
-          <mat-menu #editUser="matMenu" class="login-menu">
-            <ng-template matMenuContent>
-              <form>
-                
-                <div>
-                  <label for="nombre">Nombre: {{ user.nombre }} <mat-icon (click)="mostrarPromptNombre(user)">edit</mat-icon> </label>
-                </div>
-                <div>
-                  <label for="apellido">Apellido: {{ user.apellido }} <mat-icon (click)="mostrarPromptApellido(user)">edit</mat-icon> </label>
-                </div>
-                <div>
-                  <label for="rut">Rut: {{ user.rut }} <mat-icon (click)="mostrarPromptRut(user)">edit</mat-icon> </label>
-                </div>
-                <div>
-                  <label for="dv">Digito Verificador: {{ user.dv }} <mat-icon (click)="mostrarPromptDv(user)">edit</mat-icon> </label>
-                </div>
-                <div>
-                  <label for="telefono">Telefono: {{ user.telefono }} <mat-icon (click)="mostrarPromptTelefono(user)">edit</mat-icon> </label>
-                </div>
-                <div>
-                  <label for="direccion">Direccion: {{ user.direccion }} <mat-icon (click)="mostrarPromptDireccion(user)">edit</mat-icon> </label>
-                </div>
-                <div>
-                  <label for="numDireccion">Numero Direccion: {{ user.numDireccion }} <mat-icon (click)="mostrarPromptNumDireccion(user)">edit</mat-icon> </label>
-                </div>
-                <div>
-                  <label for="comuna">Comuna: {{ user.comuna }} <mat-icon (click)="mostrarPromptComuna(user)">edit</mat-icon> </label>
-                </div>
-                <div>
-                  <label for="email">Email: {{ user.correo }} <mat-icon (click)="mostrarPromptCorreo(user)">edit</mat-icon> </label>
-                </div>
-                <div>
-                  <label for="fNacimiento">Fecha Nacimiento: {{ user.nacimiento }}<mat-icon (click)="mostrarPromptNacimiento(user)">edit</mat-icon> </label>
-                </div>
-                <div>
-                  <label for="tCuenta">Tipo de cuenta: {{ user.perfil }}<mat-icon (click)="mostrarPromptTipoCuenta(user)">edit</mat-icon> </label>
-                </div>
-              </form>
-            </ng-template>
+          <mat-menu #editUser="matMenu" class="edit-menu">
+            <!-- Código del menú de edición -->
           </mat-menu>
         </ng-container>
       </tbody>
     </table>
   </div>
 </body>
+<ng-template #noResults>
+  <div class="no-results-message">
+    No se encontraron resultados.
+  </div>
+</ng-template>
 </html>

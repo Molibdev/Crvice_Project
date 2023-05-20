@@ -13,32 +13,45 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 export class CrudAdminComponent implements OnInit{
 
   listUsers: User[] = [];
+  filteredUsers: any[] = [];
   uid: string = ''
   info: User | null = null;
+  searchEmail: string = '';
+  noResults: boolean = false;
 
-  constructor(private firebase: FirebaseService, private auth: AuthService, private router: Router) {}
+  constructor(private firebase: FirebaseService, private auth: AuthService) {}
 
+
+  filterUsers() {
+    if (this.searchEmail === '') {
+      this.filteredUsers = this.listUsers;
+      this.noResults = false;
+    } else {
+      this.filteredUsers = this.listUsers.filter(user =>
+        user.uid.toLowerCase().includes(this.searchEmail.toLowerCase()) ||
+        user.correo.toLowerCase().includes(this.searchEmail.toLowerCase())
+      );
+      this.noResults = this.filteredUsers.length === 0;
+    }
+  }
+
+  
 
   async ngOnInit() {
     this.uid = (await this.auth.getUid()) || '';
     this.firebase.allUsers$.subscribe((users: User[]) => {
-      this.listUsers = users; // Corregir la asignación de los usuarios a listUsers
+      this.listUsers = users;
+      this.filteredUsers = this.listUsers; // Asignar todos los usuarios a filteredUsers
+      this.filterUsers(); // Aplicar el filtro inicialmente
     });
   }
   
 
+
   canActivate(): void {
     const userProfile = this.firebase.getUserProfile; // Replace with your own method to get the user's profile
     console.log(userProfile);
-    // if (userProfile. === 3) {
-    //   return true;
-    // } else {
-    //   this.router.navigate(['/']); // Redirect to the desired route for unauthorized access
-    //   return false;
-    // }
   }
-
-  
 
 
   // Editar Nombre

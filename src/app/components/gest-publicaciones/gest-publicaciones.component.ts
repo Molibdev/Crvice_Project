@@ -11,11 +11,11 @@ import { Router } from '@angular/router';
   templateUrl: './gest-publicaciones.component.html',
   styleUrls: ['./gest-publicaciones.component.css']
 })
-
 export class GestPublicacionesComponent implements OnInit {
   publicaciones!: Observable<any>;
   publicacionesFiltradas!: any[];
   rutUsuario: string = '';
+  noHayPublicaciones: boolean = false; // Variable para verificar si no hay publicaciones
 
   constructor(
     private publicacionService: PublicacionesService,
@@ -54,10 +54,12 @@ export class GestPublicacionesComponent implements OnInit {
           const rutCompleto = rutPublicacion + '-' + dvPublicacion;
           return rutCompleto.includes(rutFiltrado);
         });
+        this.noHayPublicaciones = this.publicacionesFiltradas.length === 0; // Verificar si no hay publicaciones
       });
     } else {
       this.publicaciones.subscribe(data => {
         this.publicacionesFiltradas = data;
+        this.noHayPublicaciones = false; // Restablecer la variable cuando no hay rut filtrado
       });
     }
   }
@@ -77,6 +79,4 @@ export class GestPublicacionesComponent implements OnInit {
         // Manejar el error de eliminación
       });
   }
-  
-  
-}  
+}

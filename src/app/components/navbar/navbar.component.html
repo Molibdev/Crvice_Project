@@ -1,3 +1,6 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
 <nav class="navbar">
     <div class="logo">
       <img src="../../../assets/img/logo_transparent.png" alt="">
@@ -50,7 +53,7 @@
         <mat-icon>supervised_user_circle</mat-icon>
         Administración de Usuarios
       </button>      
-      <button mat-menu-item *ngIf="info?.perfil == 3">
+      <button mat-menu-item routerLink="/gestionar-publicaciones" *ngIf="info?.perfil == 3">
         <mat-icon>archive</mat-icon>
         Administración de Publicaciones
       </button>

@@ -18,6 +18,63 @@
 
 }
 
+.no-publicaciones {
+    margin-top: 20px;
+    font-size: 16px;
+    color: red;
+  }
+
+/* barra de busqueda */
+
+
+.search {
+    width: 60%;
+    position: relative;
+    display: flex;
+  }
+
+
+  
+  .searchTerm {
+    width: 100%;
+    border: 3px solid #00B4CC;
+    border-right: none;
+    padding: 0px;
+    height: 45px;
+    border-radius: 10px 40px 40px 10px;
+    outline: none;
+    color: #9DBFAF;
+  }
+  
+  .no-results-message {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .searchTerm:focus{
+    color: #00B4CC;
+  }
+  
+  .searchButton {
+    width: 40px;
+    padding: 5px;
+    height: 40px;
+    border: 1px solid #00B4CC;
+    background: #00B4CC;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+
+/* fin barra de busqueda */
+
+
+
 .place .info {
     padding: 10px 20px;
     

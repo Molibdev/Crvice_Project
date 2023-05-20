@@ -97,7 +97,7 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.auth.logout();
     console.log('se ha cerrado la sesion')
-    this.router.navigate(['/login'])
+    this.router.navigate(['/index'])
   }
 
 }

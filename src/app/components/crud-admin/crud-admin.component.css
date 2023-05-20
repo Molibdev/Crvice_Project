@@ -71,3 +71,339 @@ body {
   .delete-link {
     color: #d9534f;
   }
+
+  .container {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  
+  table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  th, td {
+    white-space: nowrap;
+  }
+  
+  @media screen and (max-width: 600px) {
+    th, td {
+      display: block;
+    }
+    
+    th {
+      text-align: center;
+    }
+    
+    td {
+      text-align: left;
+    }
+  }
+
+  .edit-icon {
+    color: white;
+    background-color: rgb(0, 0, 0);
+    border-radius: 50%;
+    padding: 0px 10px 10px 1px;
+    font-size: 20px;
+    line-height: 25px;
+    margin: 0px auto
+  }
+
+  .wrap3 {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  .user-text {
+    margin-right: 10px;
+  }
+
+  .search-bar {
+    width: 200px;
+    height: 30px;
+    margin-bottom: 10px;
+  }
+
+  
+  
+  .button3 {
+    width: 100px; /* Adjust the width as needed */
+    height: 45px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    margin-left: 10px; 
+    }
+
+  .mat-icon-edit{
+    display: flex;
+    align-items: center;
+    padding-right: 0px;
+  }
+
+  .label-wrap {
+    display: flex;
+    align-items: center;
+  }
+
+  .label-text {
+    margin-right: 10px;
+  }
+  
+  .button3:hover {
+    background-color: #2EE59D;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+  }
+
+  /* boton editar */
+
+  #wrap {
+    margin: 0px auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  #wrap2 {
+    margin: 5px auto;
+    text-align: center;
+    display: flex;
+    justify-content: flex-end; 
+    margin-left: auto;
+  }
+
+  .btn-slide, .btn-slide2 {
+    position: relative;
+    display: inline-block;
+    height: 50px;
+    width: 2700px;
+    line-height: 50px;
+    padding: 0;
+    border-radius: 50px;
+    background: #fdfdfd;
+    border: 2px solid #0099cc;
+    margin: 10px;
+    transition: .5s;
+    text-align: center;
+    margin: 0 10px; 
+  }
+
+  .btn-slide2 {
+    border: 2px solid #efa666;
+  }
+
+  .btn-slide:hover {
+    background-color: #0099cc;
+  }
+
+  .btn-slide2:hover {
+    background-color: #efa666;
+  }
+
+  .btn-slide:hover span.circle, .btn-slide2:hover span.circle2 {
+    left: 100%;
+    margin-left: -45px;
+    background-color: #fdfdfd;
+    color: #0099cc;
+  }
+
+  .btn-slide2:hover span.circle2 {
+    color: #efa666;
+  }
+
+  .btn-slide:hover span.title, .btn-slide2:hover span.title2 {
+    left: 40px;
+    opacity: 0;
+  }
+
+  .btn-slide:hover span.title-hover, .btn-slide2:hover span.title-hover2 {
+    opacity: 1;
+    left: 40px;
+  }
+
+  .btn-slide span.circle, .btn-slide2 span.circle2 {
+    display: block;
+    background-color: #0099cc;
+    color: #fff;
+    position: absolute;
+    float: left;
+    margin: 3px;
+    line-height: 54px;
+    height: 40px;
+    width: 40px;
+    top: 0;
+    left: 0;
+    transition: .5s;
+    border-radius: 50%;
+  }
+
+  .btn-slide2 span.circle2 {
+    background-color: #efa666;
+  }
+
+  .btn-slide span.title,
+  .btn-slide span.title-hover, .btn-slide2 span.title2,
+  .btn-slide2 span.title-hover2 {
+    position: absolute;
+    left: 90px;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 16px;
+    font-weight: bold;
+    color: #30abd5;
+    transition: .5s;
+  }
+
+  .btn-slide2 span.title2,
+  .btn-slide2 span.title-hover2 {
+    color: #efa666;
+    left: 80px;
+  }
+
+  .btn-slide span.title-hover, .btn-slide2 span.title-hover2 {
+    left: 80px;
+    opacity: 0;
+  }
+
+  .btn-slide span.title-hover, .btn-slide2 span.title-hover2 {
+    color: #fff;
+  }
+
+  .estrellas {
+    color: yellow;
+    display: inline-flex; 
+    flex-direction: row;
+  }
+
+  .llena {
+    color: gold;
+  }
+
+  .vacia {
+    color: gray;
+  }
+
+  .etiqueta {
+    margin-right: 5px; 
+  }
+
+.btn-slide span.title,
+.btn-slide span.title-hover,
+.btn-slide2 span.title2,
+.btn-slide2 span.title-hover2 {
+  left: 56%;
+  transform: translateX(-50%);
+}
+
+.btn-slide span.circle,
+.btn-slide2 span.circle2 {
+  margin-left: 5px; 
+  margin-top: 3.5px;
+}
+
+.btn-slide span.title-hover mat-icon,
+.btn-slide2 span.title-hover2 mat-icon {
+  font-size: 30px;
+  margin: 0 auto; 
+}
+
+
+/* Mat - menu */
+
+.edit-menu {
+  padding: 10px; /* Ajusta el espacio interno del mat-menu */
+}
+
+.edit-menu label {
+  display: inline-block;
+  padding: 5px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: max-content; /* Establece el ancho máximo basado en el contenido */
+}
+
+.edit-menu mat-icon {
+  display: table;
+  width: 100%;
+  margin-left: 5px; /* Ajusta el espacio entre el texto y el ícono */
+}
+
+.edit-menu-content {
+  padding: 10px; /* Ajusta el espacio interno del contenido */
+}
+
+.edit-menu-content label {
+  display: inline-block;
+  padding: 5px;
+  margin-bottom: 5px;
+  border: 2px solid #ccc; /* Establece un borde */
+  border-radius: 5px; /* Agrega bordes redondeados */
+}
+
+.edit-menu-content mat-icon {
+  margin-left: 5px; /* Ajusta el espacio entre el texto y el ícono */
+}
+
+.edit-menu-content div {
+  white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+}
+
+
+
+
+/* Barra de busqueda */
+
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #00B4CC;
+  border-right: none;
+  padding: 5px;
+  height: 36.5px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.no-results-message {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.searchTerm:focus{
+  color: #00B4CC;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #00B4CC;
+  background: #00B4CC;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
