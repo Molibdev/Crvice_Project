@@ -1,0 +1,103 @@
+body, html{
+    background-color: #8EC5FC;
+    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.nueva-publicacion {
+    background-color: white;
+    width: 70vw;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align:left;
+    padding-bottom: 20px;
+    box-shadow: 0px 6px 20px rgba(86, 28, 186, 0.681);
+}
+p{
+    font-size: 18px;
+}
+small{
+    color: #a41515;
+}
+.icon-text-container {
+    display: flex;
+    align-items: center;
+}
+mat-icon{
+    font-size: 20px;
+    margin-right: 5px; 
+
+}
+h2{
+    margin-top: 20px;
+}
+
+button {
+    background-color:#228BFB;
+    color: #fff;
+    border: none;
+    padding: 5px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.276);
+    margin: 10px;
+    width: 160px;
+}
+button:hover {
+    background-color: #1e71ca;
+}
+.contenerdor-info{
+    width: 100%;
+    height: auto;
+    padding: 50px;
+    
+}
+.img-publicacion {
+    width: 150px;
+    height: 150px;
+    border-radius: 5%;
+    object-fit: cover;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.162);
+    margin: 5px;
+}
+
+.form-nombre {
+    border: solid 1px #ccc;
+    padding: 10px;
+}
+
+.form-nombre:focus{
+    outline: none;
+    border-color: #6f86d6 ;
+}
+textarea {
+    width: 40rem;
+}
+
+@media (max-width: 1000px) {
+    #myTextarea {
+        width:35rem;
+    }
+}
+
+@media (max-width: 900px) {
+    #myTextarea {
+        width:30rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #myTextarea {
+        width:13rem;
+    }
+}

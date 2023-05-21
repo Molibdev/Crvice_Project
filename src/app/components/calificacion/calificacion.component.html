@@ -1,23 +1,33 @@
-<h2>Calificar usuario {{ usuarioCalificado?.nombre }}</h2>
-<div>
-  <label for="calificacion">Calificación:</label>
-  <select [(ngModel)]="calificacion" id="calificacion">
-    <option value="0">0 estrellas</option>
-    <option value="1">1 estrella</option>
-    <option value="2">2 estrellas</option>
-    <option value="3">3 estrellas</option>
-    <option value="4">4 estrellas</option>
-    <option value="5">5 estrellas</option>
-  </select>
-  <div>
-    <label for="comentario">Comentario:</label>
-    <textarea id="comentario" [(ngModel)]="comentario"></textarea>
+
+<body>
+    
+  <div class="nueva-publicacion">
+    <h2>Calificar usuario {{ usuarioCalificado?.nombre }}</h2>
+      <div class="calificacion-estrellas">
+        <div class="form-publicacion">
+          <p for="calificacion">Calificación:</p>
+        </div>
+        <div class="form-publicacion">
+          <select [(ngModel)]="calificacion" id="calificacion" class="form-nombre">
+            <option value="0">0 estrellas</option>
+            <option value="1">1 estrella</option>
+            <option value="2">2 estrellas</option>
+            <option value="3">3 estrellas</option>
+            <option value="4">4 estrellas</option>
+            <option value="5">5 estrellas</option>
+          </select>
+        </div>
+
+      </div>
+      
+      <div class="form-publicacion">
+        <p for="comentario">Comentario:</p>
+        <textarea class="form-nombre" rows="2" cols="30" id="comentario" [(ngModel)]="comentario"></textarea>
+      </div>
+      
+      <button  class="btn btn-info" (click)="calificar()">Calificar</button>    
   </div>
-</div>
-<button (click)="calificar()">Calificar</button>
-
-
-
+</body>
 
 
 

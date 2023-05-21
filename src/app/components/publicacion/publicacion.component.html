@@ -20,7 +20,7 @@
         
         <div class="div-botones">
           <div *ngFor="let user of users$ | async">
-            <button *ngIf="user.uid === publicacion.uid" (click)="createChat(user)">Enviar Mensajer</button>
+            <button *ngIf="user.uid === publicacion.uid" (click)="createChat(user)">Enviar Mensaje</button>
           </div>    
           <div *ngFor="let user of users$ | async">
             <button *ngIf="user.uid === publicacion.uid" (click)="solicitarTrabajo()">Solicitar Trabajo</button>

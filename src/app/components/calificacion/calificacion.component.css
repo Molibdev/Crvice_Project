@@ -1,0 +1,73 @@
+body, html{
+    background-image: linear-gradient(to top, #48c6ef 0%, #6f86d6 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.nueva-publicacion {
+    background-color: white;
+    width: 490px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align:left;
+    padding-bottom: 20px;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5);
+
+}
+.calificacion-estrellas{
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+}
+.calificacion-estrellas p{
+    margin-right: 35px;
+}
+h2 {
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+
+input, textarea {
+    border: 0;
+    outline: none;
+    width: 100%;
+}
+
+.form-nombre {
+    border: solid 1px #ccc;
+    padding: 10px;
+}
+
+.form-nombre:focus{
+    outline: none;
+    border-color: #6f86d6 ;
+}
+
+.btn {
+    margin-top: 20px;
+    padding: 10px 50px;
+    background: #228BFB;
+    border-radius: 10px;
+    color: white;
+    border: none;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+    font-weight: 600;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #1e71ca;
+}
+
+textarea, input {
+    font-family: 'Poppins', sans-serif;
+}
