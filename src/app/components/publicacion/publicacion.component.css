@@ -57,6 +57,7 @@ button {
     font-weight: 600;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.276);
     margin: 10px;
+    width: 160px;
 }
 button:hover {
     background-color: #1e71ca;
