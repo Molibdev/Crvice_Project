@@ -16,9 +16,9 @@
     <div class="place" *ngFor="let trabajo of trabajos">
       
       <div class="info">
-        <p>Titulo de la publicación: {{ trabajo.publicacion?.titulo }} </p>
-        <p>Precio Trabajo: {{ trabajo.precio }}</p>
-        <p>Estado: {{ trabajo.estado }}</p>
+        <p><b>Titulo de la publicación:</b> {{ trabajo.publicacion?.titulo }} </p>
+        <p><b>Precio Trabajo:</b> ${{ trabajo.precio }}</p>
+        <p><b>Estado:</b> {{ trabajo.estado }}</p>
         <button *ngIf="trabajo.estado !== 'Cancelado'" (click)="responderSolicitud(trabajo)">Responder</button>
       </div>
     </div>

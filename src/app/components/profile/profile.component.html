@@ -40,10 +40,10 @@
                     <label>Correo Electronico:</label>
                     <p> {{info.correo}} </p>
                     <hr>
-                    <label>Telefono:</label>
+                    <label>Teléfono:</label>
                     <p class="p-datos"> {{info.telefono}} <button class="editar span-button" (click)="mostrarPromptTelefono()">Editar</button></p>
                     <hr>
-                    <label>Direccion:</label>
+                    <label>Dirección:</label>
                     <p class="p-datos"> {{info.direccion}} <button class="editar span-button" (click)="mostrarPromptDireccion()">Editar</button></p>
                     <hr>
                     <label>Comuna:</label>
@@ -68,8 +68,8 @@
     </section>
     <!-- seccion comentarios -->
     <div class="container contenedor-comentario">
-      <h2>Calificacion y Comentarios</h2>
-      <p>Calificacion General: {{ averageRating }}</p>
+      <h2>Calificación y Comentarios</h2>
+      <p>Calificación General: {{ averageRating }}</p>
       <div class="comentario" *ngFor="let calificacion of ratings.slice(0, contador)">
         <div>
           <img class="img-comentario" src="../../../assets/img/foto1.jpg" alt="">
