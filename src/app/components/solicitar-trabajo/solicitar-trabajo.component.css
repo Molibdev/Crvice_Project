@@ -37,28 +37,8 @@ mat-icon{
     margin-right: 5px; 
 
 }
-.foto-publicacion {
-    width: 150px; 
-    height: 150px; 
-    border-radius: 50%; 
-    object-fit: cover; 
-    margin: 5px; 
-  }
-
-.contenedor-imagenes {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+h2{
     margin-top: 20px;
-  }
-  
-.imagen {
-    margin: 5px;
-  }
-
-h2 {
-    padding-top: 15px;
-    padding-bottom: 10px;
 }
 
 button {
@@ -91,6 +71,33 @@ button:hover {
     margin: 5px;
 }
 
-.imagenes{
-    padding: 0 50px;
+.form-nombre {
+    border: solid 1px #ccc;
+    padding: 10px;
+}
+
+.form-nombre:focus{
+    outline: none;
+    border-color: #6f86d6 ;
+}
+textarea {
+    width: 40rem;
+}
+
+@media (max-width: 1000px) {
+    #myTextarea {
+        width:35rem;
+    }
+}
+
+@media (max-width: 900px) {
+    #myTextarea {
+        width:30rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #myTextarea {
+        width:13rem;
+    }
 }
