@@ -1,14 +1,32 @@
-<h1>Detalles de la Solicitud</h1>
-<div *ngIf="publicacion && trabajo">
-  <h2>Trabajo</h2>
-  <p>Título de la publicación: {{ publicacion.titulo }}</p>
-  <p>Comentario del usuario: {{ trabajo.mensaje }}</p>
-  <p>Nombre del Trabajador: {{ nombreTrabajador }}</p>
-  <p>Precio Estimado {{ trabajo.precio }}</p>
-  <p>Estado: {{ trabajo.estado }}</p>
-  <p>Mensaje del Trabajador: {{ trabajo.mensajeTrabajador }}</p>
-<button type="submit" class="btn btn-primary" (click)="aceptarTrabajo()">Contratar</button>
-<button type="submit" class="btn btn-primary" (click)="rechazarTrabajo()">Rechazar Propuesta</button>
-<button type="submit" class="btn btn-primary" (click)="calificar()">Completar trabajo</button>
-<button type="submit" class="btn btn-primary" (click)="pagar()">Pagar Abono</button>
+
+<app-navbar></app-navbar>
+
+<div class="container">
+  <h1>Detalles de la Solicitud</h1>
+
+  <div class="places">
+
+    <div class="place" *ngIf="publicacion && trabajo">
+      <h2>Trabajo</h2>
+      <p><b>Título de la publicación:</b> {{ publicacion.titulo }}</p>
+      <p><b>Comentario del usuario:</b> {{ trabajo.mensaje }}</p>
+      <p><b>Nombre del Trabajador:</b> {{ nombreTrabajador }}</p>
+      <p><b>Precio Estimado:</b> ${{ trabajo.precio }}</p>
+      <p><b>Estado:</b> {{ trabajo.estado }}</p>
+      <p><b>Mensaje del Trabajador:</b> {{ trabajo.mensajeTrabajador }}</p>
+      <div class="div-button">
+        <button type="submit" class="btn btn-primary" (click)="aceptarTrabajo()">Contratar</button>
+        <button type="submit" class="btn btn-primary" (click)="rechazarTrabajo()">Rechazar Propuesta</button>
+        <button type="submit" class="btn btn-primary" (click)="calificar()">Completar trabajo</button>
+        <button type="submit" class="btn btn-primary" (click)="pagar()">Pagar Abono</button>
+
+      </div>
+      
+    </div>
+
+  </div>
+
+
 </div>
+
+<app-footer></app-footer>
