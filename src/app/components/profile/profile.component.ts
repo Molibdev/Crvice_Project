@@ -5,9 +5,12 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UploadImageService } from 'src/app/services/upload-image.service';
 import { UsersService } from 'src/app/services/users.service';
-import { catchError, of, switchMap, tap, throwError } from 'rxjs';
+import { catchError, combineLatest, map, of, startWith, switchMap, tap, throwError } from 'rxjs';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Calificacion } from 'src/app/models/models';
+import { InteractionService } from 'src/app/services/interaction.service';
+import { FormControl } from '@angular/forms';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -18,6 +21,11 @@ export class ProfileComponent implements OnInit {
   uid: string = ''
   info: User | null = null;
   user$ = this.usersService.currentUserProfile$;
+  searchControl = new FormControl('');
+  
+  users$ = combineLatest([this.firestore.allUsers$, this.user$, this.searchControl.valueChanges.pipe(startWith(''))]).pipe(
+    map(([users, user, searchString]) => users.filter(u => u.nombre?.toLowerCase().includes(searchString?.toLowerCase() ?? '') && u.uid !== user?.uid))
+  );
 
   ratings: Calificacion[] = [];
   contador: number = 1;
@@ -33,13 +41,18 @@ export class ProfileComponent implements OnInit {
   direccion: string = '';
   nacimiento: string = '';
   perfil: string = '';
+  mostrarDialogo: boolean = false;
+  editingField: string = '';
+  chatListControl = new FormControl<string[]>([]);
+  adminId : string = '6VD9LeSM0qSBwP0AsyhylOZDMIx2'
 
   constructor(private auth: AuthService,
               private router: Router,
               private firestore: FirebaseService,
               private imageUploadService: UploadImageService,
               private usersService: UsersService,
-              private toast: HotToastService) {
+              private toast: HotToastService,
+              private chat: InteractionService) {
 
   }
 
@@ -51,6 +64,42 @@ export class ProfileComponent implements OnInit {
     this.getInfoUser();
     this.auth.stateUser().subscribe(res => 
       console.log('en perfil - estado de autentificacion ->', res));
+  }
+
+  onCustomPromptSave(value: string) {
+    if (this.editingField === 'telefono') {
+      this.saveTelefono(value);
+    } 
+    
+
+    // Cerrar el prompt
+    this.closePrompt();
+  }
+
+  
+
+  mostrarPrompt(field: string) {
+    this.editingField = field;
+    this.mostrarDialogo = true;
+  }
+
+  closePrompt() {
+    this.mostrarDialogo = false;
+  }
+
+  createChat(otherUser: User) {
+    this.chat.isExistingChat(otherUser?.uid).pipe(
+      switchMap(chatId => {
+        if (chatId) {
+          return of(chatId);
+        } else {
+          return this.chat.createChat(otherUser);
+        }
+      })
+    ).subscribe(chatId => {
+      this.chatListControl.setValue([chatId]);
+    })
+    this.router.navigate(['/chat'])
   }
 
 
@@ -85,88 +134,15 @@ export class ProfileComponent implements OnInit {
     console.log('Calificación Promedio:', this.averageRating);
   }
   
-  
 
-  
 
-  mostrarPromptNombre() {
-    const nombre = prompt("Ingrese Nombre para actualizar:");
-    if (nombre != null) {
-      console.log("El usuario ingresó el valor: " + nombre);
-      const usuario = { nombre: nombre };
-      this.saveNombre(usuario);
-    }
-  }
-
-  saveNombre(usuario: any){
+  saveTelefono(telefono: string) {
     const path = 'Usuarios';
     const id = this.uid;
-    const updateDoc = {
-      nombre: usuario.nombre
-    };
-    this.firestore.updateDoc(path, id, updateDoc).then( () => {
-      console.log('Nombre Actualizado con exito')
-    })
-  }
-
-  mostrarPromptApellido() {
-    const apellido = prompt("Ingrese Apellido para actualizar:");
-    if (apellido != null) {
-      console.log("El usuario ingresó el valor: " + apellido);
-      const usuario = { apellido: apellido };
-      this.saveApellido(usuario);
-    }
-  }
-
-  saveApellido(usuario: any){
-    const path = 'Usuarios';
-    const id = this.uid;
-    const updateDoc = {
-      apellido: usuario.apellido
-    };
-    this.firestore.updateDoc(path, id, updateDoc).then( () => {
-      console.log('Apellido actualizado con exito')
-    })
-  }
-
-  mostrarPromptTelefono() {
-    const telefono = prompt("Ingrese Nuevo Telefono");
-    if (telefono != null) {
-      console.log("El usuario ingresó el valor: " + telefono);
-      const usuario = { telefono: telefono };
-      this.saveTelefono(usuario);
-    }
-  }
-
-  saveTelefono(usuario: any){
-    const path = 'Usuarios';
-    const id = this.uid;
-    const updateDoc = {
-      telefono: usuario.telefono
-    };
-    this.firestore.updateDoc(path, id, updateDoc).then( () => {
-      console.log('Telefono actualizado con exito')
-    })
-  }
-
-  mostrarPromptDireccion() {
-    const direccion = prompt("Ingrese Nueva Direccion:");
-    if (direccion != null) {
-      console.log("El usuario ingresó el valor: " + direccion);
-      const usuario = { direccion: direccion };
-      this.saveDireccion(usuario);
-    }
-  }
-
-  saveDireccion(usuario: any){
-    const path = 'Usuarios';
-    const id = this.uid;
-    const updateDoc = {
-      direccion: usuario.direccion
-    };
-    this.firestore.updateDoc(path, id, updateDoc).then( () => {
-      console.log('Direccion actualizada con exito')
-    })
+    const updateDoc = { telefono };
+    this.firestore.updateDoc(path, id, updateDoc).then(() => {
+      console.log('Telefono actualizado con éxito');
+    });
   }
 
   async resetPassword() {

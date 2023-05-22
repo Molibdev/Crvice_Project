@@ -29,28 +29,50 @@
           <h2>Datos Personales</h2>
           <div class="datos" *ngIf="info">
                     <label>Nombre:</label>
-                    <p class="p-datos"> {{info.nombre}} <span class="span-button"><button class="editar"(click)="mostrarPromptNombre()">Editar</button></span> </p>
+                    <p class="p-datos"> {{info.nombre}} </p>
                     <hr>
                     <label>Apellido:</label>
-                    <p class="p-datos"> {{info.apellido}} <button class="editar span-button" (click)="mostrarPromptApellido()">Editar</button></p>
+                    <p class="p-datos"> {{info.apellido}} </p>
                     <hr>
                     <label>RUT:</label>
-                    <p> {{info.rut}}-{{info.dv}} </p>
+                    <p> {{info.rut}}-{{info.dv}} 
+                    </p>
                     <hr>
                     <label>Correo Electronico:</label>
                     <p> {{info.correo}} </p>
                     <hr>
                     <label>Teléfono:</label>
-                    <p class="p-datos"> {{info.telefono}} <button class="editar span-button" (click)="mostrarPromptTelefono()">Editar</button></p>
+                    <p class="p-datos"> {{info.telefono}} 
+                    </p>
+                    <!-- prompt -->
+                    <div class="profile">
+                      <!-- Otros elementos HTML existentes... -->
+                      <button (click)="mostrarPrompt('telefono')">Editar</button>
+                      <div class="dialog-overlay" *ngIf="mostrarDialogo">
+                        <div class="dialog-container">
+                          <app-custom-prompt (saveClicked)="onCustomPromptSave($event)" (promptClosed)="closePrompt()"></app-custom-prompt>
+                        </div>
+                      </div>                          
+                    </div>
+                    <!-- prompt -->
                     <hr>
                     <label>Dirección:</label>
-                    <p class="p-datos"> {{info.direccion}} <button class="editar span-button" (click)="mostrarPromptDireccion()">Editar</button></p>
+                    <p class="p-datos"> {{info.direccion}} {{info.numDireccion}} 
+                    </p>
                     <hr>
                     <label>Comuna:</label>
-                    <p class="p-datos"> {{info.comuna}} <button class="editar span-button" (click)="mostrarPromptDireccion()">Editar</button></p>
+                    <p class="p-datos"> {{info.comuna}} 
+                    </p>
                     <hr>
                     <label>Fecha de Nacimiento:</label>
-                    <p> {{info.nacimiento}} </p>
+                    <p> {{info.nacimiento}} 
+                    </p>
+                    <hr>
+                    <hr>
+                    <p> Si necesitas asistencia en cambio de tus datos, habla con nosotros </p> 
+                    <div div *ngFor="let user of users$ | async">
+                      <p *ngIf="user.uid == adminId" (click)="createChat(user)">aqui</p>
+                    </div> 
                     <hr>
                     <div class="div-botones">
                         <!-- <button class="cerrar-sesion" (click)="resetPassword()">Cambiar contraseña</button> -->
@@ -62,6 +84,7 @@
                         <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '3'" (click)="gestPublicaciones()">Gestionar Publicaciones</button>
 
                     </div>
+                    
                 </div>
             </div>
         </div>

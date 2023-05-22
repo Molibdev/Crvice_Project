@@ -61,6 +61,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
 import { CrudAdminComponent } from './components/crud-admin/crud-admin.component';
 import { GestPublicacionesComponent } from './components/gest-publicaciones/gest-publicaciones.component';
 import { AdminEditPComponent } from './components/admin-edit-p/admin-edit-p.component';
+import { CustomPromptComponent } from './components/custom-prompt/custom-prompt.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { AdminEditPComponent } from './components/admin-edit-p/admin-edit-p.comp
     GestPublicacionesComponent,
     AdminEditPComponent,
     CrudAdminComponent,
+    CustomPromptComponent,
 
   ],
   imports: [

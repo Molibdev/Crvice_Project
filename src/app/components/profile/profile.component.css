@@ -438,3 +438,39 @@ button {
     margin-right: 5px; 
   }
   
+  .profile {
+    position: relative;
+  }
+  
+  .dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  
+  .dialog-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .datos-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .p-datos {
+    margin-right: 10px; /* Ajusta el margen según tus necesidades */
+  }
+  
+  .edit-button {
+    margin-left: auto;
+  }

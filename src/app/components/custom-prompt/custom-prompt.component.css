@@ -1,0 +1,35 @@
+.custom-prompt {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  
+  .custom-prompt input {
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .close-button {
+    position: absolute;
+    top: -35px;
+    right: -35px;
+    width: 35px;
+    height: 35px;
+    background-color: black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  .close-button mat-icon {
+    color: white;
+    font-size: 18px;
+    line-height: 25px;
+    padding-left: 3.5px;
+  }
