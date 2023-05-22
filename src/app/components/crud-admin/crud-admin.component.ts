@@ -13,7 +13,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 export class CrudAdminComponent implements OnInit{
 
   listUsers: User[] = [];
-  filteredUsers: any[] = [];
+  filteredUsers: User[] = [];
   uid: string = ''
   info: User | null = null;
   searchEmail: string = '';
