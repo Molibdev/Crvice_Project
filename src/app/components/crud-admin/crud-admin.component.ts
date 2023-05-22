@@ -18,6 +18,7 @@ export class CrudAdminComponent implements OnInit{
   info: User | null = null;
   searchEmail: string = '';
   noResults: boolean = false;
+  users: any[] = [];
 
   constructor(private firebase: FirebaseService, private auth: AuthService) {}
 
