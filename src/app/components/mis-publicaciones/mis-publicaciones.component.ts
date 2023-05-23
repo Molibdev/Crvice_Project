@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Publicacion } from 'src/app/models/publicacion'; 
 import { PublicacionesService } from 'src/app/services/publicaciones.service';
 import { Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-mis-publicaciones',
@@ -16,7 +17,8 @@ export class MisPublicacionesComponent implements OnInit {
   constructor(
     private publicacionesService: PublicacionesService,
     private auth: AngularFireAuth,
-    private router: Router
+    private router: Router,
+    private toast: HotToastService
   ) {}
 
   ngOnInit() {
@@ -35,4 +37,17 @@ export class MisPublicacionesComponent implements OnInit {
       this.router.navigate(['/editar-publicacion', id]);
     }
   }
+
+  eliminarPublicacion(publicacionId: string) {
+    this.publicacionesService.deletePublicacion(publicacionId)
+      .then(() => {
+        console.log('Publicación eliminada correctamente');
+        this.toast.success('Publicación eliminada correctamente');
+      })
+      .catch((error: any) => {
+        console.error('Error al eliminar la publicación:', error);
+        // Manejar el error de eliminación
+      });
+  }
+
 }

@@ -16,6 +16,8 @@
           <small>Precio estimado: ${{publicacion.precio}}</small>
           <p>{{ publicacion.descripcion }}</p>
           <button (click)="abrirPublicacion(publicacion.id)">Editar</button>
+          <button class="eliminar" (click)="publicacion.id && eliminarPublicacion(publicacion.id)">Eliminar</button>
+
         </div>
       </div>
   </div>
