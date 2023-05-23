@@ -6,6 +6,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { Storage, ref, uploadBytes, listAll, getDownloadURL} from '@angular/fire/storage'
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 
 
 @Component({
@@ -27,7 +28,8 @@ export class NuevaPublicacionComponent implements OnInit {
     private firebaseService: FirebaseService,
     private storage: Storage,
     private authfirebase: AngularFireAuth,
-    private route: Router
+    private route: Router,
+    private toast: HotToastService
   ) {
       this.formulario = new FormGroup({
         titulo: new FormControl(),
@@ -77,19 +79,22 @@ export class NuevaPublicacionComponent implements OnInit {
   }
 
   async onSubmit($event:any) {
-    console.log(this.formulario.value)
-    const publicacionId = await this.publicacionesService.addPublicacion(this.formulario.value);
-    console.log('ID de la publicación:', publicacionId);
-
     const filesCount = this.fileInputRef.reduce(
       (count, input) => count + input.files.length,
       0
     );
-  
+
     if (filesCount > this.maxPhotosAllowed) {
       console.log('Se excede la cantidad máxima de fotos permitidas.');
+      this.toast.error('Excede la cantidad máxima de fotos permitidas.');
       return;
     }
+
+    console.log(this.formulario.value)
+    const publicacionId = await this.publicacionesService.addPublicacion(this.formulario.value);
+    
+    console.log('ID de la publicación:', publicacionId);
+ 
   
     for (let i = 0; i < this.fileInputRef.length; i++) {
       const files = this.fileInputRef[i].files;
@@ -102,7 +107,7 @@ export class NuevaPublicacionComponent implements OnInit {
           this.storage,
           `images/posts/${user?.uid}/${publicacionId}/${file.name}`
         );
-  
+        this.toast.success('Guardado correctamente!');
         try {
           const response = await uploadBytes(imgRef, file);
           console.log(response);
