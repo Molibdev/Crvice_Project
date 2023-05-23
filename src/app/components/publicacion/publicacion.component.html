@@ -1,42 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Publicación</title>
+    <title>Pubicacion</title>
 </head>
+<app-navbar></app-navbar>
 <body>
-  <div class="nueva-publicacion" *ngIf="publicacion">
-      <h2>{{ publicacion.titulo }}</h2>
-      <div class="contenerdor-info">
-
-        <div class="info">
-          <p><b>Trabajador:</b>  {{ publicacion.nombre }} {{ publicacion.apellido }}</p>
-          <p><b>Rubro:</b>  {{ publicacion.rubro }}</p>
-          <p><b>Descripción:</b> {{ publicacion.descripcion }}</p>
-          <p><b>Precio:</b> ${{ publicacion.precio }}</p>
-        </div>
-        
-        <div class="div-botones">
-          <div *ngFor="let user of users$ | async">
-            <button *ngIf="user.uid === publicacion.uid" (click)="createChat(user)">Enviar Mensaje</button>
-          </div>    
-          <div *ngFor="let user of users$ | async">
-            <button *ngIf="user.uid === publicacion.uid" (click)="solicitarTrabajo()">Solicitar Trabajo</button>
+    
+    <!-- seccion datos personales -->
+    <section class="datos-personales">
+      <div class="container">
+        <div class="izq">
+          <div class="div-imagen">
+            <div class="contenedor-imagenes">
+              <div class="imagen">
+                <img *ngIf="fotoActual" [src]="fotoActual" alt="Foto" class="img-publicacion">
+              </div>
+            </div>
+          </div>
+          <div class="botones">
+            <button class="boton-anterior" (click)="mostrarImagenAnterior()">&#60;</button>
+            <button class="boton-siguiente" (click)="mostrarImagenSiguiente()">&#62;</button>
           </div>
         </div>
-       
-      </div>
-      
-      
-
-      <div class="contenedor-imagenes">
-        <div *ngFor="let fotoUrl of fotos" class="imagen">
-          <img [src]="fotoUrl" alt="Foto" class="img-publicacion">
+        
+        <div class="der">
+          <h2>Publicacion</h2>
+          <div class="datos"  *ngIf="publicacion">
+                    <label>Titulo Publicacion:</label>
+                    <p class="p-datos"> {{ publicacion.titulo }}</p>
+                    <hr>
+                    <label>Nombre Trabajador:</label>
+                    <p class="p-datos"> {{ publicacion.nombre }} {{ publicacion.apellido }} </p>
+                    <hr>
+                    <label>Rubro:</label>
+                    <p> {{ publicacion.rubro }}
+                    </p>
+                    <hr>
+                    <label>Precio Estimado:</label>
+                    <p class="p-datos"> ${{ publicacion.precio }}
+                    </p>
+                    <hr>
+                    <label>Descripción:</label>
+                    <p> {{ publicacion.descripcion }} </p>
+                    <hr>
+                    <div class="div-botones" *ngIf="usuarioLogueado">
+                      <div *ngFor="let user of users$ | async">
+                        <button class="cerrar-sesion" *ngIf="user.uid === publicacion.uid" (click)="createChat(user)">Enviar Mensaje</button>
+                      </div>    
+                      <div *ngFor="let user of users$ | async">
+                        <button class="cerrar-sesion" *ngIf="user.uid === publicacion.uid" (click)="solicitarTrabajo()">Solicitar Trabajo</button>
+                      </div>
+                  </div>
+                  
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- seccion comentarios -->
+    <div class="container contenedor-comentario">
+      <h2>Calificación y Comentarios</h2>
+      <p>Calificación General: {{ averageRating | number: '1.2-2' }}</p>
+      <div class="comentario" *ngFor="let calificacion of ratings.slice(0, contador)">
+        <div>
+          <img class="img-comentario" src="../../../assets/img/foto1.jpg" alt="">
+        </div>
+        <div class="div-comentario">
+          <p>
+            <span class="etiqueta">Calificación:</span>
+            <span class="estrellas">
+              <i class="fas fa-star llena" *ngFor="let i of [1, 2, 3, 4, 5]" [ngClass]="{'vacia': i > calificacion.calificacion}"></i>
+            </span>
+          </p>
+          <p>Comentario: {{ calificacion.comentario }}</p>
         </div>
       </div>
-  </div>
-  
+    
+      <button class="mas-comentarios" (click)="cargarMasComentarios()">Cargar más comentarios</button>
+      <button class="mas-comentarios" *ngIf="mostrarCargarMenos" (click)="cargarMenosComentarios()">Mostrar menos comentarios</button>
+    </div>
+    
 </body>
+
+<app-footer></app-footer>
 </html>
+
+

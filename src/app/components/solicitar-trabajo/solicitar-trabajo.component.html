@@ -7,7 +7,6 @@
         <p><b>Precio: </b>${{ publicacion.precio }}</p>
         <small class="icon-text-container"><mat-icon>error</mat-icon> <b>¡Recuerda que el precio es un estimativo y no refleja el precio final del trabajo realizado!</b></small>
         <p><b>Descripción: </b>{{ publicacion.descripcion }}</p>
-        <p><b>Imagen: </b>{{ publicacion.imagen }}</p>
         <form class="comentario">
             <p for="mensaje"><b>Si deseas comentarle algo al trabajador:</b></p><br>
             <textarea id="myTextarea"  class="form-nombre" rows="1"   name="mensaje" [(ngModel)]="mensaje"></textarea><br> 
