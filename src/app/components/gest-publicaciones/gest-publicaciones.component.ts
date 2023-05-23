@@ -5,6 +5,7 @@ import { map, switchMap, filter } from 'rxjs/operators';
 import { PublicacionesService } from 'src/app/services/publicaciones.service';
 import { User } from 'src/app/models/models';
 import { Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-gest-publicaciones',
@@ -20,7 +21,8 @@ export class GestPublicacionesComponent implements OnInit {
   constructor(
     private publicacionService: PublicacionesService,
     private firestore: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private toast: HotToastService
   ) { }
 
   ngOnInit() {
@@ -72,7 +74,7 @@ export class GestPublicacionesComponent implements OnInit {
     this.publicacionService.deletePublicacion(publicacionId)
       .then(() => {
         console.log('Publicación eliminada correctamente');
-        // Realizar acciones adicionales después de la eliminación
+        this.toast.success('Publicación eliminada correctamente');
       })
       .catch((error: any) => {
         console.error('Error al eliminar la publicación:', error);

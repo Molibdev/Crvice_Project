@@ -1,7 +1,7 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { PublicacionesService } from 'src/app/services/publicaciones.service';
-
+import { HotToastService } from '@ngneat/hot-toast';
 @Component({
   selector: 'app-admin-edit-p',
   templateUrl: './admin-edit-p.component.html',
@@ -13,7 +13,9 @@ export class AdminEditPComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private publicacionService: PublicacionesService
+    private publicacionService: PublicacionesService,
+    private router: Router,
+    private toast: HotToastService,
   ) {}
 
   ngOnInit() {
@@ -36,10 +38,12 @@ export class AdminEditPComponent implements OnInit {
         .then(() => {
           console.log('Publicación actualizada correctamente');
           // Realizar acciones adicionales después de la actualización
+          this.router.navigate(['/gestionar-publicaciones']);
+          this.toast.success('Publicacion Editada con éxito');
         })
         .catch((error: any) => {
           console.error('Error al actualizar la publicación:', error);
-          // Manejar el error de actualización
+          this.toast.error('Ha ocurrido un error al intentar eliminar la publicacion');
         });
     }
   }

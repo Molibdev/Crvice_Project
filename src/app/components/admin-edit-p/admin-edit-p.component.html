@@ -1,21 +1,29 @@
-<h2>Editar Publicación</h2>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Editar Publicación</title>
+</head>
+<body>
+  <div class="nueva-publicacion">
+    <h1>Editando Publicación</h1>
+    <form>
+      <label for="titulo">Titulo:</label>
+      <input type="text" id="titulo" name="titulo" class="form-nombre" [(ngModel)]="publicacion.titulo">
+      <br />
+      <label for="rubro">Rubro:</label>
+      <input type="text" id="rubro" name="rubro" class="form-nombre" [(ngModel)]="publicacion.rubro">
+      <br />
+      <label for="precio">Precio:</label>
+      <input type="text" id="precio" name="precio" class="form-nombre" [(ngModel)]="publicacion.precio">
+      <br />
+      <label for="descripcion">Descripción:</label>
+      <textarea id="descripcion" name="descripcion" class="form-nombre" [(ngModel)]="publicacion.descripcion"></textarea>
+      <br />
+      <button type="submit" class="btn" (click)="guardarCambios()">Actualizar</button>
+      
+    </form>
+    
+  </div>
+</body>
 
-<form>
-  <label for="titulo">Título:</label>
-  <input type="text" id="titulo" name="titulo" [(ngModel)]="publicacion.titulo">
 
-  <label for="rubro">Rubro:</label>
-  <input type="text" id="rubro" name="rubro" [(ngModel)]="publicacion.rubro">
-
-  <label for="precio">Precio:</label>
-  <input type="text" id="precio" name="precio" [(ngModel)]="publicacion.precio">
-
-  <label for="descripcion">Descripción:</label>
-  <textarea id="descripcion" name="descripcion" [(ngModel)]="publicacion.descripcion"></textarea>
-
-  <label for="fotos">Fotos:</label>
-  <input type="text" id="fotos" name="fotos" [(ngModel)]="publicacion.fotos">
-
-  <button type="submit" (click)="guardarCambios()">Guardar</button>
-  
-</form>
