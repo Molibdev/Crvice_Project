@@ -4,6 +4,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { PublicacionesService } from 'src/app/services/publicaciones.service';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-calificacion',
@@ -22,7 +23,8 @@ export class CalificacionComponent implements OnInit {
   constructor(private firebaseService: FirebaseService, 
               private route: ActivatedRoute,
               private authService: AuthService,
-              private publicaciones: PublicacionesService) { }
+              private publicaciones: PublicacionesService,
+              private toast: HotToastService) { }
 
   // ngOnInit(): void {
   //   // Obtener el UID del usuario conectado
@@ -50,6 +52,7 @@ export class CalificacionComponent implements OnInit {
   async calificar() {
     // Revisa si el usuario ya ha sido calificado, si no lo ha sido, detiene la ejecución de la función
     if (!this.usuarioCalificado) {
+      this.toast.info('Este usuario ya ha sido calificado.');
       return;
     }
   
@@ -59,6 +62,7 @@ export class CalificacionComponent implements OnInit {
   
     // Actualiza el perfil del usuario con la nueva calificación
     await this.firebaseService.updateUserCalificaciones(this.usuarioCalificado.uid, this.usuarioCalificado.calificaciones, this.usuarioCalificado.comentarios);
+    this.toast.success('Calificado correctamente');
   
     // Resetea la variable calificacion a 0
     this.calificacion = 0;
