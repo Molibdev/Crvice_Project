@@ -2,8 +2,6 @@
 <html>
 <head>
     <title>Perfil de Usuario</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-
 </head>
 <app-navbar></app-navbar>
 <body>
@@ -92,7 +90,7 @@
     <!-- seccion comentarios -->
     <div class="container contenedor-comentario">
       <h2>Calificación y Comentarios</h2>
-      <p>Calificación General: {{ averageRating }}</p>
+      <p>Calificación General: {{ averageRating | number: '1.2-2' }}</p>
       <div class="comentario" *ngFor="let calificacion of ratings.slice(0, contador)">
         <div>
           <img class="img-comentario" src="../../../assets/img/foto1.jpg" alt="">
