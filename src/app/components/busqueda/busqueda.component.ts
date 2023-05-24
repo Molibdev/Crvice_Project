@@ -11,17 +11,20 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class BusquedaComponent implements OnInit {
   publicaciones!: Publicacion[];
   termino!: string;
+  public isLoading: boolean= false;
 
   constructor(private publicacionesService: PublicacionesService, 
               private router: Router, 
               private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.route.params.subscribe(params => {
       this.termino = params['termino'];
     });
     this.publicacionesService.getPublicaciones().subscribe(publicaciones => {
       this.publicaciones = publicaciones;
+      this.isLoading = false;
     });
   }
 

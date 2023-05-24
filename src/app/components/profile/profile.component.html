@@ -105,9 +105,10 @@
           <p>Comentario: {{ calificacion.comentario }}</p>
         </div>
       </div>
-    
-      <button class="mas-comentarios" (click)="cargarMasComentarios()">Cargar más comentarios</button>
-      <button class="mas-comentarios" *ngIf="mostrarCargarMenos" (click)="cargarMenosComentarios()">Mostrar menos comentarios</button>
+      <div class="div-btn">
+        <button class="mas-comentarios" *ngIf="mostrarCargarMas" (click)="cargarMasComentarios()">Cargar más comentarios</button>
+        <button class="mas-comentarios" *ngIf="mostrarCargarMenos" (click)="cargarMenosComentarios()">Mostrar menos comentarios</button>
+      </div>
     </div>
     
     

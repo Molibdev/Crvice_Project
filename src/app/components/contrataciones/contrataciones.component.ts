@@ -11,17 +11,21 @@ import { Publicacion } from 'src/app/models/publicacion';
 })
 export class ContratacionesComponent implements OnInit {
   public trabajos: Trabajo[] = [];
+  public isLoading: boolean= false;
 
   constructor(private firestore: AngularFirestore,private router: Router, private auth: AngularFireAuth) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.auth.onAuthStateChanged((user) => {
       if (user) {
         this.cargarTrabajos(user.uid);
       }
     }); 
+    
   }
   private cargarTrabajos(usuarioId: string): void {
+    
     this.firestore
       .collection<Trabajo>('Trabajos', (ref) =>
         ref.where('idUsuarioSolicitante', '==', usuarioId)
@@ -53,9 +57,11 @@ export class ContratacionesComponent implements OnInit {
           });
           Promise.all(trabajosPromises).then((trabajos) => {
             this.trabajos = trabajos;
+            this.isLoading = false;
           });
         }
       });
+      
   }
   
   responderSolicitud(trabajo: Trabajo) {

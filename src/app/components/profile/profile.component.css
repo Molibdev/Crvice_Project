@@ -173,8 +173,13 @@ button {
 .mas-comentarios {
     background-color: rgb(204, 200, 200);
     padding: 10px;
+    width: 210px;
+    margin: 20px 10px;
 }
+.div-btn{
+    display: flex;
 
+}
 
 
 

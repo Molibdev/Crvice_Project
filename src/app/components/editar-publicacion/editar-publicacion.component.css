@@ -60,3 +60,14 @@ input, textarea {
 .btn:hover {
     background-color: #1e71ca;
 }
+
+.div-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+mat-spinner{
+    margin-top: 70px;
+    margin-bottom: 70px;
+}

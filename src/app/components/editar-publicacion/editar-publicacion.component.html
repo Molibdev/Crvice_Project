@@ -7,7 +7,7 @@
 <body>
   <div class="nueva-publicacion">
     <h1>Editando Publicación</h1>
-
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
     <form #form="ngForm" (ngSubmit)="onSubmit(form)">
       <div *ngIf="publicacion">
         <p>Título:</p>
@@ -25,7 +25,9 @@
         <p>Imagen:</p>
         <input type="file" id="newFileInput" (change)="onNewFilesSelected($event)" accept="image/*" multiple>
         <br />
-        <button type="submit" class="btn">Guardar cambios</button>
+        <div class="div-btn">
+          <button type="submit" class="btn">Guardar cambios</button>
+        </div>
       </div>
     </form>
 

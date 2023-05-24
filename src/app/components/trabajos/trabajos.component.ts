@@ -12,13 +12,16 @@ import { Publicacion } from 'src/app/models/publicacion';
 })
 export class TrabajosComponent implements OnInit {
   public trabajos: Trabajo[] = [];
+  public isLoading: boolean= false;
 
   constructor(private firestore: AngularFirestore,private router: Router, private auth: AngularFireAuth) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.auth.onAuthStateChanged((user) => {
       if (user) {
         this.cargarTrabajos(user.uid);
+        
       }
     });
   }
@@ -55,6 +58,7 @@ export class TrabajosComponent implements OnInit {
           });
           Promise.all(trabajosPromises).then((trabajos) => {
             this.trabajos = trabajos;
+            this.isLoading = false;
           });
         }
       });

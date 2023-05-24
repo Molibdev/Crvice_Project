@@ -25,7 +25,7 @@
 
 button {
     margin-top: 5px;
-    color: rgb(191, 189, 189);
+    color: #231656;
     border: none;
     font-weight: 600;
     cursor: pointer;
@@ -45,4 +45,8 @@ button:hover {
     cursor: pointer;
     background-color:transparent;
     margin-left: 30px;
+}
+mat-spinner{
+    margin-top: 70px;
+    margin-bottom: 70px;
 }

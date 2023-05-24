@@ -10,11 +10,12 @@
   <h1>Mis Solicitudes de Trabajo</h1>
 
   <div class="places">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
     <div class="place" *ngFor="let trabajo of trabajos">
       <div class="info">
-        <p>Titulo de la publicación: {{ trabajo.publicacion?.titulo }}</p>
-        <p>Precio Trabajo: {{ trabajo.precio }}</p>
-        <p>Estado: {{ trabajo.estado }}</p>
+        <h3>{{ trabajo.publicacion?.titulo }}</h3>
+        <p><b>Precio Trabajo:</b> {{ trabajo.precio }}</p>
+        <p><b>Estado: </b>{{ trabajo.estado }}</p>
         <button *ngIf="trabajo.estado !== 'Cancelado'" (click)="responderSolicitud(trabajo)">Responder</button>
       </div>
     </div>
