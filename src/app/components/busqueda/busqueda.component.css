@@ -68,3 +68,7 @@ input {
 button{
     float: right;
 }
+
+mat-spinner{
+    margin-top: 50px;
+}

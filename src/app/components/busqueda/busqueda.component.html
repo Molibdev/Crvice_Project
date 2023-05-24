@@ -18,6 +18,7 @@
 
 
     <div class="places">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
       <div class="place" *ngFor="let publicacion of publicaciones | filter: termino">
         <div >
           <img class="img-publiacion" src="../../../assets/img/foto5.jpg" alt="">
