@@ -42,4 +42,10 @@ ul {
     
 }
 
-
+mat-spinner{
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+button {
+    font-family:  'Poppins', sans-serif;
+}
