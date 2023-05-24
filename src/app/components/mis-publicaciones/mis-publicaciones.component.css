@@ -37,7 +37,6 @@ button:hover {
 
 }
 
-<<<<<<< HEAD
 .eliminar {
     margin-top: 5px;
     color: rgb(255, 0, 0);
@@ -46,9 +45,8 @@ button:hover {
     cursor: pointer;
     background-color:transparent;
     margin-left: 30px;
-=======
+}
 mat-spinner{
     margin-top: 70px;
     margin-bottom: 70px;
->>>>>>> 8246f5a (spinner y toast de editar en editando publicacion)
 }

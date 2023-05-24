@@ -30,6 +30,7 @@ export class ProfileComponent implements OnInit {
   ratings: Calificacion[] = [];
   contador: number = 1;
   mostrarCargarMenos: boolean = false;
+  mostrarCargarMas: boolean = true;
   averageRating: number = 0;
 
   nombre: string = '';
@@ -231,11 +232,15 @@ export class ProfileComponent implements OnInit {
   cargarMasComentarios() {
     this.contador += 5;
     this.mostrarCargarMenos = true;
+    if (this.contador==this.ratings.length-1){
+      this.mostrarCargarMas = false;
+    }
 
   }
   cargarMenosComentarios() {
     if (this.contador=1){
       this.mostrarCargarMenos = false;
+      this.mostrarCargarMas = true;
     }
   }
 }
