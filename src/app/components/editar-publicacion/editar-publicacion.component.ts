@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { Storage, ref, listAll, deleteObject   } from '@angular/fire/storage';
 import {uploadBytes } from 'firebase/storage';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-editar-publicacion',
@@ -16,19 +17,23 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 export class EditarPublicacionComponent implements OnInit{
   publicacion?: Publicacion;
   newImages: File[] = [];
+  public isLoading: boolean= false;
 
   constructor(
     private route: ActivatedRoute,
     private publicacionesService: PublicacionesService,
     private storage: Storage,
-    private authfirebase: AngularFireAuth
+    private authfirebase: AngularFireAuth,
+    private toast: HotToastService
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.publicacionesService.getPublicacion(id).subscribe(publicacion => {
         this.publicacion = publicacion;
+        this.isLoading = false;
       });
     }
   }
@@ -46,6 +51,7 @@ export class EditarPublicacionComponent implements OnInit{
     if (form.valid && this.publicacion && this.publicacion.id) {
       console.log('Calling updatePublicacion method');
       this.publicacionesService.updatePublicacion(this.publicacion.id, this.publicacion);
+      this.toast.success('La publicación ha sido editada');
       if (this.newImages.length > 0) {
         await this.replaceImages(this.publicacion.id, this.newImages);
       }
@@ -54,6 +60,7 @@ export class EditarPublicacionComponent implements OnInit{
       console.log('this.publicacion:', this.publicacion);
       if (this.publicacion) {
         console.log('this.publicacion.id:', this.publicacion.id);
+        
       }
     }
   }

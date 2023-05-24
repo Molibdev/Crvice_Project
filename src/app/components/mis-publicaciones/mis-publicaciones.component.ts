@@ -13,6 +13,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 })
 export class MisPublicacionesComponent implements OnInit {
   publicaciones$!: Observable<Publicacion[]>;
+  public isLoading: boolean= false;
 
   constructor(
     private publicacionesService: PublicacionesService,
@@ -22,11 +23,13 @@ export class MisPublicacionesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.auth.authState.subscribe(user => {
       if (user) {
         this.publicaciones$ = this.publicacionesService.getPublicacionesByUser(user.uid);
         this.publicaciones$.subscribe(publicaciones => {
           console.log(publicaciones);
+          this.isLoading = false;
         });
       }
     });

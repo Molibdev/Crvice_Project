@@ -70,5 +70,6 @@ button{
 }
 
 mat-spinner{
-    margin-top: 50px;
+    margin-top: 70px;
+    margin-bottom: 70px;
 }
