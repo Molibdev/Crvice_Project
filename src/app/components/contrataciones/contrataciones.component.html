@@ -19,7 +19,7 @@
         <p><b>Titulo de la publicación:</b> {{ trabajo.publicacion?.titulo }} </p>
         <p><b>Precio Trabajo:</b> ${{ trabajo.precio }}</p>
         <p><b>Estado:</b> {{ trabajo.estado }}</p>
-        <button *ngIf="trabajo.estado !== 'Cancelado'" (click)="responderSolicitud(trabajo)">Responder</button>
+        <button *ngIf="trabajo.estado !== 'Cancelado' && trabajo.estado !== 'Terminado'" (click)="responderSolicitud(trabajo)">Responder</button>
       </div>
     </div>
     

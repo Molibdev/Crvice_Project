@@ -1,24 +1,40 @@
-<body>
-    <div *ngIf="publicacion" class="nueva-publicacion">
-    <h2>Solicitud de Trabajo</h2>
-    <div class="contenerdor-info">
-        <p><b>Estás solicitando un trabajo a: </b> {{ publicacion.nombre }} {{ publicacion.apellido }}</p>
-        <p><b>De la publicación:</b> {{ publicacion.titulo }}</p>
-        <p><b>Precio: </b>${{ publicacion.precio }}</p>
-        <small class="icon-text-container"><mat-icon>error</mat-icon> <b>¡Recuerda que el precio es un estimativo y no refleja el precio final del trabajo realizado!</b></small>
-        <p><b>Descripción: </b>{{ publicacion.descripcion }}</p>
-        <form class="comentario">
-            <p for="mensaje"><b>Si deseas comentarle algo al trabajador:</b></p><br>
-            <textarea id="myTextarea"  class="form-nombre" rows="1"   name="mensaje" [(ngModel)]="mensaje"></textarea><br> 
-        </form>
-    </div>
-    
-    
-    <div class="div-botones">
-        <button type="button" (click)="enviarSolicitud()">Enviar Solicitud</button>
-        <button type="button" (click)="volver()">Volver</button>
-    </div>
-  </div>  
-</body>
 
-  
+<app-navbar></app-navbar>
+
+<div class="container">
+  <h1>Solicitud de Trabajo</h1>
+
+  <div class="places">
+
+    <div class="place" *ngIf="publicacion">
+      <h2>Trabajo</h2>
+        <div class="div-contenedor">
+            <div class="div-icon">
+            <img src="../../../assets/img/maletin_azul.png" alt="">
+            </div>
+            <div class="info">
+                <p><b>Estás solicitando un trabajo a: </b> {{ publicacion.nombre }} {{ publicacion.apellido }}</p>
+                <p><b>De la publicación:</b> {{ publicacion.titulo }}</p>
+                <p><b>Precio: </b>${{ publicacion.precio }}</p>
+                <small class="icon-text-container"><mat-icon>error</mat-icon> <b>¡Recuerda que el precio es un estimativo y no refleja el precio final del trabajo realizado!</b></small>
+                <p><b>Descripción: </b>{{ publicacion.descripcion }}</p>
+                <form class="comentario">
+                    <p for="mensaje"><b>Si deseas comentarle algo al trabajador:</b></p><br>
+                    <textarea id="myTextarea"  class="form-nombre" rows="1"   name="mensaje" [(ngModel)]="mensaje"></textarea><br> 
+                </form>
+            </div>
+         </div>
+      
+         <div class="div-button">
+            <button type="button" class="btn btn-primary"(click)="enviarSolicitud()">Enviar Solicitud</button>
+            <button type="button" class="btn btn-primary" (click)="volver()">Volver</button>
+        </div>
+      
+    </div>
+
+  </div>
+
+
+</div>
+
+<app-footer></app-footer>

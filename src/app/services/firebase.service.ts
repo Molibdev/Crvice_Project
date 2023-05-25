@@ -7,7 +7,7 @@ import {
 } from '@angular/fire/firestore';
 import { collection } from 'firebase/firestore';
 import {  map, Observable, of, switchMap } from 'rxjs';
-import { User } from '../models/models';
+import { Trabajo, User } from '../models/models';
 import { AuthService } from 'src/app/services/auth.service';
 import 'firebase/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -106,6 +106,10 @@ export class FirebaseService {
         return res.items.map(item => item.getDownloadURL());
       })
     );
+  }
+
+  getTrabajo(trabajoId: string): Observable<Trabajo> {
+    return this.firestore.collection('Trabajos').doc(trabajoId).valueChanges() as Observable<Trabajo>;
   }
 }
 

@@ -23,11 +23,10 @@
       </div>
       
       <div class="div-button">
-        <button type="submit" class="btn btn-primary" (click)="aceptarTrabajo()">Contratar</button>
-        <button type="submit" class="btn btn-primary" (click)="rechazarTrabajo()">Rechazar Propuesta</button>
-        <button type="submit" class="btn btn-primary" (click)="calificar()">Completar trabajo</button>
-        <button type="submit" class="btn btn-primary" (click)="pagar()">Pagar Abono</button>
-
+        <button type="submit" class="btn btn-primary" *ngIf="trabajo.estado === 'Respondido'" (click)="aceptarTrabajo()">Contratar</button>
+        <button type="submit" class="btn btn-primary" *ngIf="trabajo.estado === 'Aceptado'" (click)="pagar()">Pagar Abono</button>
+        <button type="submit" class="btn btn-primary" *ngIf="trabajo.estado !== 'Abonado' && trabajo.estado !== 'Calificado Por Cliente'" (click)="rechazarTrabajo()">Rechazar Propuesta</button>
+        <button type="submit" class="btn btn-primary" *ngIf="trabajo.estado === 'Abonado'" (click)="calificar()">Trabajo Completado</button>
       </div>
       
     </div>

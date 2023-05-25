@@ -1,20 +1,44 @@
-<h1>Detalles de la Solicitud</h1>
-<div *ngIf="publicacion && trabajo">
-  <h2>Trabajo</h2>
-  <p>Título de la publicación: {{ publicacion.titulo }}</p>
-  <div class="form-group">
-    <label for="precioTrabajo">Precio Trabajo:</label>
-    <input type="text" class="form-control" id="precioTrabajo" [(ngModel)]="trabajo.precio" name="precioTrabajo">
+<app-navbar></app-navbar>
+
+<div class="container">
+  <h1>Detalles de la Solicitud</h1>
+
+  <div class="places">
+
+    <div class="place" *ngIf="publicacion && trabajo">
+      <h2>Trabajo</h2>
+      <div class="div-contenedor">
+        <div class="div-icon">
+          <img src="../../../assets/img/maletin_azul.png" alt="">
+        </div>
+        <div class="info">
+          <p><b>Título de la publicación:</b> {{ publicacion.titulo }}</p>
+          <div class="form-group">
+            <label for="precioTrabajo">Precio Trabajo:</label>
+            <input type="text" class="form-control" id="precioTrabajo" [(ngModel)]="trabajo.precio" name="precioTrabajo" [disabled]="trabajo.estado !== 'Pendiente'">
+          </div>
+          <p><b>Nombre del usuario solicitante:</b> {{ nombreUsuarioSolicitante }}</p>
+          <p><b>Comentario del usuario:</b> {{ trabajo.mensaje }}</p>
+          <p><b>Estado:</b> {{ trabajo.estado }}</p>
+          <div class="form-group">
+            <label for="mensajeTrabajador">Mensaje para el solicitante:</label>
+          </div>
+          <textarea id="mensajeTrabajador" class="form-nombre" rows="1" [(ngModel)]="mensajeTrabajador" name="mensajeTrabajador" [disabled]="trabajo.estado !== 'Pendiente'"></textarea>
+        </div>
+      </div>
+      
+      <div class="div-button">
+        <button type="submit" class="btn btn-primary" *ngIf="trabajo.estado === 'Pendiente'" (click)="actualizarTrabajo()" [disabled]="trabajo.estado !== 'Pendiente'">Responder</button>
+        <button type="submit" class="btn btn-primary" *ngIf="trabajo.estado !== 'Abonado' && trabajo.estado !== 'Calificado Por Cliente' && trabajo.estado !== 'Terminado'" (click)="rechazarTrabajo()" [disabled]="trabajo.estado !== 'Pendiente'">Rechazar Propuesta</button>
+        <button type="submit" class="btn btn-primary" *ngIf="trabajo.estado === 'Abonado'" (click)="verUbicacion()">Ver ubicacion</button>
+        <button type="submit" class="btn btn-primary" *ngIf="trabajo.estado === 'Calificado Por Cliente'" (click)="completarTrabajo()">Calificar al Cliente</button>
+
+      </div>
+      
+    </div>
+
   </div>
-  <p>Comentario del usuario: {{ trabajo.mensaje }}</p>
-  <p>Nombre del usuario solicitante: {{ nombreUsuarioSolicitante }}</p>
-  <p>Estado: {{ trabajo.estado }}</p>
-  <div class="form-group">
-    <label for="mensajeTrabajador">Mensaje para el solicitante:</label>
-    <textarea class="form-control" id="mensajeTrabajador" [(ngModel)]="mensajeTrabajador" name="mensajeTrabajador"></textarea>
-  </div>
-<button type="submit" class="btn btn-primary" (click)="actualizarTrabajo()">Responder</button>
-<button type="submit" class="btn btn-primary" (click)="rechazarTrabajo()">Rechazar Propuesta</button>
-<button type="submit" class="btn btn-primary" (click)="completarTrabajo()">Completar trabajo</button>
-<button type="submit" class="btn btn-primary" (click)="verUbicacion()">Ver ubicacion</button>
+
 </div>
+
+<app-footer></app-footer>

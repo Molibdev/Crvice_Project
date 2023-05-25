@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Publicacion } from 'src/app/models/publicacion'; 
 import { PublicacionesService } from 'src/app/services/publicaciones.service'; 
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Trabajo } from 'src/app/models/models';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-solicitar-trabajo',
@@ -21,7 +22,9 @@ export class SolicitarTrabajoComponent implements OnInit {
 
   constructor(private publicacionesService: PublicacionesService,
               private route: ActivatedRoute,
-              private firestore: AngularFirestore) {}
+              private firestore: AngularFirestore,
+              private toast: HotToastService,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -48,7 +51,8 @@ export class SolicitarTrabajoComponent implements OnInit {
     this.firestore.collection('Trabajos').add(trabajo)
       .then(() => {
         console.log('Trabajo enviado exitosamente');
-        // Lógica adicional aquí,
+        this.toast.success('Trabajo Solicitado');
+        this.router.navigate(['/contrataciones'])
       })
       .catch((error) => {
         console.log('Error al enviar el trabajo', error);
