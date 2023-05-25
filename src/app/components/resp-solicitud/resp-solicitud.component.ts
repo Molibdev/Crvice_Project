@@ -5,6 +5,7 @@ import { Trabajo } from 'src/app/models/models';
 import { Publicacion } from 'src/app/models/publicacion';
 import { User } from 'src/app/models/models';
 import { PublicacionesService } from 'src/app/services/publicaciones.service';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-resp-solicitud',
@@ -18,7 +19,7 @@ export class RespSolicitudComponent implements OnInit {
   public mensajeTrabajador = '';
   public uidCliente = '';
 
-  constructor(private route: ActivatedRoute, private firestore: AngularFirestore, private router: Router, private publicaciones: PublicacionesService) { }
+  constructor(private route: ActivatedRoute, private firestore: AngularFirestore, private router: Router,  private toast: HotToastService, private publicaciones: PublicacionesService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -61,6 +62,8 @@ export class RespSolicitudComponent implements OnInit {
       const trabajoId = this.route.snapshot.queryParams['trabajoId'];
       this.firestore.collection<Trabajo>('Trabajos').doc(trabajoId).update(this.trabajo).then(() => {
         console.log('Trabajo actualizado con éxito');
+        this.toast.success('Solicitud Respondida');
+        this.router.navigate(['/solicitudes'])
       }).catch((error) => {
         console.error('Error al actualizar el trabajo:', error);
       });
@@ -81,7 +84,7 @@ export class RespSolicitudComponent implements OnInit {
 
   completarTrabajo(): void {
     if (this.trabajo) {
-      this.trabajo.estado = 'Completado'; 
+      this.trabajo.estado = 'Terminado'; 
       const trabajoId = this.route.snapshot.queryParams['trabajoId'];
       this.firestore.collection<Trabajo>('Trabajos').doc(trabajoId).update(this.trabajo).then(() => {
         console.log('Trabajo actualizado con éxito');

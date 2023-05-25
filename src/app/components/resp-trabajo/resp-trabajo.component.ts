@@ -5,6 +5,7 @@ import { Trabajo } from 'src/app/models/models';
 import { Publicacion } from 'src/app/models/publicacion';
 import { User } from 'src/app/models/models';
 import { PublicacionesService } from 'src/app/services/publicaciones.service';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-resp-trabajo',
@@ -18,7 +19,7 @@ export class RespTrabajoComponent {
   public mensajeTrabajador = '';
   public uidTrabajador = '';
 
-  constructor(private route: ActivatedRoute, private firestore: AngularFirestore, private router: Router, private publicaciones: PublicacionesService) { }
+  constructor(private route: ActivatedRoute, private firestore: AngularFirestore, private toast: HotToastService, private router: Router, private publicaciones: PublicacionesService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -55,6 +56,7 @@ export class RespTrabajoComponent {
       const trabajoId = this.route.snapshot.queryParams['trabajoId'];
       this.firestore.collection<Trabajo>('Trabajos').doc(trabajoId).update(this.trabajo).then(() => {
         console.log('Trabajo actualizado con éxito');
+        this.toast.success('Trabajo Contratado');
       }).catch((error) => {
         console.error('Error al actualizar el trabajo:', error);
       });
@@ -67,17 +69,29 @@ export class RespTrabajoComponent {
       const trabajoId = this.route.snapshot.queryParams['trabajoId'];
       this.firestore.collection<Trabajo>('Trabajos').doc(trabajoId).update(this.trabajo).then(() => {
         console.log('Trabajo actualizado con éxito');
+        this.toast.error('Trabajo Cancelado');
+        this.router.navigate(['/contrataciones'])
       }).catch((error) => {
         console.error('Error al actualizar el trabajo:', error);
       });
     }
   }  
 
-
-
-  calificar() {
-    this.router.navigate(['/calificacion'])
+  calificar(): void {
+    if (this.trabajo) {
+      this.trabajo.estado = 'Calificado Por Cliente'; 
+      const trabajoId = this.route.snapshot.queryParams['trabajoId'];
+      this.firestore.collection<Trabajo>('Trabajos').doc(trabajoId).update(this.trabajo).then(() => {
+        console.log('Trabajo actualizado con éxito');
+        this.router.navigate(['/calificacion'], { queryParams: { trabajoId } }); // Agrega el parámetro trabajoId a la URL de navegación
+      }).catch((error) => {
+        console.error('Error al actualizar el trabajo:', error);
+      });
+    }
   }
+  
+
+
 
   pagar() {
     if (this.trabajo) {

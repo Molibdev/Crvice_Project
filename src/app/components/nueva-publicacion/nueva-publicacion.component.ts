@@ -107,7 +107,7 @@ export class NuevaPublicacionComponent implements OnInit {
           this.storage,
           `images/posts/${user?.uid}/${publicacionId}/${file.name}`
         );
-        this.toast.success('Guardado correctamente!');
+        this.toast.success('Publicacion Creada!');
         try {
           const response = await uploadBytes(imgRef, file);
           console.log(response);
