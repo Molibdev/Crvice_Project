@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Editar Publicación</title>
+  <title>Editar Publicación</title>
 </head>
 
 <body>
@@ -17,7 +17,8 @@
         <input type="text" name="rubro" class="form-nombre" [(ngModel)]="publicacion.rubro" />
         <br />
         <p>Precio Estimado:</p>
-        <input type="text" name="precio" class="form-nombre" [(ngModel)]="publicacion.precio" />
+        <input type="text" name="precio" class="form-nombre" [(ngModel)]="publicacion.precio" pattern="^\d+(\.\d{3})*$" required/>
+        <div *ngIf="form.controls['precio']?.invalid && form.controls['precio']?.touched" class="error-message">El precio debe estar en el formato correcto: 000.000</div>
         <br />
         <p>Descripción:</p>
         <textarea name="descripcion" class="form-nombre" [(ngModel)]="publicacion.descripcion"></textarea>
@@ -30,9 +31,6 @@
         </div>
       </div>
     </form>
-
   </div>
-  
 </body>
-
-
+</html>
