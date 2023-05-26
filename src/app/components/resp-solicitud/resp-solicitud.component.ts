@@ -56,19 +56,34 @@ export class RespSolicitudComponent implements OnInit {
   }
 
   actualizarTrabajo(): void {
-    if (this.trabajo) {
+    if (this.trabajo && this.trabajo.precio !== undefined) {
+      const price = this.trabajo.precio.toString();
+      // Validate price format
+      const pricePattern = /^\d{1,3}(\.\d{3})*$/; // Regular expression to match the CLP format
+      if (!pricePattern.test(price)) {
+        console.log('Invalid price format');
+        this.toast.error('El precio es inválido')
+        this.toast.error('El formato es 000.000.000')
+        // You can show an error message to the user or perform any other necessary action
+        return; // Stop executing the method
+      }
+  
       this.trabajo.mensajeTrabajador = this.mensajeTrabajador;
-      this.trabajo.estado = 'Respondido'; // add this line to change the state to 'respondido'
+      this.trabajo.estado = 'Respondido';
+  
       const trabajoId = this.route.snapshot.queryParams['trabajoId'];
       this.firestore.collection<Trabajo>('Trabajos').doc(trabajoId).update(this.trabajo).then(() => {
         console.log('Trabajo actualizado con éxito');
         this.toast.success('Solicitud Respondida');
-        this.router.navigate(['/solicitudes'])
+        this.router.navigate(['/solicitudes']);
       }).catch((error) => {
         console.error('Error al actualizar el trabajo:', error);
       });
     }
-  }  
+  }
+  
+  
+  
 
   rechazarTrabajo(): void {
     if (this.trabajo) {

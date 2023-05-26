@@ -20,7 +20,11 @@
             <div class="mb-3 form-publicacion">
                 <p class="form-label">Precio Estimado:</p>
                 <input type="text" class="form-control form-nombre" formControlName="precio">
-            </div>
+                <div *ngIf="formulario.get('precio')?.invalid && (formulario.get('precio')?.dirty || formulario.get('precio')?.touched)">
+                  <div *ngIf="formulario.get('precio')?.hasError('required')">El precio es requerido.</div>
+                  <div *ngIf="formulario.get('precio')?.hasError('pattern')">El precio debe ser un número válido.</div>
+                </div>
+              </div>
             <div class="mb-3 form-publicacion">
                 <p class="form-label">Descripción:</p>
                 <textarea class="form-control form-nombre" rows="2" cols="30"  formControlName="descripcion"></textarea>
