@@ -19,10 +19,16 @@ export class RespSolicitudComponent implements OnInit {
   public mensajeTrabajador = '';
   public uidCliente = '';
   public idTrabajo = '';
+  public isLoading: boolean= false;
 
-  constructor(private route: ActivatedRoute, private firestore: AngularFirestore, private router: Router,  private toast: HotToastService, private publicaciones: PublicacionesService) { }
+  constructor(private route: ActivatedRoute, 
+              private firestore: AngularFirestore, 
+              private router: Router,  
+              private toast: HotToastService, 
+              private publicaciones: PublicacionesService) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.route.queryParams.subscribe(params => {
       const trabajoId = params['trabajoId'];
       const publicacionId = params['publicacionId'];
@@ -52,6 +58,7 @@ export class RespSolicitudComponent implements OnInit {
       this.firestore.collection<Publicacion>('Publicaciones').doc(publicacionId).get().toPromise().then((publicacionDoc) => {
         if (publicacionDoc && publicacionDoc.exists) {
           this.publicacion = publicacionDoc.data() as Publicacion;
+          this.isLoading = false;
         }
       });
     });

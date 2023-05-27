@@ -12,6 +12,7 @@ import { Publicacion } from 'src/app/models/publicacion';
 export class ContratacionesComponent implements OnInit {
   public trabajos: Trabajo[] = [];
   public isLoading: boolean= false;
+  public sinContrataciones: boolean=false;
 
   constructor(private firestore: AngularFirestore,private router: Router, private auth: AngularFireAuth) {}
 
@@ -58,9 +59,17 @@ export class ContratacionesComponent implements OnInit {
           Promise.all(trabajosPromises).then((trabajos) => {
             this.trabajos = trabajos;
             this.isLoading = false;
+            console.log(this.trabajos.length,'dataaa');
+            if(this.trabajos.length==0){
+              this.sinContrataciones=true;
+            }
+            
           });
+          
         }
+        
       });
+      
       
   }
   

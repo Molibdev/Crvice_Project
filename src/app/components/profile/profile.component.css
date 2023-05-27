@@ -184,7 +184,7 @@ button {
 
 
 /* ===Vista Responsive=== */
-@media only screen and (max-width:1070px) {
+@media only screen and (max-width:1249px) {
     .datos {
         margin-right: 30px;
     }

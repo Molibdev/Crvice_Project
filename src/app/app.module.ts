@@ -62,6 +62,7 @@ import { CrudAdminComponent } from './components/crud-admin/crud-admin.component
 import { GestPublicacionesComponent } from './components/gest-publicaciones/gest-publicaciones.component';
 import { AdminEditPComponent } from './components/admin-edit-p/admin-edit-p.component';
 import { CustomPromptComponent } from './components/custom-prompt/custom-prompt.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { CustomPromptComponent } from './components/custom-prompt/custom-prompt.
     AdminEditPComponent,
     CrudAdminComponent,
     CustomPromptComponent,
+    AboutUsComponent,
 
   ],
   imports: [

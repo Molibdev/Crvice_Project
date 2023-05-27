@@ -3,6 +3,8 @@
 <div class="container">
   <h1>Detalles de la Solicitud</h1>
   <div class="places">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+
     <div class="place" *ngIf="publicacion && trabajo">
       <h2>Trabajo</h2>
       <mat-icon class="help" mat-button [matMenuTriggerFor]="helpMenu">help</mat-icon>

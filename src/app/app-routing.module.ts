@@ -24,11 +24,13 @@ import { PagoComponent } from './components/pago/pago.component';
 import { GestPublicacionesComponent } from './components/gest-publicaciones/gest-publicaciones.component';
 import { AdminEditPComponent } from './components/admin-edit-p/admin-edit-p.component';
 import { CrudAdminComponent } from './components/crud-admin/crud-admin.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/index', pathMatch: 'full' },
   { path: 'index', component: IndexComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'sobre-nosotros', component:AboutUsComponent},
   { path: 'busqueda/:termino', component: BusquedaComponent },
   { path: 'nueva-publicacion', component: NuevaPublicacionComponent,
   ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
