@@ -20,6 +20,7 @@ export class PublicacionComponent implements OnInit {
   contador: number = 1;
   mostrarCargarMenos: boolean = false;
   ratings: Calificacion[] = [];
+  mostrarCargarMas: boolean = true;
 
   user$ = this.firebase.currentUserProfile$;
   searchControl = new FormControl('');
@@ -142,11 +143,15 @@ export class PublicacionComponent implements OnInit {
   cargarMasComentarios() {
     this.contador += 5;
     this.mostrarCargarMenos = true;
+    if (this.contador==this.ratings.length){
+      this.mostrarCargarMas = false;
+    }
 
   }
   cargarMenosComentarios() {
     if (this.contador=1){
       this.mostrarCargarMenos = false;
+      this.mostrarCargarMas = true;
     }
   }
 }
