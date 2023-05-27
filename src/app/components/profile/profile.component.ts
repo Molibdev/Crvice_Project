@@ -240,15 +240,16 @@ export class ProfileComponent implements OnInit {
   cargarMasComentarios() {
     this.contador += 5;
     this.mostrarCargarMenos = true;
-    if (this.contador==this.ratings.length){
+  
+    if (this.contador >= this.ratings.length) {
       this.mostrarCargarMas = false;
     }
-
   }
   cargarMenosComentarios() {
-    if (this.contador=1){
-      this.mostrarCargarMenos = false;
-      this.mostrarCargarMas = true;
-    }
+    this.contador = 1;
+    this.mostrarCargarMas = true;
+  
   }
+
+  
 }

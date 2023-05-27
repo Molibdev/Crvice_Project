@@ -18,10 +18,12 @@ export class RespTrabajoComponent {
   public nombreTrabajador = '';
   public mensajeTrabajador = '';
   public uidTrabajador = '';
+  public isLoading: boolean= false;
 
   constructor(private route: ActivatedRoute, private firestore: AngularFirestore, private toast: HotToastService, private router: Router, private publicaciones: PublicacionesService) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.route.queryParams.subscribe(params => {
       const trabajoId = params['trabajoId'];
       const publicacionId = params['publicacionId'];
@@ -45,6 +47,7 @@ export class RespTrabajoComponent {
       this.firestore.collection<Publicacion>('Publicaciones').doc(publicacionId).get().toPromise().then((publicacionDoc) => {
         if (publicacionDoc && publicacionDoc.exists) {
           this.publicacion = publicacionDoc.data() as Publicacion;
+          this.isLoading = false;
         }
       });
     });
