@@ -2,11 +2,12 @@ import {Component,OnInit} from '@angular/core';
 import {IPayPalConfig,ICreateOrderRequest } from 'ngx-paypal';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Trabajo, User } from 'src/app/models/models';
+import { Trabajo, User, userDataBank } from 'src/app/models/models';
 import { Publicacion } from 'src/app/models/publicacion';
 import { PublicacionesService } from 'src/app/services/publicaciones.service';
 import axios from 'axios';
 import { Location } from '@angular/common';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-pago',
@@ -15,17 +16,28 @@ import { Location } from '@angular/common';
 })
 export class PagoComponent implements OnInit {
 
+  public isLoading: boolean = false;
   public payPalConfig ? : IPayPalConfig;
   public trabajo: Trabajo | undefined;
   public publicacion: Publicacion | undefined;
+  public datosBanco: userDataBank[] = [];
+  public uidTrabajador = '';
+  public rutTrabajador = '';
   public nombreTrabajador = '';
   private precioUSD: number = 0;
   public paymentCancel = false;
-
-  constructor(private route: ActivatedRoute, private firestore: AngularFirestore,private publicaciones: PublicacionesService,private router: Router,private location: Location) { }
+  idCuentaTrans: string = '';
+  
+  constructor(private route: ActivatedRoute, 
+              private firestore: AngularFirestore,
+              private publicaciones: PublicacionesService,
+              private router: Router,
+              private location: Location,
+              private firestoreA: FirebaseService) { }
 
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.initConfig();
     this.route.queryParams.subscribe(params => {
         const trabajoId = params['trabajoId'];
@@ -48,8 +60,17 @@ export class PagoComponent implements OnInit {
             this.firestore.collection<User>('Usuarios').doc(this.trabajo.idUsuarioPublicacion).get().toPromise().then((usuarioDoc) => {
               if (usuarioDoc && usuarioDoc.exists) {
                 const usuario = usuarioDoc.data() as User;
+                this.uidTrabajador = usuario.uid;
+                this.rutTrabajador = usuario.rut + '-' + usuario.dv
                 this.nombreTrabajador = usuario.nombre + ' ' + usuario.apellido;
                 this.publicaciones.uidUsuario = usuario.uid;
+                const path = `Usuarios/${this.uidTrabajador}/DatosTransferencia`;
+                this.firestoreA.getCollection<userDataBank>(path).subscribe(userDataBank => {
+                  this.datosBanco = userDataBank;
+                  if (this.datosBanco.length > 0) {
+                    this.idCuentaTrans = this.datosBanco[0].IdCuenta; // Guardar el primer número de cuenta en idCuentaTrans
+                  }
+                });
               }
             });
           }
@@ -61,6 +82,7 @@ export class PagoComponent implements OnInit {
           }
         });
       });
+
     }
 
     calcularPrecioUSD(precioCLP: number): void {
@@ -74,6 +96,7 @@ export class PagoComponent implements OnInit {
           .catch(error => {
             console.log(error);
           });
+        this.isLoading = false;
       }
 
 
@@ -154,6 +177,21 @@ private changeWorkStatusToAbonado(): void {
     });
   }
 }
+
+public changeWorkStatusToAbonadoTransf(): void {
+  if (this.trabajo) {
+    this.trabajo.estado = 'Abonado'; 
+    const trabajoId = this.route.snapshot.queryParams['trabajoId'];
+    this.firestore.collection<Trabajo>('Trabajos').doc(trabajoId).update(this.trabajo).then(() => {
+      console.log('Trabajo actualizado con éxito');
+      this.location.back();
+    }).catch((error) => {
+      console.error('Error al actualizar el trabajo:', error);
+    });
+  }
+}
+
+
 
 }
 

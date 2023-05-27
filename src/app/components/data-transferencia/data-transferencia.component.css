@@ -1,0 +1,67 @@
+/* Estilos para el formulario */
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-container h2 {
+    text-align: center;
+  }
+  
+  .form-container label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .form-container input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .form-container button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .form-container button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Estilos para el contenedor principal */
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:70vh;
+  }
+
+  .form-container h4 {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.6);
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0.1, 0.1, 0.1, 0.1);
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .formulario {
+    position: relative;
+    height: auto;
+    /* padding: 1.5rem; */
+    padding-top: 1rem;
+    margin-bottom: 0;
+
+}

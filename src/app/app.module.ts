@@ -63,6 +63,7 @@ import { GestPublicacionesComponent } from './components/gest-publicaciones/gest
 import { AdminEditPComponent } from './components/admin-edit-p/admin-edit-p.component';
 import { CustomPromptComponent } from './components/custom-prompt/custom-prompt.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { DataTransferenciaComponent } from './components/data-transferencia/data-transferencia.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,7 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
     CrudAdminComponent,
     CustomPromptComponent,
     AboutUsComponent,
+    DataTransferenciaComponent,
 
   ],
   imports: [

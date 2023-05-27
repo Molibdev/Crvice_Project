@@ -1,0 +1,78 @@
+.div-fondo {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+  }
+  
+  .contenedor-pago {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 1000px; /* Aumentar el ancho del box */
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contenedor-pago h1 {
+    margin-bottom: 20px;
+    font-size: 30px; /* Aumentar el tamaño del texto */
+  }
+  
+  .contenedor-pago h2 {
+    margin-bottom: 10px;
+    font-size: 30px; /* Aumentar el tamaño del texto */
+  }
+  
+  .contenedor-pago p {
+    margin-bottom: 5px;
+    font-size: 20px; /* Aumentar el tamaño del texto */
+  }
+  
+  .contenedor-boton-pago {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 610px;
+    height: 350px; /* Aumentar el ancho del box */
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+  }
+  
+  .contenedor-boton-pago .boton-pago {
+    margin-top: 10px;
+  }
+
+  .button-success {
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+  
+  .button-success:hover {
+    background-color: #218838;
+  }
+  
+  .button-success:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5);
+  }
+  
+  .button-success:active {
+    background-color: #1e7e34;
+  }
+
+  .mat-spinner-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }

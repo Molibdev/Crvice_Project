@@ -22,9 +22,39 @@
               <span class="title-hover">...</span>
             </a>
           </div>
+          <div class="datos-bancarios" *ngIf="info?.perfil?.toString() === '1'">
+            <div class="help-container">
+              <mat-icon class="help" mat-button [matMenuTriggerFor]="helpMenu">help</mat-icon>
+              <h2 class="titulo">Tus datos bancarios</h2>
+            </div>
+            <div class="confirmacion-borrar" *ngIf="mostrarConfirmacion">
+              <p class="confirmacion-texto">¿Estás seguro de borrar tus datos?</p>
+              <div class="confirmacion-botones">
+                <button class="btn-eliminar" (click)="borrarDatosBank(idCuentaTrans)">Eliminar</button>
+                <button class="btn-cancelar" (click)="cancelarBorrarDatos()">Cancelar</button>
+              </div>
+            </div>                            
+            <ul>
+              <li *ngFor="let data of datosBanco" class="datos-banco-item">
+                <div class="datos-banco-info">
+                  <div class="campo"><strong>Número de cuenta:</strong> {{ data.NumCuenta }}</div>
+                  <div class="campo"><strong>Tipo de cuenta:</strong> {{ data.TipoCuenta }}</div>
+                  <div class="campo"><strong>Banco:</strong> {{ data.Banco }}</div>
+                </div>
+                <button class="eliminar-banco">
+                  <mat-icon class="eliminar-icon" (click)="confirmarBorrarDatos()">delete</mat-icon>
+                </button>
+              </li>
+              <li *ngIf="datosBanco.length === 0" class="no-datos-bancarios">
+                No existen datos bancarios a tu nombre. 
+                Si quieres ingresar tus datos para una transferencia directamente a tu cuenta de banco, 
+                haz click <button class="aqui" routerLink="/transferencia">aquí</button>
+              </li>
+            </ul>
+          </div>                            
         </div>
         <input #inputField hidden type="file" (change)="uploadFile($event, user)" />
-    
+
         <div class="der">
           <h2>Datos Personales</h2>
           <div class="datos" *ngIf="info">
@@ -82,12 +112,13 @@
                         <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="verMisPublicaciones()">Mis publicaciones</button>
                         <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '1'" (click)="verMisSolicitudes()">Mis Solicitudes</button>
                         <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '3'" (click)="gestPublicaciones()">Gestionar Publicaciones</button>
+                        <button class="cerrar-sesion" *ngIf="info.perfil.toString() === '3'" (click)="gestPublicaciones()">Gestionar Usuarios</button>
 
                     </div>
                     
                 </div>
             </div>
-        </div>
+        </div>        
     </section>
     <!-- seccion comentarios -->
     <div *ngIf="showContainer" class="container contenedor-comentario">
@@ -113,16 +144,12 @@
       </div >
       <div *ngIf="ratings.length == 0"> <p>Aún no tiene comentarios.</p> </div>
     </div>
-    
-    
-    
-    
-    
-
-
-
+    <mat-menu #helpMenu="matMenu" class="custom-menu">
+      <ng-template matMenuContent>
+        <p>* Recuerda que puedes tener solamente 1 cuenta para transferencia selecciona el icono de la papelera para eliminarla y crear una nueva.</p>
+      </ng-template>
+    </mat-menu>
 </body>
-
 <app-footer></app-footer>
 </html>
 

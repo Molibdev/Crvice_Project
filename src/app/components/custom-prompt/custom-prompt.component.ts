@@ -6,7 +6,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 <div class="custom-prompt">
   <h4>Editar</h4>
   <a class="close-button" (click)="closePrompt()"><mat-icon>close</mat-icon></a>
-  <input [(ngModel)]="inputValue" placeholder="Ingrese el dato..." />
+  <input [(ngModel)]="inputValue" placeholder="..." />
   <button (click)="save()">Guardar</button>
 </div>
   `,

@@ -19,7 +19,7 @@ export interface User {
     photoURL?: string;
 }
 
-export interface Trabajo {
+  export interface Trabajo {
     id?: string;
     trabajoId?: string;
     idPublicacion: string;
@@ -33,8 +33,16 @@ export interface Trabajo {
     photoPost?: string;
   }
   
- export interface Calificacion {
-    calificacion: number;
-    comentario: string;
+  export interface Calificacion {
+      calificacion: number;
+      comentario: string;
+  }
+
+  export interface userDataBank {
+    idUsuarioCuenta: string;
+    IdCuenta:  string;
+    NumCuenta: number;
+    TipoCuenta: string;
+    Banco: string;
   }
   

@@ -1,0 +1,37 @@
+<app-navbar></app-navbar>
+
+<body>
+  <div class="container">
+    <div class="form-container">
+      <h2>Ingresa los datos de tu cuenta</h2>
+      <h4>Recuerda que solamente puedes tener una cuenta de transferencia, además la cuenta a la que se te realiza la transferencia debe ser tuya.</h4>
+      <form [formGroup]="userDataForm" (submit)="guardarDatos()">
+        <label>
+          Número de cuenta:
+          <input type="number" formControlName="NumCuenta" required>
+          <div *ngIf="userDataForm.get('NumCuenta')?.errors?.['required'] && userDataForm.get('NumCuenta')?.touched" class="error-message">Número de cuenta es requerido</div>
+          <div *ngIf="userDataForm.get('NumCuenta')?.errors?.['minlength'] && userDataForm.get('NumCuenta')?.touched" class="error-message">Número de cuenta inválido. Debe tener entre 9 y 12 dígitos.</div>
+        </label><br><br>
+        <label>
+          <p>Tipo de cuenta:</p>
+          <select formControlName="TipoCuenta">
+            <option value=""> --- </option>
+            <option *ngFor="let tipoCuenta of tipoCuenta">{{ tipoCuenta }}</option>
+          </select>
+          <div *ngIf="userDataForm.get('TipoCuenta')?.errors?.['required'] && userDataForm.get('TipoCuenta')?.touched" class="error-message">Tipo de cuenta es requerido</div>
+        </label><br><br>
+        <label>
+          <p>Banco:</p>
+          <select formControlName="Banco">
+            <option value=""> --- </option>
+            <option *ngFor="let banco of bancos">{{ banco }}</option>
+          </select>
+          <div *ngIf="userDataForm.get('Banco')?.errors?.['required'] && userDataForm.get('Banco')?.touched" class="error-message">Banco es requerido</div>
+        </label><br><br>
+        <button type="submit">Guardar datos</button>
+      </form>
+    </div>
+  </div>
+</body>
+
+<app-footer></app-footer>

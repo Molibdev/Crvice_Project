@@ -25,6 +25,7 @@ import { GestPublicacionesComponent } from './components/gest-publicaciones/gest
 import { AdminEditPComponent } from './components/admin-edit-p/admin-edit-p.component';
 import { CrudAdminComponent } from './components/crud-admin/crud-admin.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { DataTransferenciaComponent } from './components/data-transferencia/data-transferencia.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/index', pathMatch: 'full' },
@@ -48,6 +49,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent,
   ...canActivate(() => redirectUnauthorizedTo(['/login']))}, 
+  { path: 'transferencia', component: DataTransferenciaComponent },
   { path: 'solicitar-trabajo/:id/:uid/:currentUserUid', component: SolicitarTrabajoComponent },
   { path: 'calificacion', component: CalificacionComponent },
   { path: 'mapa', component: MapaComponent },

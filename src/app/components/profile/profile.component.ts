@@ -7,7 +7,7 @@ import { UploadImageService } from 'src/app/services/upload-image.service';
 import { UsersService } from 'src/app/services/users.service';
 import { catchError, combineLatest, map, of, startWith, switchMap, tap, throwError } from 'rxjs';
 import { HotToastService } from '@ngneat/hot-toast';
-import { Calificacion } from 'src/app/models/models';
+import { Calificacion, userDataBank } from 'src/app/models/models';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { FormControl } from '@angular/forms';
 
@@ -27,11 +27,14 @@ export class ProfileComponent implements OnInit {
   );
 
   ratings: Calificacion[] = [];
+  datosBanco: userDataBank[] = [];
   contador: number = 1;
   mostrarCargarMenos: boolean = false;
   mostrarCargarMas: boolean = true;
   averageRating: number = 0;
   showContainer: boolean = false;
+  idCuentaTrans: string = '';
+  mostrarConfirmacion: boolean = false;
 
   nombre: string = '';
   apellido: string = '';
@@ -118,10 +121,43 @@ export class ProfileComponent implements OnInit {
       if (res) {
         this.info = res;
         this.getCalificaciones();
+        this.getUserDataBank();
       }
       console.log('datos son ->', res);
       this.isLoading = false;
     });
+  }
+
+getUserDataBank() {
+  const path = `Usuarios/${this.uid}/DatosTransferencia`;
+  this.firestore.getCollection<userDataBank>(path).subscribe(userDataBank => {
+    this.datosBanco = userDataBank;
+    if (this.datosBanco.length > 0) {
+      this.idCuentaTrans = this.datosBanco[0].IdCuenta; // Guardar el primer número de cuenta en idCuentaTrans
+    }
+  });
+}
+
+  borrarDatosBank(docId: string) {
+    this.idCuentaTrans = docId;
+    this.firestore.borrarDatosTransferencia(this.uid, docId)
+      .then(() => {
+        console.log('Datos eliminados exitosamente');
+        // Puedes agregar aquí alguna lógica adicional después de eliminar los datos
+      })
+      .catch((error: any) => {
+        console.log('Error al eliminar los datos:', error);
+      });
+      this.mostrarConfirmacion = false;
+      this.toast.warning('Se han eliminado los datos de transferencia de tu cuenta')
+  }
+
+  confirmarBorrarDatos(): void {
+    this.mostrarConfirmacion = true;
+  }
+
+  cancelarBorrarDatos(): void {
+    this.mostrarConfirmacion = false;
   }
   
   getCalificaciones() {
@@ -235,6 +271,10 @@ export class ProfileComponent implements OnInit {
   }
   gestPublicaciones() {
     this.router.navigate(['/gestionar-publicaciones']);
+  }
+
+  gestUsers() {
+    this.router.navigate(['/crud-admin']);
   }
 
   cargarMasComentarios() {

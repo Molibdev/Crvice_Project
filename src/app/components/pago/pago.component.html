@@ -1,18 +1,35 @@
-<div class="div-fondo">
-
-  <div class="contenedor-pago">
-    <h1>Pago de Servicio</h1>
+<app-navbar></app-navbar>
+<body>
+  <div class="div-fondo">
+    <div class="mat-spinner-center" *ngIf="isLoading">
+      <mat-spinner></mat-spinner>
+    </div>
+    <div class="contenedor-pago" *ngIf="!isLoading">
+      <h1>Realiza una transferencia</h1>
+      <div *ngIf="publicacion && trabajo">
+        <div class="datos-pago">
+          <p><strong>Nombre completo:</strong> {{nombreTrabajador}}</p>
+          <p><strong>Rut:</strong> {{rutTrabajador}}</p>
+          <div *ngFor="let dato of datosBanco">
+            <p><strong>Numero de cuenta:</strong> {{ dato.NumCuenta }}</p>
+            <p><strong>Tipo de cuenta:</strong> {{ dato.TipoCuenta }}</p>
+            <p><strong>Banco:</strong> {{ dato.Banco }}</p>
+          </div>
+          <p><strong>Precio:</strong> {{ trabajo.precio }}</p>
+          <p><strong>Comentario de transferencia:</strong> {{publicacion.titulo}}</p>
+        </div>
+      </div>
+      <button class="button-success" (click)="changeWorkStatusToAbonadoTransf()">Realizaste la transferencia? Haz click aquí</button>
+    </div>
     
-    <div *ngIf="publicacion && trabajo">    
-        <h2>Pagar a: {{nombreTrabajador}}</h2>
-        <h2>Precio: {{ trabajo.precio }}</h2>
-        <h2>Trabajo: {{publicacion.titulo}}</h2>
-        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
-        
+    <div class="div-fondo" *ngIf="!isLoading">
+      <div class="contenedor-boton-pago">
+        <h1>Realiza el pago por Paypal</h1>
+        <div class="boton-pago">
+          <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+        </div>
       </div>
-      <div class="alert alert-success" *ngIf="paymentCancel">
-        <h2>¡Pago Rechazado!</h2>
-      </div>
+    </div>
   </div>
-
-</div>
+</body>
+<app-footer></app-footer>

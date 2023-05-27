@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection  } from '@angular/fire/compat/firestore';
 import { collectionData, query, Firestore,  } from '@angular/fire/firestore';
 import {
   doc,
@@ -7,7 +7,7 @@ import {
 } from '@angular/fire/firestore';
 import { collection } from 'firebase/firestore';
 import {  map, Observable, of, switchMap } from 'rxjs';
-import { Trabajo, User } from '../models/models';
+import { Trabajo, User, userDataBank } from '../models/models';
 import { AuthService } from 'src/app/services/auth.service';
 import 'firebase/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -111,6 +111,29 @@ export class FirebaseService {
   getTrabajo(trabajoId: string): Observable<Trabajo> {
     return this.firestore.collection('Trabajos').doc(trabajoId).valueChanges() as Observable<Trabajo>;
   }
+
+  guardarDatosTransferencia(uid: string, userData: userDataBank) {
+    const collection: AngularFirestoreCollection<userDataBank> = this.firestore
+      .collection('Usuarios')
+      .doc(uid)
+      .collection('DatosTransferencia');
+
+    return collection.add(userData).then((docRef) => {
+      userData.IdCuenta = docRef.id;
+      return docRef.update(userData);
+    });
+  }
+
+  borrarDatosTransferencia(uid: string, docId: string) {
+    return this.firestore
+      .collection('Usuarios')
+      .doc(uid)
+      .collection('DatosTransferencia')
+      .doc(docId)
+      .delete();
+  }
 }
+
+
 
 
