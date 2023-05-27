@@ -5,9 +5,11 @@
 </head>
 <app-navbar></app-navbar>
 <body>
-    
     <!-- seccion datos personales -->
-    <section class="datos-personales">
+    <div class="mat-spinner-center" *ngIf="isLoading">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </div>
+    <section *ngIf="showContainer" class="datos-personales">
       <div class="container" *ngIf="user$ | async as user">
         <div class="izq">
           <div class="div-imagen">
@@ -67,9 +69,9 @@
                     </p>
                     <hr>
                     <hr>
-                    <p> Si necesitas asistencia en cambio de tus datos, habla con nosotros </p> 
-                    <div div *ngFor="let user of users$ | async">
-                      <p *ngIf="user.uid == adminId" (click)="createChat(user)">aqui</p>
+                    <p> Tienes problemas con alguno de tus datos personales? haz click </p> 
+                    <div *ngFor="let user of users$ | async">
+                      <button class="aqui" *ngIf="user.uid == adminId" (click)="createChat(user)">aquí!</button>
                     </div> 
                     <hr>
                     <div class="div-botones">
@@ -88,7 +90,7 @@
         </div>
     </section>
     <!-- seccion comentarios -->
-    <div class="container contenedor-comentario">
+    <div *ngIf="showContainer" class="container contenedor-comentario">
       <h2>Calificación y Comentarios</h2>
       <p>Calificación General: {{ averageRating | number: '1.2-2' }}</p>
       <div class="comentario" *ngFor="let calificacion of ratings.slice(0, contador)">

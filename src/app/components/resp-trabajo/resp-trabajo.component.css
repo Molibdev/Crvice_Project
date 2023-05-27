@@ -44,12 +44,23 @@ h2{
     align-content: center;
     padding: 30px 30px 40px 30px;
     margin-bottom: 30px;
+    position: relative;
 }
 .place .info {
     padding: 10px 20px;
     
     
 }
+
+.help {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    font-size: 25px;
+  }
+
+
 .div-button{
     display: flex;
     flex-direction: row;
@@ -73,3 +84,19 @@ button:hover {
     text-decoration: underline;    
 
 }
+
+.custom-menu {
+    max-width: 300px;
+    padding-left: 10px;
+  }
+  
+  .custom-menu h4 {
+    margin-top: 0;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .custom-menu p {
+    margin-bottom: 20px;
+    font-size: 14px;
+  }

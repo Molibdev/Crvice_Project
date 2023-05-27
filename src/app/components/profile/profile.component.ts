@@ -22,7 +22,6 @@ export class ProfileComponent implements OnInit {
   info: User | null = null;
   user$ = this.usersService.currentUserProfile$;
   searchControl = new FormControl('');
-  
   users$ = combineLatest([this.firestore.allUsers$, this.user$, this.searchControl.valueChanges.pipe(startWith(''))]).pipe(
     map(([users, user, searchString]) => users.filter(u => u.nombre?.toLowerCase().includes(searchString?.toLowerCase() ?? '') && u.uid !== user?.uid))
   );
@@ -32,6 +31,7 @@ export class ProfileComponent implements OnInit {
   mostrarCargarMenos: boolean = false;
   mostrarCargarMas: boolean = true;
   averageRating: number = 0;
+  showContainer: boolean = false;
 
   nombre: string = '';
   apellido: string = '';
@@ -46,6 +46,7 @@ export class ProfileComponent implements OnInit {
   editingField: string = '';
   chatListControl = new FormControl<string[]>([]);
   adminId : string = '6VD9LeSM0qSBwP0AsyhylOZDMIx2'
+  public isLoading: boolean = false;
 
   constructor(private auth: AuthService,
               private router: Router,
@@ -59,12 +60,18 @@ export class ProfileComponent implements OnInit {
 
 
   async ngOnInit() {
-    console.log('estoy en perfil')
+    this.isLoading = true;
+    console.log('estoy en perfil');
     this.uid = (await this.auth.getUid()) || '';
     console.log('uid ->', this.uid);
-    this.getInfoUser();
-    this.auth.stateUser().subscribe(res => 
-      console.log('en perfil - estado de autentificacion ->', res));
+    // Retraso de 2 segundos (2000 milisegundos)
+    setTimeout(() => {
+      this.showContainer = true;
+      this.getInfoUser();
+      this.auth.stateUser().subscribe(res =>
+        console.log('en perfil - estado de autentificacion ->', res)
+      );
+    }, 500);
   }
 
   onCustomPromptSave(value: string) {
@@ -113,6 +120,7 @@ export class ProfileComponent implements OnInit {
         this.getCalificaciones();
       }
       console.log('datos son ->', res);
+      this.isLoading = false;
     });
   }
   

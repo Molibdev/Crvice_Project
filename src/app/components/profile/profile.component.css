@@ -479,3 +479,18 @@ button {
   .edit-button {
     margin-left: auto;
   }
+  
+  .mat-spinner-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .aqui {
+    font-weight: bold;
+    font-size: medium;
+    font-style: italic;
+    text-decoration: underline;
+    color: black;
+  }

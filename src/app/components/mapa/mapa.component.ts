@@ -15,7 +15,10 @@ import { Map, marker, tileLayer } from 'leaflet';
 })
 export class MapaComponent implements OnInit {
 
+  public trabajo: Trabajo | undefined;
+  public nombreUsuarioSolicitante = '';
   direccion: string = '';
+  telefono: number = 0;
   comuna: string = ''
   latitud: number = 0;
   longitud: number = 0;
@@ -29,17 +32,40 @@ export class MapaComponent implements OnInit {
   };
 
   constructor( private http: HttpClient,
-               private publicaciones: PublicacionesService,) {
-
+               private publicaciones: PublicacionesService,
+               private route: ActivatedRoute,
+               private firestore: AngularFirestore) {
                }
 
 
   ngOnInit(): void {
-    this.obtenerCoordenadas()
-  }
+    this.route.queryParams.subscribe(params => {
+      const trabajoId = params['trabajadorId'];
+      console.log(trabajoId);
+      this.firestore.collection<Trabajo>('Trabajos').doc(trabajoId).get().toPromise().then((trabajoDoc) => {
+        if (trabajoDoc && trabajoDoc.exists) {
+          this.trabajo = trabajoDoc.data() as Trabajo;
+          this.firestore.collection<User>('Usuarios').doc(this.trabajo.idUsuarioSolicitante).get().toPromise().then((usuarioDoc) => {
+            if (usuarioDoc && usuarioDoc.exists) {
+              const usuario = usuarioDoc.data() as User;
+              this.nombreUsuarioSolicitante = usuario.nombre + ' ' + usuario.apellido;
+              this.publicaciones.uidUsuario = usuario.uid;
+              this.publicaciones.uidUsuarioMapa = usuario.uid;
+              this.comuna = usuario.comuna;
+              this.direccion = usuario.direccion + ' ' + usuario.numDireccion;
+              this.telefono = usuario.telefono
+              console.log(this.comuna);
+              console.log(this.direccion);
+              this.obtenerCoordenadas();
+            }
+          });
+        }
+      });
+    }); 
+    }
 
   obtenerCoordenadas() {
-    const url = `https://nominatim.openstreetmap.org/search?q=${this.publicaciones.usuarioDireccion},${this.publicaciones.usuarioComuna},${'santiago'}&format=json`;
+    const url = `https://nominatim.openstreetmap.org/search?q=${this.direccion},${this.comuna},${'santiago'}&format=json`;
     this.http.get<any[]>(url).subscribe(data => {
       if (data && data.length > 0) {
         this.latitud = parseFloat(data[0].lat);

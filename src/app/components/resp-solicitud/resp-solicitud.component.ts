@@ -18,6 +18,7 @@ export class RespSolicitudComponent implements OnInit {
   public nombreUsuarioSolicitante = '';
   public mensajeTrabajador = '';
   public uidCliente = '';
+  public idTrabajo = '';
 
   constructor(private route: ActivatedRoute, private firestore: AngularFirestore, private router: Router,  private toast: HotToastService, private publicaciones: PublicacionesService) { }
 
@@ -25,6 +26,7 @@ export class RespSolicitudComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const trabajoId = params['trabajoId'];
       const publicacionId = params['publicacionId'];
+      this.idTrabajo = params['trabajoId'];
   
       console.log('trabajoId:', trabajoId);
       console.log('publicacionId:', publicacionId);
@@ -39,7 +41,7 @@ export class RespSolicitudComponent implements OnInit {
               this.publicaciones.uidUsuario = usuario.uid;
               this.publicaciones.uidUsuarioMapa = usuario.uid;
               this.publicaciones.usuarioComuna = usuario.comuna;
-              this.publicaciones.usuarioDireccion = usuario.direccion;
+              this.publicaciones.usuarioDireccion = usuario.direccion + ' ' + usuario.numDireccion;
               console.log(this.publicaciones.usuarioComuna)
               console.log(this.publicaciones.usuarioDireccion)
             }
@@ -82,9 +84,6 @@ export class RespSolicitudComponent implements OnInit {
     }
   }
   
-  
-  
-
   rechazarTrabajo(): void {
     if (this.trabajo) {
       this.trabajo.estado = 'Cancelado'; 
@@ -111,7 +110,10 @@ export class RespSolicitudComponent implements OnInit {
   }  
 
   verUbicacion(){
-    this.router.navigate(['/mapa'])
+    const queryParams = {
+      trabajadorId: this.idTrabajo,
+    };
+    this.router.navigate(['/mapa'], { queryParams })
   }
 
 }

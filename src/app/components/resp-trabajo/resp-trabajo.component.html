@@ -1,13 +1,11 @@
 
 <app-navbar></app-navbar>
-
 <div class="container">
   <h1>Detalles de la Solicitud</h1>
-
   <div class="places">
-
     <div class="place" *ngIf="publicacion && trabajo">
       <h2>Trabajo</h2>
+      <mat-icon class="help" mat-button [matMenuTriggerFor]="helpMenu">help</mat-icon>
       <div class="div-contenedor">
         <div class="div-icon">
           <img src="../../../assets/img/maletin_azul.png" alt="">
@@ -21,19 +19,26 @@
           <p><b>Mensaje del Trabajador:</b> {{ trabajo.mensajeTrabajador }}</p>
         </div>
       </div>
-      
       <div class="div-button">
         <button type="submit" class="btn btn-primary" *ngIf="trabajo.estado === 'Respondido'" (click)="aceptarTrabajo()">Contratar</button>
         <button type="submit" class="btn btn-primary" *ngIf="trabajo.estado === 'Aceptado'" (click)="pagar()">Pagar Abono</button>
         <button type="submit" class="btn btn-primary" *ngIf="trabajo.estado !== 'Abonado' && trabajo.estado !== 'Calificado Por Cliente'" (click)="rechazarTrabajo()">Rechazar Propuesta</button>
         <button type="submit" class="btn btn-primary" *ngIf="trabajo.estado === 'Abonado'" (click)="calificar()">Trabajo Completado</button>
       </div>
-      
+      <mat-menu #helpMenu="matMenu" class="custom-menu">
+        <ng-template matMenuContent>
+          <h3>Necesitas ayuda con cómo funcionan las solicitudes?</h3>
+          <p><b>* Solicitud Pendiente:</b> La solicitud de trabajo que enviaste todavía está pendiente de respuesta. Recuerda que puedes comunicarte con el trabajador a través de la mensajería.</p>
+          <p><b>* Solicitud Respondida:</b> El trabajador ha respondido a tu solicitud de trabajo.</p>
+          <p><b>* Solicitud Aceptada:</b> Has llegado a un acuerdo con el trabajador para realizar el trabajo. ¡Bien hecho!</p>
+          <p><b>* Una vez aceptada la solicitud</b>, recuerda seleccionar el botón "Abonar" para realizar el pago del monto de abono acordado.</p>
+          <p><b>* Como usuario trabajador</b>, podrás visualizar la dirección del cliente una vez que se haya realizado con éxito el abono.</p>
+          <p><b>* Como cliente</b>, debes finalizar el trabajo para poder calificar a tu colaborador.</p>
+          <p><b>* Como trabajador</b>, al momento en que se haya realizado la finalización de el trabajo, también tienes la posibilidad de calificar a tu cliente.</p>
+          <p><b>* Recuerda,</b> la propuesta la puedes rechazar solo antes del pago del abono, no te apresures, piensalo bien!</p>
+        </ng-template>
+      </mat-menu>
     </div>
-
   </div>
-
-
 </div>
-
 <app-footer></app-footer>

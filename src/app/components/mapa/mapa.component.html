@@ -1,15 +1,25 @@
-<p>mapa works!</p>
+<app-navbar></app-navbar>
 
-<div>
-    <button (click)="obtenerCoordenadas()">Obtener Coordenadas</button>
+<div id="center-container">
+  <div id="info-container">
+    <div id="info-box">
+      <div *ngIf="latitud && longitud" id="info-text">
+        <p hidden>Latitud: {{ latitud }}</p>
+        <p hidden>Longitud: {{ longitud }}</p>
+        <h2>Datos del cliente</h2>
+        <p>Nombre: {{ nombreUsuarioSolicitante }}</p>
+        <p>Dirección: {{ direccion }}</p>
+        <p>Comuna: {{ comuna }}</p>
+        <p>Region: Región Metropolitana</p>
+        <p>Telefono de contacto: {{ telefono }}</p>
+      </div>
+    </div>
   </div>
-  
-  <div *ngIf="latitud && longitud">
-    <p>Latitud: {{ latitud }}</p>
-    <p>Longitud: {{ longitud }}</p>
-   
+
+  <div id="map-container">
+    <div id="map"></div>
+  </div>
 </div>
 
-<div id="map"></div>
-
+<app-footer></app-footer>
 
