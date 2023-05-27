@@ -2,7 +2,7 @@
     
     width: 400px;
     height: auto;
-    /* margin-left: 30px; */
+    margin-left: 30px;
     box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.285);
 }
 .div-imagen {
@@ -28,7 +28,9 @@ h2{
     margin-top: 40px;
     width: 50%;
     text-align: justify;
+    margin-right: 10px;
 }
+
 
 @media only screen and (max-width:770px) {
     .div-imagen img{
@@ -43,6 +45,7 @@ h2{
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin-left: 0px;
     }
     .info{
         display: flex;
@@ -50,6 +53,7 @@ h2{
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin-right: 0px;
     }
     
     h2{

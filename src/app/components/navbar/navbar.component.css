@@ -17,6 +17,20 @@
     color: #304A76;
     font-weight: 600;
 }
+.btn-iniciar-sesion{
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    padding: 10px 16px;
+    background: #228BFB;
+    border-radius: 30px;
+    cursor: pointer;
+}
+#inicio-sesion{
+    color: whitesmoke;
+}
+.mat-toolbar{
+    padding: 0;
+}
 
 nav.navbar{
     height: 80px;

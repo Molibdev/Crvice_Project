@@ -107,10 +107,11 @@
           <p>Comentario: {{ calificacion.comentario }}</p>
         </div>
       </div>
-      <div class="div-btn">
+      <div class="div-btn" *ngIf="ratings.length > 0">
         <button class="mas-comentarios" *ngIf="mostrarCargarMas" (click)="cargarMasComentarios()">Cargar más comentarios</button>
         <button class="mas-comentarios" *ngIf="mostrarCargarMenos" (click)="cargarMenosComentarios()">Mostrar menos comentarios</button>
-      </div>
+      </div >
+      <div *ngIf="ratings.length == 0"> <p>Aún no tiene comentarios.</p> </div>
     </div>
     
     

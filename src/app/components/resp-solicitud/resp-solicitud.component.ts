@@ -18,11 +18,8 @@ export class RespSolicitudComponent implements OnInit {
   public nombreUsuarioSolicitante = '';
   public mensajeTrabajador = '';
   public uidCliente = '';
-<<<<<<< HEAD
   public idTrabajo = '';
-=======
   public isLoading: boolean= false;
->>>>>>> 62713d7 (Para hacer pull)
 
   constructor(private route: ActivatedRoute, 
               private firestore: AngularFirestore, 
