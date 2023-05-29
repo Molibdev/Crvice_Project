@@ -47,6 +47,14 @@
                     </small>
 
                     <div class="formulario">
+                        <input type="text" class="form-nombre form-control" name="numeroDocumento" formControlName="numeroDocumento" >
+                        <label class="etiqueta form-label">Número de Documento:</label>
+                    </div>
+                    <small *ngIf="isValidField('numeroDocumento')">
+                        Este campo es obligatorio
+                    </small>
+
+                    <div class="formulario">
                         <input type="text" class="form-nombre form-control" name="telefono" formControlName="telefono" >
                        <label class="etiqueta form-label">Teléfono:</label>
                     </div>
@@ -131,7 +139,7 @@
                     </div>
 
                 </form>
-                <p class="acceder">Ya tienes una cuenta? <a href="" >Accede aquí</a> </p>
+                <p class="acceder">Ya tienes una cuenta? <a routerLink="/login" >Accede aquí</a> </p>
 
             </div>
             

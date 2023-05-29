@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import { User } from 'src/app/models/models';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -75,13 +76,15 @@ export class RegisterComponent implements OnInit{
   constructor(private auth: AuthService,
               private firestore: FirebaseService,
               private router: Router,
-              private fb: FormBuilder) {}
+              private fb: FormBuilder,
+              private toast: HotToastService) {}
 
 public formRegister: FormGroup = this.fb.group({
   nombre: ['', [Validators.required]],
   apellido: ['', [Validators.required]],
   rut: ['', [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)]],
   dv: ['', [Validators.required, Validators.min(0), Validators.maxLength(1)]],
+  numeroDocumento:['', [Validators.required]],
   correo: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
   password: ['', [Validators.required, Validators.minLength(6)]],
   confirmarPassword: ['', [Validators.required]],
@@ -159,6 +162,28 @@ public formRegister: FormGroup = this.fb.group({
     this.datos.numDireccion = this.formRegister.get('numDireccion')?.value;
     this.datos.comuna = this.formRegister.get('comuna')?.value;
     this.datos.nacimiento = this.formRegister.get('nacimiento')?.value;
+
+    if(!this.mayorDeEdad(this.datos.nacimiento)){
+      this.toast.error(
+        'Error, debe ser mayor de edad para registrarse.'
+      );
+      return;
+    }
+
+
+    const rut = this.datos.rut+this.datos.dv; 
+    const esValido = this.validarRut(rut);
+
+    if (esValido) {
+      console.log('El RUT es válido');
+    } else {
+      this.toast.error(
+        'Error, el rut ingresado no es válido.'
+      );
+      return;
+    }
+
+
     
 
     console.log('datos ->', this.datos);
@@ -174,10 +199,50 @@ public formRegister: FormGroup = this.fb.group({
       localStorage.setItem('correo', this.datos.correo);
       this.router.navigate(['/email-validation'])
     }
+    this.toast.success('Cuenta creada correctamente.');
 
     this.formRegister.reset();
   }
 
+  mayorDeEdad(fechaNacimientoForm:Date):boolean{
+    let fechaNacimiento= new Date(fechaNacimientoForm);
+    let fechaActual= new Date();
+    
+    const diferenciaMilisegundos = fechaActual.getTime() - fechaNacimiento.getTime();
+
+    const milisegundosPorAnio = 1000 * 60 * 60 * 24 * 365.25; 
+    const edad = Math.floor(diferenciaMilisegundos / milisegundosPorAnio);
+
+    console.log(edad); 
+    if (edad>=18){
+      return true;
+    }else{
+      return false;
+    }
+    
+  }
+
+  validarRut(rut: string): boolean {
+    rut = rut.replace(/\./g, '').toUpperCase(); 
+    const rutSinDigitoVerificador = rut.slice(0, -1);
+    const digitoVerificador = rut.slice(-1);
+    const cuerpoRut = parseInt(rutSinDigitoVerificador, 10);
+   
+    let suma = 0;
+    let multiplicador = 2;
+    let resto;
+    let digitoVerificadorEsperado;
+  
+    for (let i = rutSinDigitoVerificador.length - 1; i >= 0; i--) {
+      suma += multiplicador * parseInt(rutSinDigitoVerificador.charAt(i), 10);
+      multiplicador = multiplicador === 7 ? 2 : multiplicador + 1;
+    }
+  
+    resto = suma % 11;
+    digitoVerificadorEsperado = resto === 0 ? '0' : resto === 1 ? 'K' : (11 - resto).toString();
+  
+    return digitoVerificador === digitoVerificadorEsperado;
+  }
 
 
 }
