@@ -32,6 +32,7 @@ const routes: Routes = [
   { path: 'index', component: IndexComponent },
   { path: 'login', component: LoginComponent },
   { path: 'sobre-nosotros', component:AboutUsComponent},
+  { path: 'busqueda', component: BusquedaComponent },
   { path: 'busqueda/:termino', component: BusquedaComponent },
   { path: 'nueva-publicacion', component: NuevaPublicacionComponent,
   ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
