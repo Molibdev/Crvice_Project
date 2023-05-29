@@ -11,29 +11,35 @@
 </header>
 <body>
   <div class="container">
-    <div class="input-container">      
-       <input  type="text" placeholder="Buscar..." name="buscar"><!--(keyup.enter)="buscar($event)" -->
-       <mat-icon>search</mat-icon> 
-    </div>
-
-
-    <div class="places">
-      <mat-spinner *ngIf="isLoading"></mat-spinner>
-      <div class="place" *ngFor="let publicacion of publicaciones | filter: termino">
-        <div >
-          <img class="img-publiacion" src="../../../assets/img/foto5.jpg" alt="">
+        <div  class="input-container">
+          <input type="text" placeholder="Buscar..." name="buscar" (keyup.enter)="buscar($event)">
+          <mat-icon>search</mat-icon> 
         </div>
-        <div class="info">
-          <h2>{{ publicacion.titulo }}</h2>
-          <p>{{ publicacion.descripcion }}</p>
-          <button (click)="abrirPublicacion(publicacion.id)">Ver</button>
+
+
+        <div class="places">
+          <mat-spinner *ngIf="isLoading"></mat-spinner>
+          <div class="place" *ngFor="let publicacion of publicaciones | filter: termino">
+            <div *ngIf="publicacion.id">
+              <ng-container *ngIf="fotosURLs[publicacion.id] | async as fotoURL">
+                <img class="img-publicacion" [src]="fotoURL" alt="">
+              </ng-container>
+              <ng-container *ngIf="!(fotosURLs[publicacion.id] | async)">
+                <img class="img-publicacion" [src]="imagenPredeterminada" alt="">
+              </ng-container>
+            </div>
+            <div class="info">
+              <h2>{{ publicacion.titulo }}</h2>
+              <p>{{ publicacion.descripcion }}</p>
+              <button (click)="abrirPublicacion(publicacion.id)">Ver</button>
+            </div>
+          </div>
+          <div *ngIf="(publicaciones | filter: termino)?.length === 0">
+            Lo sentimos, no hay publicaciones relacionadas a su búsqueda de "{{termino}}".
+          </div>
         </div>
         
-      </div>
-      <div *ngIf="(publicaciones | filter: termino)?.length === 0">
-        Lo sentimos, no hay publicaciones relacionadas a su búsqueda de "{{termino}}".
-      </div>
-    </div>
+        
     
 
 
