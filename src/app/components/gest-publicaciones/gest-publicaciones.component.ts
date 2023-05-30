@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { map, switchMap, filter } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { PublicacionesService } from 'src/app/services/publicaciones.service';
 import { User } from 'src/app/models/models';
 import { Router } from '@angular/router';
@@ -17,6 +17,8 @@ export class GestPublicacionesComponent implements OnInit {
   publicacionesFiltradas!: any[];
   rutUsuario: string = '';
   noHayPublicaciones: boolean = false; // Variable para verificar si no hay publicaciones
+  mostrarPrompt: boolean = false; // Agregar la declaración de la propiedad mostrarPrompt
+  publicacionSeleccionada: any; // Variable para almacenar la publicación seleccionada
 
   constructor(
     private publicacionService: PublicacionesService,
@@ -70,15 +72,29 @@ export class GestPublicacionesComponent implements OnInit {
     this.router.navigate(['/gest-editar-publicacion', publicacionId]);
   }
 
-  eliminarPublicacion(publicacionId: string) {
+  mostrarDialogo(publicacion: any) {
+    this.publicacionSeleccionada = publicacion; // Almacenar la publicación seleccionada
+    this.mostrarPrompt = true;
+  }
+  
+  eliminarPublicacion() {
+    const publicacionId = this.publicacionSeleccionada.id;
+  
     this.publicacionService.deletePublicacion(publicacionId)
       .then(() => {
         console.log('Publicación eliminada correctamente');
         this.toast.success('Publicación eliminada correctamente');
+        this.cerrarDialogo(); // Cerrar el prompt después de eliminar la publicación
       })
       .catch((error: any) => {
         console.error('Error al eliminar la publicación:', error);
         // Manejar el error de eliminación
+        this.cerrarDialogo(); // Cerrar el prompt en caso de error
       });
+  }
+  
+
+  cerrarDialogo() {
+    this.mostrarPrompt = false;
   }
 }

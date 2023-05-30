@@ -34,6 +34,13 @@ export class AdminEditPComponent implements OnInit {
 
   guardarCambios() {
     if (this.publicacionId !== null) {
+      // Verificar el formato del precio
+      const precioRegex = /^\d{1,3}(\.\d{3})*$/;
+      if (!precioRegex.test(this.publicacion.precio)) {
+        this.toast.error('El formato del precio debe ser en CLP (000.000.000)');
+        return;
+      }
+  
       this.publicacionService.updatePublicacion(this.publicacionId, this.publicacion)
         .then(() => {
           console.log('Publicación actualizada correctamente');
@@ -46,6 +53,10 @@ export class AdminEditPComponent implements OnInit {
           this.toast.error('Ha ocurrido un error al intentar eliminar la publicacion');
         });
     }
+  }
+
+  volver(){
+    this.router.navigate(['/gestionar-publicaciones']);
   }
   
 }

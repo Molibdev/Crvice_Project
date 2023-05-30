@@ -44,11 +44,13 @@ input, textarea {
     outline: none;
     border-color: #6f86d6 ;
 }
-.btn {
-    margin-top: 20px;
-    padding: 10px 50px;
+
+.div-btn .btn {
+    margin-top: 10px;
+    margin-right: 5px; /* Agregado: espacio entre los botones */
+    padding: 10px 30px; /* Ajuste: disminuir el padding horizontal */
     background: #228BFB;
-    border-radius: 10px;
+    border-radius: 8px; /* Ajuste: reducir el radio de los bordes */
     color: white;
     border: none;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
@@ -57,6 +59,38 @@ input, textarea {
     cursor: pointer;
 }
 
-.btn:hover {
+.btn:first-child {
+    margin-right: 0; /* Ajuste: eliminar el margen derecho del primer botón */
+}
+
+.div-btn .btn:hover {
     background-color: #1e71ca;
+  }
+  
+.div-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+mat-spinner{
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
+@media (max-width: 500px) {
+    .nueva-publicacion {
+        width: 100%;
+    } 
+    .div-btn {
+        flex-direction: column;
+    }
+    .div-btn .btn {
+        margin-top: 10px; /* Ajuste del margen entre los botones */
+    }
+    
+    .div-btn .btn:first-child {
+        margin-top: 10px; /* Ajuste del margen superior del primer botón */
+    }
 }

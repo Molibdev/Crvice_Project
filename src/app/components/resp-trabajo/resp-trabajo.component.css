@@ -100,3 +100,28 @@ button:hover {
     margin-bottom: 20px;
     font-size: 14px;
   }
+
+  @media (max-width: 768px) {
+    .place {
+        width: 90vw;
+    }
+    h2 {
+       padding-bottom: 20px;   
+    }
+    .div-contenedor {
+      flex-direction: column;
+    }
+    .div-icon {
+      margin-bottom: 20px;
+    }
+    .info {
+      text-align: center;
+    }
+    .div-button {
+      flex-direction: column;
+      align-items: center;
+    }
+    textarea {
+        width: 15rem;
+    }
+  }

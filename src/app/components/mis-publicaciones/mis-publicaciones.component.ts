@@ -12,8 +12,10 @@ import { HotToastService } from '@ngneat/hot-toast';
   styleUrls: ['./mis-publicaciones.component.css']
 })
 export class MisPublicacionesComponent implements OnInit {
-  publicaciones$!: Observable<Publicacion[]>;
-  public isLoading: boolean= false;
+  publicaciones$: Observable<Publicacion[]> | undefined;
+  public isLoading = false;
+  mostrarPrompt = false;
+  publicacionSeleccionada: Publicacion | undefined;
 
   constructor(
     private publicacionesService: PublicacionesService,
@@ -40,17 +42,32 @@ export class MisPublicacionesComponent implements OnInit {
       this.router.navigate(['/editar-publicacion', id]);
     }
   }
+  
 
-  eliminarPublicacion(publicacionId: string) {
-    this.publicacionesService.deletePublicacion(publicacionId)
-      .then(() => {
-        console.log('Publicación eliminada correctamente');
-        this.toast.success('Publicación eliminada correctamente');
-      })
-      .catch((error: any) => {
-        console.error('Error al eliminar la publicación:', error);
-        // Manejar el error de eliminación
-      });
+  mostrarDialogo(publicacion: Publicacion) {
+    this.publicacionSeleccionada = publicacion;
+    this.mostrarPrompt = true;
   }
 
+  eliminarPublicacion() {
+    if (this.publicacionSeleccionada && this.publicacionSeleccionada.id) {
+      const publicacionId = this.publicacionSeleccionada.id;
+      this.publicacionesService.deletePublicacion(publicacionId)
+        .then(() => {
+          console.log('Publicación eliminada correctamente');
+          this.cerrarDialogo();
+          this.toast.success('Publicación eliminada correctamente');
+        })
+        .catch((error: any) => {
+          console.error('Error al eliminar la publicación:', error);
+          // Manejar el error de eliminación
+          this.cerrarDialogo();
+        });
+    }
+  }
+
+  cerrarDialogo() {
+    this.mostrarPrompt = false;
+    this.publicacionSeleccionada = undefined;
+  }
 }
