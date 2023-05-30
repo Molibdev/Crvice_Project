@@ -81,7 +81,7 @@ img {
     background-color: #EBEDFD;
     width: 50vw;
     height: 100%;
-
+    overflow: auto;
 }
 input {
     background-color: transparent;
@@ -129,62 +129,69 @@ div select {
     border: none;
 }
 
+.tipo-cuenta {
+    padding-top: 20px;
+    padding-bottom: 16px;
+    position: relative;
+  }
+  
+  .tipo-cuenta .dudas-cuenta {
+    color: rgba(110, 110, 110, 0.8);
+    font-size: 14px;
+    margin-top: 8px;
+    margin-left: 29px;
+  }
+  
+  .tipo-cuenta .enlace-gris-suave {
+    color: rgba(110, 110, 110, 0.8);
+    text-decoration: underline;
+  }
+
+  .titulo-formulario {
+    margin-top: 3;
+    margin-bottom: 3px;
+    margin-left: 25px;
+  }
+
 /* ===Vista Responsive=== */
-@media only screen and (max-width:770px) {
+@media only screen and (max-width: 800px) {
     .contenedor-img {
-        display: none;
-
+      display: none;
     }
-
+  
     body {
-        height: 100%;
-        background-color: #EBEDFD;
+      height: 100%;
+      background-color: #EBEDFD;
+      margin: 0; /* Agregar margen 0 para eliminar el espacio en blanco */
     }
-    
+  
     .info-formulario {
-        background-color: #EBEDFD;
-        width: 100vw;
-        height: 100%;
-        text-align: center;
-        justify-content: center;
-        display: flex;
-        
+      background-color: #EBEDFD;
+      width: 100vw;
+      height: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column; /* Cambiar a dirección de columna para apilar los elementos */
+      align-items: center; /* Centrar verticalmente los elementos */
+      justify-content: center; /* Centrar horizontalmente los elementos */
     }
-    .contenedor-formulario{
-        padding: 0;
+  
+    .contenedor-formulario {
+      padding: 0 20px; /* Agregar relleno horizontal para separar del borde de la ventana */
+      overflow: auto;
+      max-height: 100vh; /* Limitar la altura máxima del formulario para que sea desplazable */
     }
-
-    input[type="date" i] {
-        display: inline-block;
-        text-align: left;
-        cursor: default;
-        overflow: hidden;
-        padding-bottom: 10px;
-        margin-top: 40px; 
+  
+    .formulario {
+      margin-bottom: 20px; /* Agregar margen inferior para separar los campos del formulario */
     }
-    .fecha {
-        padding-right: 100px;
+  
+    input.form-nombre {
+      padding-right: 20px; /* Reducir el espacio de relleno derecho en el campo de entrada */
     }
-    div.contenedor-formulario{
-        margin-right: 0;
-    }
+  
     .button {
-        padding: 10px 100px;
-    }
-    *{
-        box-sizing: content-box;
-    }
-    .form-nombre{
-        padding-left: 0;
-        margin-left: 0;
-    }
-    .button {
-        padding: 10px 30px;
-    }
-
-}
-@media only screen and (min-height: 686px) {
-    .info-formulario {
-        height: 100vh;
+      padding: 10px 30px;
     }
   }
+  

@@ -1,6 +1,7 @@
+<app-navbar></app-navbar>
 <div class="container">
     <div class="chat-list mat-elevation-z5">
-        <div class="search-input">
+        <div class="search-input" hidden>
             <mat-form-field>
                 <input
                 matInput
@@ -9,7 +10,7 @@
                 [formControl]="searchControl"
                 />
             </mat-form-field>
-            <mat-autocomplete #users="matAutocomplete">
+            <mat-autocomplete #users="matAutocomplete" >
                 <mat-option *ngFor="let user of users$ | async" (click)="createChat(user)">
                     {{ user.nombre }}
                 </mat-option>
@@ -42,7 +43,7 @@
         </div>
         <ng-template #noMessages>
             <div class="messages-header">
-                <h2>Mensajes</h2>
+                <h2>Mensajería</h2>
             </div>
         </ng-template>
         <mat-divider></mat-divider>
@@ -63,14 +64,15 @@
             <mat-form-field appearance="outline">
               <input
                 matInput
-                placeholder="Enter your message..."
+                placeholder="Ingrese su mensaje..."
                 [formControl]="messageControl"
                 (keydown.enter)="sendMessage()"
               />
-              <button mat-icon-button matSuffix (click)="sendMessage()">
+              <button mat-icon-button matSuffix class="custom-button" (click)="sendMessage()">
                 <mat-icon>send</mat-icon>
               </button>
             </mat-form-field>
           </div>
     </div>
 </div>
+<app-footer></app-footer>

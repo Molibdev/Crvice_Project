@@ -113,3 +113,19 @@ mat-form-field {
     font-size: 0.7rem;
     color: rgba(0, 0, 0, 0.6);
 }
+
+.custom-button {
+    background-color: #4CAF50; /* Color de fondo */
+    color: white; /* Color del texto */
+    border-radius: 50%; /* Forma circular */
+    padding: 8px; /* Espaciado interno */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); /* Sombra */
+  }
+  
+  .custom-button:hover {
+    background-color: #45a049; /* Color de fondo al pasar el mouse */
+  }
+
+  mat-divider {
+    display: none;
+  }

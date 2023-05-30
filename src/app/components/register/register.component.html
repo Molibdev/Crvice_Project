@@ -3,6 +3,7 @@
 <head>
 	<title>Registro</title>
 </head>
+<app-navbar></app-navbar>
 <body>
     <div class="contenedor">
         <div class="contenedor-img">
@@ -10,7 +11,7 @@
         </div>
         <div class="info-formulario">
                 <div class="contenedor-formulario">
-                    <h2>Crear Cuenta</h2>
+                    <h2 class="titulo-formulario">Crea tu cuenta</h2>
 
                 <form  [formGroup]="formRegister">
 
@@ -125,11 +126,15 @@
 
                     <div class="tipo-cuenta">
                         <label for="perfil" class="formulario">Tipo de cuenta:</label>
-                        <select formControlName="perfil" name="perfil" >
-                            <option value="1">Trabajador</option>
-                            <option value="2">Cliente</option>
+                        <select formControlName="perfil" name="perfil">
+                          <option value="1">Trabajador</option>
+                          <option value="2">Cliente</option>
                         </select>
-                    </div>
+                        <p class="dudas-cuenta">Tienes dudas con los tipos de cuentas? Haz
+                          <a routerLink="/index" class="enlace-gris-suave">click aquí</a> para saber más.</p>
+                        <p class="dudas-cuenta">Recuerda, al hacer click en Crear Cuenta, aceptas nuestros
+                        <a routerLink="/index" class="enlace-gris-suave">Terminos y condiciones del servicio</a></p>
+                      </div>                      
                     <small *ngIf="isValidField('perfil')">
                         El tipo de cuenta es obligatorio
                     </small>
@@ -146,6 +151,6 @@
 
         </div>
     </div>
-	
+<app-footer></app-footer>
 </body>
 </html>
