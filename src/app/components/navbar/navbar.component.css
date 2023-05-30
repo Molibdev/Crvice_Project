@@ -76,15 +76,20 @@ img{
 @media only screen and (max-width:480px) {
 
     .navlinks li{
-        font-size: 12px;
+        font-size: 11px;
     }
     .boton {
         padding: 5px 8px;
     }
     img{
-        width: 45px;
+        width: 35px;
         height: auto;
         margin-left: 10px;
+    }
+    .btn-iniciar-sesion{
+        font-size: 11px;
+        padding: 3px 8px;
+        border-radius: 30px;
     }
 }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PublicacionesService } from 'src/app/services/publicaciones.service';
 import { Publicacion } from 'src/app/models/publicacion';
 import { NgForm } from '@angular/forms';
@@ -24,7 +24,8 @@ export class EditarPublicacionComponent implements OnInit {
     private publicacionesService: PublicacionesService,
     private storage: Storage,
     private authfirebase: AngularFireAuth,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -92,5 +93,9 @@ export class EditarPublicacionComponent implements OnInit {
     }
 
     console.log('Reemplazo de imágenes completado.');
+  }
+
+  volver(){
+    this.router.navigate(['/mis-publicaciones']);
   }
 }

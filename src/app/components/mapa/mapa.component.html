@@ -1,25 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
 <app-navbar></app-navbar>
-
-<div id="center-container">
-  <div id="info-container">
-    <div id="info-box">
-      <div *ngIf="latitud && longitud" id="info-text">
-        <p hidden>Latitud: {{ latitud }}</p>
-        <p hidden>Longitud: {{ longitud }}</p>
-        <h2>Datos del cliente</h2>
-        <p>Nombre: {{ nombreUsuarioSolicitante }}</p>
-        <p>Dirección: {{ direccion }}</p>
-        <p>Comuna: {{ comuna }}</p>
-        <p>Region: Región Metropolitana</p>
-        <p>Telefono de contacto: {{ telefono }}</p>
+<body>
+  <div id="center-container">
+    <div id="info-container">
+      <div id="info-box">
+        <div *ngIf="latitud && longitud" id="info-text">
+          <p hidden>Latitud: {{ latitud }}</p>
+          <p hidden>Longitud: {{ longitud }}</p>
+          <h2>Datos del cliente</h2>
+          <p>Nombre: {{ nombreUsuarioSolicitante }}</p>
+          <p>Dirección: {{ direccion }}</p>
+          <p>Comuna: {{ comuna }}</p>
+          <p>Region: Región Metropolitana</p>
+          <p>Telefono de contacto: {{ telefono }}</p>
+        </div>
       </div>
     </div>
+  
+    <div id="map-container">
+      <div id="map"></div>
+    </div>
   </div>
-
-  <div id="map-container">
-    <div id="map"></div>
-  </div>
-</div>
-
+</body>
 <app-footer></app-footer>
+</html>
+
+
+
+
 
