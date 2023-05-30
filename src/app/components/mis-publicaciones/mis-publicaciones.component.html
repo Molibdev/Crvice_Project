@@ -14,15 +14,24 @@
       <div class="place" *ngFor="let publicacion of publicaciones$ | async">
         <div class="info">
           <h2>{{ publicacion.titulo }}</h2>
-          <small>Precio estimado: ${{publicacion.precio}}</small>
+          <small>Precio estimado: ${{ publicacion.precio }}</small>
           <p>{{ publicacion.descripcion }}</p>
-          <button (click)="abrirPublicacion(publicacion.id)">Editar</button>
-          <button class="eliminar" (click)="publicacion.id && eliminarPublicacion(publicacion.id)">Eliminar</button>
-
+          <button class="btna" (click)="abrirPublicacion(publicacion.id)">Editar</button>
+          <button class="eliminar" (click)="mostrarDialogo(publicacion)">Eliminar</button>
+          <div class="dialog-overlay" *ngIf="mostrarPrompt">
+            <div class="dialog-container">
+              <div class="dialog-content">
+                <h3>¿Estás seguro que deseas eliminar la publicación?</h3>
+                <div class="dialog-buttons">
+                  <button (click)="eliminarPublicacion()">Sí</button>
+                  <button (click)="cerrarDialogo()">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
   </div>
-
 </div>
 
 <app-footer></app-footer>

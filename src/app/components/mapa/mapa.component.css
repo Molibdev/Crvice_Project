@@ -36,6 +36,57 @@
   }
 
   #map {
-    height: 800px;
+    height: 700px;
     width: 1600px;
+  }
+
+  @media (max-width: 1500px) {
+  
+    #center-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+    
+    #info-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    #info-box {
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      background-color: #fff;
+      max-width: 800px; /* Modificado */
+      width: 90%; /* Agregado */
+    }
+    
+    #info-text {
+      text-align: center;
+    }
+    
+    #map-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      background-color: #fff;
+      max-width: 1500px; /* Modificado */
+      width: 90%; /* Agregado */
+    }
+    
+    #map {
+      height: 400px; /* Modificado */
+      width: 100%; /* Modificado */
+      max-width: 1500px; /* Modificado */
+    }
+    
+  
   }

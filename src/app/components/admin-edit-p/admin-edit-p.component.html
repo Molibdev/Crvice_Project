@@ -19,8 +19,11 @@
       <label for="descripcion">Descripción:</label>
       <textarea id="descripcion" name="descripcion" class="form-nombre" [(ngModel)]="publicacion.descripcion"></textarea>
       <br />
+      <div class="div-btn">
+
       <button type="submit" class="btn" (click)="guardarCambios()">Actualizar</button>
-      
+      <button (click)="volver()" class="btn">Volver</button>
+    </div>
     </form>
     
   </div>
