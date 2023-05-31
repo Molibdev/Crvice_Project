@@ -26,12 +26,14 @@ import { AdminEditPComponent } from './components/admin-edit-p/admin-edit-p.comp
 import { CrudAdminComponent } from './components/crud-admin/crud-admin.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { DataTransferenciaComponent } from './components/data-transferencia/data-transferencia.component';
+import { AboutServiceComponent } from './components/about-service/about-service.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/index', pathMatch: 'full' },
   { path: 'index', component: IndexComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'sobre-nosotros', component:AboutUsComponent},
+  { path: 'sobre-nosotros', component: AboutUsComponent},
+  { path: 'sobre-crvice', component: AboutServiceComponent},
   { path: 'busqueda', component: BusquedaComponent },
   { path: 'busqueda/:termino', component: BusquedaComponent },
   { path: 'nueva-publicacion', component: NuevaPublicacionComponent,

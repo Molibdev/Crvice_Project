@@ -64,6 +64,7 @@ import { AdminEditPComponent } from './components/admin-edit-p/admin-edit-p.comp
 import { CustomPromptComponent } from './components/custom-prompt/custom-prompt.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { DataTransferenciaComponent } from './components/data-transferencia/data-transferencia.component';
+import { AboutServiceComponent } from './components/about-service/about-service.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import { DataTransferenciaComponent } from './components/data-transferencia/data
     CustomPromptComponent,
     AboutUsComponent,
     DataTransferenciaComponent,
+    AboutServiceComponent,
 
   ],
   imports: [

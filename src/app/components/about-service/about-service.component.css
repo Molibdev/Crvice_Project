@@ -1,0 +1,88 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+
+  h1{
+    text-align: center; 
+    margin-top: 30px;
+  }
+  
+  .column {
+    flex: 1;
+    margin: 10px;
+  }
+  
+  .box {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .circle-image {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin: 10px auto;
+  }
+  
+  .image-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+  }
+  
+  .image-tutorial {
+    object-fit: cover;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .terms-container {
+    margin-top: 20px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    width: 93.5%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+  }
+  
+  .terms-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .terms-box h3 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .terms-box p {
+    text-align: justify;
+  }
+  
+  /* Media query para pantallas pequeñas */
+  @media (max-width: 768px) {
+    .column {
+      flex-basis: 100%; /* Las columnas ocupan el ancho completo en dispositivos pequeños */
+      margin: 10px 0; /* Ajusta el margen vertical para dispositivos pequeños */
+    }
+  
+    .terms-container {
+      margin: 20px 0; /* Ajusta el margen vertical para dispositivos pequeños */
+    }
+  }
+  
