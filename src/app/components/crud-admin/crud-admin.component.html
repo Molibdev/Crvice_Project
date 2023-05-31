@@ -53,47 +53,62 @@
                 <ng-template matMenuContent>
                   <form>
                     <div>
-                      <label for="nombre">Nombre: {{ user.nombre }} <mat-icon (click)="mostrarPromptNombre(user)">edit</mat-icon> </label>
+                      <label for="nombre">Nombre: {{ user.nombre }} <mat-icon (click)="mostrarPromptCampo(user, 'nombre')">edit</mat-icon> </label>
                     </div>
                     <div>
-                      <label for="apellido">Apellido: {{ user.apellido }} <mat-icon (click)="mostrarPromptApellido(user)">edit</mat-icon> </label>
+                      <label for="apellido">Apellido: {{ user.apellido }} <mat-icon (click)="mostrarPromptCampo(user, 'apellido')">edit</mat-icon> </label>
+                    </div>                    
+                    <div>
+                      <label for="rut">Rut: {{ user.rut }} <mat-icon (click)="mostrarPromptCampo(user, 'rut')">edit</mat-icon> </label>
                     </div>
                     <div>
-                      <label for="rut">Rut: {{ user.rut }} <mat-icon (click)="mostrarPromptRut(user)">edit</mat-icon> </label>
+                      <label for="dv">Digito Verificador: {{ user.dv }} <mat-icon (click)="mostrarPromptCampo(user, 'dv')">edit</mat-icon> </label>
                     </div>
                     <div>
-                      <label for="dv">Digito Verificador: {{ user.dv }} <mat-icon (click)="mostrarPromptDv(user)">edit</mat-icon> </label>
+                      <label for="telefono">Telefono: {{ user.telefono }} <mat-icon (click)="mostrarPromptCampo(user, 'telefono')">edit</mat-icon> </label>
                     </div>
                     <div>
-                      <label for="telefono">Telefono: {{ user.telefono }} <mat-icon (click)="mostrarPromptTelefono(user)">edit</mat-icon> </label>
+                      <label for="direccion">Direccion: {{ user.direccion }} <mat-icon (click)="mostrarPromptCampo(user, 'direccion')">edit</mat-icon> </label>
                     </div>
                     <div>
-                      <label for="direccion">Direccion: {{ user.direccion }} <mat-icon (click)="mostrarPromptDireccion(user)">edit</mat-icon> </label>
+                      <label for="numDireccion">Numero Direccion: {{ user.numDireccion }} <mat-icon (click)="mostrarPromptCampo(user, 'numDireccion')">edit</mat-icon> </label>
                     </div>
                     <div>
-                      <label for="numDireccion">Numero Direccion: {{ user.numDireccion }} <mat-icon (click)="mostrarPromptNumDireccion(user)">edit</mat-icon> </label>
+                      <label for="comuna">Comuna: {{ user.comuna }} <mat-icon (click)="mostrarPromptCampo(user, 'comuna')">edit</mat-icon> </label>
                     </div>
                     <div>
-                      <label for="comuna">Comuna: {{ user.comuna }} <mat-icon (click)="mostrarPromptComuna(user)">edit</mat-icon> </label>
+                      <label for="email">Email: {{ user.correo }} <mat-icon (click)="mostrarPromptCampo(user, 'correo')">edit</mat-icon> </label>
                     </div>
                     <div>
-                      <label for="email">Email: {{ user.correo }} <mat-icon (click)="mostrarPromptCorreo(user)">edit</mat-icon> </label>
+                      <label for="fNacimiento">Fecha Nacimiento: {{ user.nacimiento }}<mat-icon (click)="mostrarPromptCampo(user, 'nacimiento')">edit</mat-icon> </label>
                     </div>
                     <div>
-                      <label for="fNacimiento">Fecha Nacimiento: {{ user.nacimiento }}<mat-icon (click)="mostrarPromptNacimiento(user)">edit</mat-icon> </label>
-                    </div>
-                    <div>
-                      <label for="tCuenta">Tipo de cuenta: {{ user.perfil }}<mat-icon (click)="mostrarPromptTipoCuenta(user)">edit</mat-icon> </label>
+                      <label for="tCuenta">Tipo de cuenta: {{ user.perfil }}<mat-icon (click)="mostrarPromptCampo(user, 'perfil')">edit</mat-icon> </label>
                     </div>
                   </form>
+                  
                 </ng-template>
               </mat-menu>
             </td>
+
           </tr>
         </ng-container>
       </tbody>
     </table>
-    
+  </div>
+  <div class="dialog-overlay" *ngIf="mostrarPrompt">
+    <div class="dialog-container">
+      <div class="dialog-content">
+        <h3>Ingrese el nuevo valor para {{ campoSeleccionado }}</h3>
+        <div class="dialog-buttons">
+          <input type="text" [(ngModel)]="campoActualizado" placeholder="Nuevo {{ campoSeleccionado }}">
+          <div class="button-group">
+            <button (click)="actualizarCampo()">Actualizar</button>
+            <button (click)="cerrarDialogo()">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 <ng-template #noResults>
@@ -101,4 +116,5 @@
     No se encontraron resultados.
   </div>
 </ng-template>
+<app-footer></app-footer>
 </html>
