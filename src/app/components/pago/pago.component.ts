@@ -130,8 +130,11 @@ private initConfig(): void {
             }]
         },
         advanced: {
-            commit: 'true'
-        },
+          commit: 'true',
+          extraQueryParams: [
+              { name: "disable-funding", value: "credit,card" }
+          ]
+      },
         style: {
             label: 'paypal',
             layout: 'vertical'

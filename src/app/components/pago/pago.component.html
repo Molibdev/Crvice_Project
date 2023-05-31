@@ -1,6 +1,15 @@
 <app-navbar></app-navbar>
 <body>
   <div class="div-fondo">
+    <div class="div-fondo" *ngIf="!isLoading">
+      <div class="contenedor-boton-pago">
+        <h1>Realiza el pago por Paypal</h1>
+        <div class="boton-pago">
+          <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+        </div>
+      </div>
+    </div>
+    
     <div class="mat-spinner-center" *ngIf="isLoading">
       <mat-spinner></mat-spinner>
     </div>
@@ -21,15 +30,7 @@
       </div>
       <button class="button-success" (click)="changeWorkStatusToAbonadoTransf()">Realizaste la transferencia? Haz click aquí</button>
     </div>
-    
-    <div class="div-fondo" *ngIf="!isLoading">
-      <div class="contenedor-boton-pago">
-        <h1>Realiza el pago por Paypal</h1>
-        <div class="boton-pago">
-          <ngx-paypal [config]="payPalConfig"></ngx-paypal>
-        </div>
-      </div>
-    </div>
+  
   </div>
 </body>
 <app-footer></app-footer>
