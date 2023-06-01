@@ -48,15 +48,7 @@
       <button mat-menu-item routerLink="/profile">
         <mat-icon>account_circle</mat-icon>
         Perfil
-      </button>
-      <button mat-menu-item routerLink="/crud-admin" *ngIf="info?.perfil == 3">
-        <mat-icon>supervised_user_circle</mat-icon>
-        Administración de Usuarios
-      </button>      
-      <button mat-menu-item routerLink="/gestionar-publicaciones" *ngIf="info?.perfil == 3">
-        <mat-icon>archive</mat-icon>
-        Administración de Publicaciones
-      </button>
+      </button> 
       <button mat-menu-item routerLink="/chat">
         <mat-icon> message</mat-icon>
         Mensajería

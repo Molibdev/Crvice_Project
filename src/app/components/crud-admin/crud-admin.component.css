@@ -173,6 +173,7 @@ body {
 
   #wrap {
     margin: 0px auto;
+    margin-bottom: 3px;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -486,4 +487,21 @@ body {
 
 .dialog-buttons button:last-of-type {
   background-color: #dc3545;
+}
+
+.searchHintBox {
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  margin-bottom: 20px;
+
+  /* Estilos de posicionamiento */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchHint {
+  color: #808080; /* Color de letra gris claro */
 }

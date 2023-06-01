@@ -6,6 +6,9 @@
 <app-navbar></app-navbar>
 <body>
   <div class="container" >
+    <div class="searchHintBox">
+      <div class="searchHint">Recuerda tener tus credenciales de administrador para poder ingresar a la consola de la base de datos.</div>
+    </div>    
     <div class="search">
       <input type="text" [(ngModel)]="searchEmail" placeholder="Buscar por UID o Correo electrónico" class="searchTerm" (input)="filterUsers()" />
       <button type="submit" class="searchButton">
@@ -43,12 +46,14 @@
                   <span class="title">Editar datos..</span>
                   <span class="title-hover"><mat-icon>keyboard_arrow_down</mat-icon></span>
                 </a>
-                <a class="btn-slide">
+              </div>
+              <div id="wrap">
+                <a class="btn-slide" href="https://console.firebase.google.com/u/0/" target="_blank">
                   <span class="circle"><mat-icon>visibility_off</mat-icon></span>
                   <span class="title">Deshabilitar..</span>
                   <span class="title-hover"><mat-icon>keyboard_arrow_right</mat-icon></span>
                 </a>
-              </div>
+              </div>                         
               <mat-menu #editUser="matMenu" class="edit-menu">
                 <ng-template matMenuContent>
                   <form>
