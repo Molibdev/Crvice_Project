@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PublicacionesService } from 'src/app/services/publicaciones.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
-import { Storage, ref, uploadBytes, listAll, getDownloadURL } from '@angular/fire/storage';
+import { Storage, ref, uploadBytes } from '@angular/fire/storage';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
-import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-nueva-publicacion',
@@ -20,6 +19,7 @@ export class NuevaPublicacionComponent implements OnInit {
   fileInputRef: any[] = [];
   urlImage: string = '';
   maxPhotosAllowed = 4;
+  formularioEnviado = false;
 
   constructor(
     private publicacionesService: PublicacionesService,
@@ -28,16 +28,17 @@ export class NuevaPublicacionComponent implements OnInit {
     private storage: Storage,
     private authfirebase: AngularFireAuth,
     private route: Router,
-    private toast: HotToastService
+    private toast: HotToastService,
   ) {
     this.formulario = new FormGroup({
-      titulo: new FormControl(),
-      rubro: new FormControl(),
-      descripcion: new FormControl(),
+      titulo: new FormControl('', Validators.required),
+      rubro: new FormControl('', Validators.required),
+      descripcion: new FormControl('', Validators.required),
       precio: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^\d+(\.\d{3})?$/), // Expresión regular para permitir números enteros o decimales con 3 decimales exactos
+        Validators.pattern(/^\d{1,3}(?:\.\d{3})*(?:,\d{2})?$/),
       ]),
+      
       photoPost: new FormControl(),
       uid: new FormControl(),
       nombre: new FormControl(),
@@ -80,43 +81,79 @@ export class NuevaPublicacionComponent implements OnInit {
     this.fileInputRef = Array.from(document.querySelectorAll('#fileInput'));
   }
 
-  async onSubmit($event: any) {
-    const precioValue = this.formulario.get('precio')?.value;
+  onSubmit($event: any) {
+    this.formularioEnviado = true;
 
-    // Verificar si el valor del precio es válido según las reglas
-    if (!this.formulario.get('precio')?.valid) {
-      console.log('El precio no cumple con las reglas especificadas.');
-      this.toast.error('El precio debe estar en el formato correcto: 000.000');
-      return;
+    // Marcar todos los campos como "touched"
+    this.markAllFieldsAsTouched();
+
+    // Verificar si el formulario es válido antes de continuar
+    if (this.formulario.valid) {
+      const precioValue = this.formulario.get('precio')?.value;
+
+      // Verificar si el valor del precio es válido según las reglas
+      if (!this.formulario.get('precio')?.valid) {
+        console.log('El precio no cumple con las reglas especificadas.');
+        return;
+      }
+
+      const numericPrecio = Number(precioValue.replace(/\./g, '').replace(/,/g, ''));
+
+      console.log(this.formulario.value);
+      this.publicacionesService.addPublicacion(this.formulario.value)
+        .then((publicacionId) => {
+          console.log('ID de la publicación:', publicacionId);
+
+          this.uploadImages(publicacionId)
+            .then(() => {
+              this.toast.success('¡Publicación creada!');
+              this.route.navigate(['/mis-publicaciones']);
+            })
+            .catch((error) => {
+              console.log('Error al subir las imágenes:', error);
+            });
+        })
+        .catch((error) => {
+          console.log('Error al agregar la publicación:', error);
+        });
     }
+  }
 
-    const numericPrecio = Number(precioValue.replace(/\./g, '').replace(/,/g, ''));
+  volver() {
+    this.route.navigate(['/profile']);
+  }
 
-    console.log(this.formulario.value);
-    const publicacionId = await this.publicacionesService.addPublicacion(this.formulario.value);
+  private markAllFieldsAsTouched() {
+    Object.keys(this.formulario.controls).forEach((field) => {
+      const control = this.formulario.get(field);
+      if (control) {
+        control.markAsTouched();
+      }
+    });
+  }
 
-    console.log('ID de la publicación:', publicacionId);
-
-    for (let i = 0; i < this.fileInputRef.length; i++) {
-      const files = this.fileInputRef[i].files;
-      for (let j = 0; j < files.length; j++) {
-        const file = files[j];
-        console.log(file);
-        console.log(this.uid);
-        const user = await this.authfirebase.currentUser;
-        const imgRef = ref(
-          this.storage,
-          `images/posts/${user?.uid}/${publicacionId}/${file.name}`
-        );
-        this.toast.success('¡Publicación creada!');
-        try {
-          const response = await uploadBytes(imgRef, file);
-          console.log(response);
-        } catch (error) {
-          console.log(error);
+  private uploadImages(publicacionId: string): Promise<void> {
+    return new Promise<void>(async (resolve, reject) => {
+      for (let i = 0; i < this.fileInputRef.length; i++) {
+        const files = this.fileInputRef[i].files;
+        for (let j = 0; j < files.length; j++) {
+          const file = files[j];
+          console.log(file);
+          console.log(this.uid);
+          const user = await this.authfirebase.currentUser;
+          const imgRef = ref(
+            this.storage,
+            `images/posts/${user?.uid}/${publicacionId}/${file.name}`
+          );
+          try {
+            await uploadBytes(imgRef, file);
+          } catch (error) {
+            reject(error);
+            return;
+          }
         }
       }
-    }
-    this.route.navigate(['/mis-publicaciones']);
+      resolve();
+    });
   }
 }

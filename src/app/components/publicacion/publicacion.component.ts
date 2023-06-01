@@ -21,7 +21,7 @@ export class PublicacionComponent implements OnInit {
   mostrarCargarMenos: boolean = false;
   ratings: Calificacion[] = [];
   mostrarCargarMas: boolean = true;
-
+  public imagenPredeterminada = '../../../assets/img/foto5.jpg';
   user$ = this.firebase.currentUserProfile$;
   searchControl = new FormControl('');
   public fotos: string[] = [];
@@ -61,6 +61,8 @@ export class PublicacionComponent implements OnInit {
   
             if (this.fotos.length > 0) {
               this.fotoActual = this.fotos[0];
+            } else {
+              this.fotoActual = this.imagenPredeterminada;
             }
           });
         });

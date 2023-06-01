@@ -13,8 +13,10 @@
           <div class="div-imagen">
             <div class="contenedor-imagenes">
               <div class="imagen">
-                <img *ngIf="fotoActual" [src]="fotoActual" alt="Foto" class="img-publicacion">
+                <img *ngIf="fotoActual && fotoActual !== imagenPredeterminada" [src]="fotoActual" alt="Foto" class="img-publicacion">
+                <img *ngIf="!fotoActual || fotoActual === imagenPredeterminada" [src]="imagenPredeterminada" alt="Foto Predeterminada" class="img-publicacion">
               </div>
+              
             </div>
           </div>
           <div class="botones">

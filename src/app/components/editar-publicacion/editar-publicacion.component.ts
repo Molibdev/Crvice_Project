@@ -8,16 +8,23 @@ import { uploadBytes } from 'firebase/storage';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Validators } from '@angular/forms';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-editar-publicacion',
   templateUrl: './editar-publicacion.component.html',
   styleUrls: ['./editar-publicacion.component.css']
 })
+
 export class EditarPublicacionComponent implements OnInit {
   publicacion?: Publicacion;
   newImages: File[] = [];
   public isLoading: boolean = false;
+  public fotos: string[] = [];
+  fotoActual: string | undefined; // URL de la foto actualmente mostrada
+  indiceFotoActual: number = 0; // Índice de la foto actual
+  public imagenPredeterminada = '../../../assets/img/foto5.jpg';
+  formSubmitted = false; // Propiedad para realizar un seguimiento del intento de envío del formulario
 
   constructor(
     private route: ActivatedRoute,
@@ -25,7 +32,9 @@ export class EditarPublicacionComponent implements OnInit {
     private storage: Storage,
     private authfirebase: AngularFireAuth,
     private toast: HotToastService,
-    private router: Router
+    private router: Router,
+    private firebase: FirebaseService
+
   ) {}
 
   ngOnInit() {
@@ -34,16 +43,31 @@ export class EditarPublicacionComponent implements OnInit {
     if (id) {
       this.publicacionesService.getPublicacion(id).subscribe(publicacion => {
         this.publicacion = publicacion;
-        this.isLoading = false;
+        localStorage.setItem('publicacionId', id);
+  
+        // Obtener las URL de las fotos
+        this.firebase.getFotosURL(publicacion.uid, id).subscribe(urls => {
+          Promise.all(urls).then(resolvedUrls => {
+            this.fotos = resolvedUrls;
+  
+            if (this.fotos.length > 0) {
+              this.fotoActual = this.fotos[0];
+            } else {
+              this.fotoActual = this.imagenPredeterminada;
+            }
+          });
+        });
       });
     }
   }
+  
 
   onNewFilesSelected(event: any) {
     this.newImages = event.target.files;
   }
 
   async onSubmit(form: NgForm) {
+    this.formSubmitted = true; // Marcar que se ha intentado enviar el formulario
     console.log('Form submitted');
     console.log('Form valid:', form.valid);
     console.log('Publication:', this.publicacion);
@@ -59,6 +83,7 @@ export class EditarPublicacionComponent implements OnInit {
 
       this.publicacionesService.updatePublicacion(this.publicacion.id, this.publicacion);
       this.toast.success('La publicación ha sido editada');
+      this.router.navigate(['/mis-publicaciones']);
       if (this.newImages.length > 0) {
         await this.replaceImages(this.publicacion.id, this.newImages);
       }
@@ -98,4 +123,22 @@ export class EditarPublicacionComponent implements OnInit {
   volver(){
     this.router.navigate(['/mis-publicaciones']);
   }
+
+
+  mostrarImagenAnterior() {
+    this.indiceFotoActual--;
+    if (this.indiceFotoActual < 0) {
+      this.indiceFotoActual = this.fotos.length - 1;
+    }
+    this.fotoActual = this.fotos[this.indiceFotoActual];
+  }
+
+  mostrarImagenSiguiente() {
+    this.indiceFotoActual++;
+    if (this.indiceFotoActual >= this.fotos.length) {
+      this.indiceFotoActual = 0;
+    }
+    this.fotoActual = this.fotos[this.indiceFotoActual];
+  }
+
 }
