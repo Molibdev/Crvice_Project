@@ -1,36 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Editar Publicación</title>
+    <title>Editar Publicacion</title>
 </head>
+<app-navbar></app-navbar>
 <body>
-  <div class="nueva-publicacion">
-    <h1>Editando Publicación</h1>
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
-    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
-      <div *ngIf="publicacion">
-        <p>Título:</p>
-        <input type="text" name="titulo" class="form-nombre" [(ngModel)]="publicacion.titulo" />
-        <br />
-        <p>Rubro:</p>
-        <input type="text" name="rubro" class="form-nombre" [(ngModel)]="publicacion.rubro" />
-        <br />
-        <p>Precio Estimado:</p>
-        <input type="text" name="precio" class="form-nombre" [(ngModel)]="publicacion.precio" pattern="^\d+(\.\d{3})*$" required/>
-        <div *ngIf="form.controls['precio']?.invalid && form.controls['precio']?.touched" class="error-message">El precio debe estar en el formato correcto: 000.000</div>
-        <br />
-        <p>Descripción:</p>
-        <textarea name="descripcion" class="form-nombre" [(ngModel)]="publicacion.descripcion"></textarea>
-        <br />
-        <p>Imagen:</p>
-        <input type="file" id="newFileInput" (change)="onNewFilesSelected($event)" accept="image/*" multiple>
-        <br />
-        <div class="div-btn">
-          <button type="submit" class="btn">Guardar cambios</button>
-          <button (click)="volver()" class="btn">Volver</button>
+  <section class="datos-personales">
+    <div class="container">
+      <div class="izq">
+        <div class="div-imagen">
+          <div class="contenedor-imagenes">
+            <div class="imagen">
+              <img *ngIf="fotoActual && fotoActual !== imagenPredeterminada" [src]="fotoActual" alt="Foto" class="img-publicacion">
+              <img *ngIf="!fotoActual || fotoActual === imagenPredeterminada" [src]="imagenPredeterminada" alt="Foto Predeterminada" class="img-publicacion">
+            </div>
+          </div>
+        </div>
+        <div class="botones">
+          <button class="boton-anterior" (click)="mostrarImagenAnterior()">&#60;</button>
+          <button class="boton-siguiente" (click)="mostrarImagenSiguiente()">&#62;</button>
         </div>
       </div>
-    </form>
-  </div>
+
+      <div class="der">
+        <h1>Editando Publicación</h1>
+        <div class="datos" *ngIf="publicacion">
+          <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+            <label>Título Publicación: </label>
+            <input type="text" name="titulo" class="p-datos" [(ngModel)]="publicacion.titulo" required/>
+            <div *ngIf="formSubmitted && form.controls['titulo']?.invalid" class="error-message">El título es requerido.</div>
+            <hr>
+            <label>Nombre Trabajador: </label>
+            <p class="p-datos">{{ publicacion.nombre }} {{ publicacion.apellido }}</p>
+            <hr>
+            <label>Rubro: </label>
+            <input type="text" name="rubro" class="p-datos" [(ngModel)]="publicacion.rubro" required/>
+            <div *ngIf="formSubmitted && form.controls['rubro']?.invalid" class="error-message">El rubro es requerido.</div>
+            <hr>
+            <label>Precio Estimado: </label>
+            <input type="text" name="precio" class="p-datos" [(ngModel)]="publicacion.precio" pattern="^\d{1,3}(?:\.\d{3})*(?:,\d{2})?$" required/>
+            <div *ngIf="formSubmitted && form.controls['precio']?.invalid" class="error-message">El precio debe estar en el formato correcto: 000.000</div>
+            <hr>
+            <label>Descripción: </label>
+            <textarea name="descripcion" class="p-datos textarea-descripcion" [(ngModel)]="publicacion.descripcion" required></textarea>
+            <div *ngIf="formSubmitted && form.controls['descripcion']?.invalid" class="error-message">La descripción es requerida.</div>
+            <hr>
+            <label>Imagen: </label>
+            <input type="file" class="cerrar-sesion" id="newFileInput" (change)="onNewFilesSelected($event)" accept="image/*" multiple>
+            <hr>
+            <div class="div-botones">
+              <button type="submit" class="cerrar-sesion">Guardar cambios</button>
+              <button (click)="volver()" class="cerrar-sesion">Volver</button>
+            </div>
+          </form>
+        </div>
+          </div>
+      </div>
+  </section>
 </body>
+<app-footer></app-footer>
 </html>

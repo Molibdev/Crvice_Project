@@ -68,10 +68,12 @@ export class GestPublicacionesComponent implements OnInit {
     }
   }
 
-  editarPublicacion(publicacionId: string) {
-    this.router.navigate(['/gest-editar-publicacion', publicacionId]);
+  editarPublicacion(id?: string) {
+    if (id) {
+      this.router.navigate(['/gest-editar-publicacion', id]);
+    }
   }
-
+  
   mostrarDialogo(publicacion: any) {
     this.publicacionSeleccionada = publicacion; // Almacenar la publicación seleccionada
     this.mostrarPrompt = true;

@@ -1,43 +1,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Nueva Publicación</title>
+    <title>Nueva Publicacion</title>
 </head>
+<app-navbar></app-navbar>
 <body>
-    
-    <div class="nueva-publicacion">
-        <h1>Nueva Publicación</h1>
-        
-        <form [formGroup]="formulario" (ngSubmit)="onSubmit($event)">
-            <div class="mb-3 form-publicacion">
-                <p class="form-label">Título de la Publicación:</p>
-                <input type="text" class="form-control form-nombre" formControlName="titulo">
-            </div>
-            <div class="mb-3 form-publicacion">
-                <p class="form-label">Rubro:</p>
-                <input type="text" class="form-control form-nombre" formControlName="rubro">
-            </div>
-            <div class="mb-3 form-publicacion">
-                <p class="form-label">Precio Estimado:</p>
-                <input type="text" class="form-control form-nombre" formControlName="precio">
-                <div *ngIf="formulario.get('precio')?.invalid && (formulario.get('precio')?.dirty || formulario.get('precio')?.touched)">
-                  <div *ngIf="formulario.get('precio')?.hasError('required')">El precio es requerido.</div>
-                  <div *ngIf="formulario.get('precio')?.hasError('pattern')">El precio debe ser un número válido.</div>
+    <section class="datos-personales">
+        <div class="container">
+            <div class="izq">
+                <div class="div-imagen">
+                <div class="contenedor-imagenes">
+                    <div class="imagen">
+                        <img src='../../../assets/img/foto5.jpg' alt=""  class="img-publicacion">
+                    </div>
                 </div>
-              </div>
-            <div class="mb-3 form-publicacion">
-                <p class="form-label">Descripción:</p>
-                <textarea class="form-control form-nombre" rows="2" cols="30"  formControlName="descripcion"></textarea>
+                </div>
+                <div class="botones">
+                <button class="boton-anterior" >&#60;</button>
+                <button class="boton-siguiente">&#62;</button>
+                </div>
             </div>
-            <div class="mb-3 form-publicacion">
-                <p class="form-label">Imagen:</p>
-                <input type="file" id="fileInput" formControlName="photoPost" multiple>
+                <div class="der">
+                    <h1>Nueva Publicación</h1>
+                    <div class="datos">
+                        <form [formGroup]="formulario" (ngSubmit)="onSubmit($event)">
+                            <label>Título Publicación: </label>
+                            <input type="text" class="p-datos" formControlName="titulo">
+                            <div *ngIf="formulario.get('titulo')?.invalid && (formulario.get('titulo')?.dirty || formulario.get('titulo')?.touched)">
+                              <div *ngIf="formulario.get('titulo')?.hasError('required')">El título es requerido.</div>
+                            </div>
+                            <hr>
+                          
+                            <label>Rubro: </label>
+                            <input type="text" class="p-datos" formControlName="rubro">
+                            <div *ngIf="formulario.get('rubro')?.invalid && (formulario.get('rubro')?.dirty || formulario.get('rubro')?.touched)">
+                              <div *ngIf="formulario.get('rubro')?.hasError('required')">El rubro es requerido.</div>
+                            </div>
+                            <hr>
+                          
+                            <label>Precio Estimado: </label>
+                            <input type="text" class="p-datos" formControlName="precio" pattern="^\d{1,3}(\.\d{3})*(\.\d{1,2})?$">
+                            <div *ngIf="formulario.get('precio')?.invalid && (formulario.get('precio')?.dirty || formulario.get('precio')?.touched)">
+                              <div *ngIf="formulario.get('precio')?.hasError('required')">El precio es requerido.</div>
+                              <div *ngIf="formulario.get('precio')?.hasError('pattern')">El precio debe tener el formato correcto.</div>
+                            </div>
+                            <hr>
+                          
+                            <label>Descripción: </label>
+                            <textarea class="p-datos" rows="2" cols="30" formControlName="descripcion"></textarea>
+                            <div *ngIf="formulario.get('descripcion')?.invalid && (formulario.get('descripcion')?.dirty || formulario.get('descripcion')?.touched)">
+                              <div *ngIf="formulario.get('descripcion')?.hasError('required')">La descripción es requerida.</div>
+                            </div>
+                            <hr>
+                          
+                            <label>Imagen: </label>
+                            <input type="file" id="fileInput" class="cerrar-sesion" formControlName="photoPost" multiple>
+                            <hr>
+                          
+                            <input type="hidden" formControlName="uid" [value]="uid">
+                            <input type="hidden" formControlName="nombre">
+                            <input type="hidden" formControlName="apellido">
+                          
+                            <div class="div-botones">
+                              <input type="submit" class="cerrar-sesion" value="Crear Publicación">
+                              <button type="button" (click)="volver()" class="cerrar-sesion">Volver</button>
+                            </div>
+                          </form>
+                          
+                    </div>
+                </div>
             </div>
-            <input type="hidden" formControlName="uid" [value]="uid">
-            <input type="hidden" formControlName="nombre">
-            <input type="hidden" formControlName="apellido">
-            <input type="submit" value="Crear Publicacion" class="btn btn-info">   
-        </form>
-
-    </div>
+    </section>
 </body>
+<app-footer></app-footer>
+</html>
