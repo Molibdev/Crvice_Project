@@ -127,15 +127,15 @@ public formRegister: FormGroup = this.fb.group({
     for (const key of Object.keys(errors) ) {
       switch( key ) {
         case 'required':
-          return 'Este campo es requerido';
+          return 'Este campo es requerido.';
         case 'minlength':
           return `Mínimo ${ errors['minlength'].requiredLength } caracters.`;
         case 'maxlength':
           return `Máximo ${ errors['maxlength'].requiredLength } caracters.`;
         case'min':
-          return 'Debe ser un número positivo';
+          return 'Debe ser un número positivo.';
         case 'pattern':
-          return 'Debe ser su formato correcto';
+          return 'Debe ser su formato correcto.';
       }
     }
 

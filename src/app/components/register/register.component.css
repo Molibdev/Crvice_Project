@@ -100,7 +100,7 @@ h2 {
     margin: 0;
 }
 input[type="date" i] {
-    display: flex;
+    /* display: flex; */
     text-align: right;
     cursor: default;
     overflow: hidden;
@@ -175,11 +175,26 @@ div select {
       align-items: center; /* Centrar verticalmente los elementos */
       justify-content: center; /* Centrar horizontalmente los elementos */
     }
+
+    .form-nombre{
+
+        transition: top 0.1s ease-in-out, left 0.1s ease-in-out, padding 0.1s ease-in-out;
+        /* color: #6c757d; */
+        padding: 1rem;
+        padding-top: 30px;
+        padding-bottom: 3px;
+        border-bottom: 2px solid rgba(168, 165, 165, 0.731);
+        margin-left: 0;
+        width: 90%;
+    
+    }
   
     .contenedor-formulario {
       padding: 0 20px; /* Agregar relleno horizontal para separar del borde de la ventana */
       overflow: auto;
       max-height: 100vh; /* Limitar la altura máxima del formulario para que sea desplazable */
+      width: 80%;
+      height: auto;
     }
   
     .formulario {
@@ -193,5 +208,17 @@ div select {
     .button {
       padding: 10px 30px;
     }
-  }
+
+    .tipo-cuenta {
+        position: relative;
+        align-content: start;
+        text-align: start;
+    }
+}
   
+@media only screen and (max-width: 516px) {
+
+    div select {
+        margin-left: 30px;
+    }
+}
