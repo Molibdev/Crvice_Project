@@ -17,6 +17,8 @@ export interface User {
     calificaciones: number;
     comentarios: string;
     photoURL?: string;
+    PromedioCalificaciones?:number;
+    NumeroCalificaciones?:number;
 }
 
   export interface Trabajo {

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Trabajo } from 'src/app/models/models';
+import { Calificacion, Trabajo } from 'src/app/models/models';
 import { Publicacion } from 'src/app/models/publicacion';
 import { User } from 'src/app/models/models';
 import { PublicacionesService } from 'src/app/services/publicaciones.service';
 import { HotToastService } from '@ngneat/hot-toast';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-resp-solicitud',
@@ -20,49 +21,82 @@ export class RespSolicitudComponent implements OnInit {
   public uidCliente = '';
   public idTrabajo = '';
   public isLoading: boolean= false;
+  ratings: Calificacion[] = [];
+  averageRating: number = 0; // Variable para almacenar la calificación promedio
+  mostrarCargarMas: boolean = true;
+  mostrarCargarMenos: boolean = false;
+  contador: number = 1;
 
   constructor(private route: ActivatedRoute, 
               private firestore: AngularFirestore, 
               private router: Router,  
               private toast: HotToastService, 
+              private firebase: FirebaseService,
               private publicaciones: PublicacionesService) { }
 
-  ngOnInit(): void {
-    this.isLoading = true;
-    this.route.queryParams.subscribe(params => {
-      const trabajoId = params['trabajoId'];
-      const publicacionId = params['publicacionId'];
-      this.idTrabajo = params['trabajoId'];
-  
-      console.log('trabajoId:', trabajoId);
-      console.log('publicacionId:', publicacionId);
-  
-      this.firestore.collection<Trabajo>('Trabajos').doc(trabajoId).get().toPromise().then((trabajoDoc) => {
-        if (trabajoDoc && trabajoDoc.exists) {
-          this.trabajo = trabajoDoc.data() as Trabajo;
-          this.firestore.collection<User>('Usuarios').doc(this.trabajo.idUsuarioSolicitante).get().toPromise().then((usuarioDoc) => {
-            if (usuarioDoc && usuarioDoc.exists) {
-              const usuario = usuarioDoc.data() as User;
-              this.nombreUsuarioSolicitante = usuario.nombre + ' ' + usuario.apellido;
-              this.publicaciones.uidUsuario = usuario.uid;
-              this.publicaciones.uidUsuarioMapa = usuario.uid;
-              this.publicaciones.usuarioComuna = usuario.comuna;
-              this.publicaciones.usuarioDireccion = usuario.direccion + ' ' + usuario.numDireccion;
-              console.log(this.publicaciones.usuarioComuna)
-              console.log(this.publicaciones.usuarioDireccion)
-            }
-          });
-        }
-      });
-  
-      this.firestore.collection<Publicacion>('Publicaciones').doc(publicacionId).get().toPromise().then((publicacionDoc) => {
-        if (publicacionDoc && publicacionDoc.exists) {
-          this.publicacion = publicacionDoc.data() as Publicacion;
-          this.isLoading = false;
-        }
-      });
-    });
-  }
+              ngOnInit(): void {
+                this.isLoading = true;
+                this.route.queryParams.subscribe(params => {
+                  const trabajoId = params['trabajoId'];
+                  const publicacionId = params['publicacionId'];
+                  this.idTrabajo = params['trabajoId'];
+              
+                  console.log('trabajoId:', trabajoId);
+                  console.log('publicacionId:', publicacionId);
+              
+                  this.firestore.collection<Trabajo>('Trabajos').doc(trabajoId).get().toPromise().then((trabajoDoc) => {
+                    if (trabajoDoc && trabajoDoc.exists) {
+                      this.trabajo = trabajoDoc.data() as Trabajo;
+                      this.firestore.collection<User>('Usuarios').doc(this.trabajo.idUsuarioSolicitante).get().toPromise().then((usuarioDoc) => {
+                        if (usuarioDoc && usuarioDoc.exists) {
+                          const usuario = usuarioDoc.data() as User;
+                          this.nombreUsuarioSolicitante = usuario.nombre + ' ' + usuario.apellido;
+                          this.publicaciones.uidUsuario = usuario.uid;
+                          this.publicaciones.uidUsuarioMapa = usuario.uid;
+                          this.publicaciones.usuarioComuna = usuario.comuna;
+                          this.publicaciones.usuarioDireccion = usuario.direccion + ' ' + usuario.numDireccion;
+                          console.log(this.publicaciones.usuarioComuna)
+                          console.log(this.publicaciones.usuarioDireccion)
+                        }
+                      });
+              
+                      // Obtener las calificaciones y comentarios
+                      const path = `Usuarios/${this.trabajo.idUsuarioSolicitante}/calificaciones`;
+                      this.firebase.getCollection<Calificacion>(path).subscribe(calificaciones => {
+                        this.ratings = calificaciones;
+                      });
+              
+                      // Calcular la calificación promedio
+                      this.calculateAverageRating(this.trabajo.idUsuarioSolicitante);
+                    }
+                  });
+              
+                  this.firestore.collection<Publicacion>('Publicaciones').doc(publicacionId).get().toPromise().then((publicacionDoc) => {
+                    if (publicacionDoc && publicacionDoc.exists) {
+                      this.publicacion = publicacionDoc.data() as Publicacion;
+                      this.isLoading = false;
+                    }
+                  });
+                });
+              }
+              
+              calculateAverageRating(uid: string) {
+                const path = `Usuarios/${uid}/calificaciones`;
+                this.firebase
+                  .getCollection<Calificacion>(path)
+                  .subscribe(calificaciones => {
+                    const ratings = calificaciones;
+                    let totalRating = 0;
+                    for (const rating of ratings) {
+                      totalRating += +rating.calificacion; // Convertir a número utilizando el prefijo '+'
+                    }
+                    console.log('Calificación Total:', totalRating);
+                    console.log('Cantidad de Calificaciones:', ratings.length);
+                    this.averageRating = ratings.length > 0 ? totalRating / ratings.length : 0;
+                    console.log('Calificación Promedio:', this.averageRating);
+                  });
+              }
+              
 
   actualizarTrabajo(): void {
     if (this.trabajo && this.trabajo.precio !== undefined) {
@@ -122,5 +156,17 @@ export class RespSolicitudComponent implements OnInit {
     };
     this.router.navigate(['/mapa'], { queryParams })
   }
-
+  cargarMasComentarios() {
+    this.contador += 5;
+    this.mostrarCargarMenos = true;
+  
+    if (this.contador >= this.ratings.length) {
+      this.mostrarCargarMas = false;
+    }
+  }
+  cargarMenosComentarios() {
+    this.contador = 1;
+    this.mostrarCargarMas = true;
+  
+  }
 }
