@@ -10,6 +10,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { Calificacion, userDataBank } from 'src/app/models/models';
 import { InteractionService } from 'src/app/services/interaction.service';
 import { FormControl } from '@angular/forms';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -50,6 +51,7 @@ export class ProfileComponent implements OnInit {
   chatListControl = new FormControl<string[]>([]);
   adminId : string = '6VD9LeSM0qSBwP0AsyhylOZDMIx2'
   public isLoading: boolean = false;
+  ratingsCount: number = 0;
 
   constructor(private auth: AuthService,
               private router: Router,
@@ -117,16 +119,21 @@ export class ProfileComponent implements OnInit {
   async getInfoUser() {
     const path = 'Usuarios';
     const id = this.uid;
-    this.firestore.getDoc<User>(path, id).subscribe(res => {
-      if (res) {
-        this.info = res;
-        this.getCalificaciones();
-        this.getUserDataBank();
-      }
-      console.log('datos son ->', res);
-      this.isLoading = false;
-    });
+    this.firestore.getDoc<User>(path, id)
+      .pipe(
+        take(1) // Toma solo el primer valor emitido
+      )
+      .subscribe(res => {
+        if (res) {
+          this.info = res;
+          this.getCalificaciones(); // Llamada solo a getCalificaciones()
+          this.getUserDataBank(); // Llamada a getUserDataBank()
+        }
+        console.log('datos son ->', res);
+        this.isLoading = false;
+      });
   }
+  
 
 getUserDataBank() {
   const path = `Usuarios/${this.uid}/DatosTransferencia`;
@@ -163,23 +170,41 @@ getUserDataBank() {
   getCalificaciones() {
     const path = `Usuarios/${this.uid}/calificaciones`;
     this.firestore.getCollection<Calificacion>(path).subscribe(calificaciones => {
-      this.ratings = calificaciones;
-      this.calculateAverageRating();
+      const newRatingsCount = calificaciones.length;
+      const newAverageRating = this.calculateAverageRating(calificaciones);
+  
+      // Redondear el nuevo promedio a dos decimales
+      const roundedAverageRating = Number(newAverageRating.toFixed(2));
+  
+      if (newRatingsCount !== this.ratingsCount || roundedAverageRating !== this.averageRating) {
+        this.ratings = calificaciones;
+        this.ratingsCount = newRatingsCount;
+        this.averageRating = roundedAverageRating;
+  
+        const updateDoc = {
+          NumeroCalificaciones: this.ratingsCount,
+          PromedioCalificaciones: this.averageRating
+        };
+        this.firestore.updateDoc('Usuarios', this.uid, updateDoc)
+          .then(() => {
+            console.log('Datos de calificaciones actualizados con éxito en el documento de Usuarios');
+          })
+          .catch((error: any) => {
+            console.log('Error al actualizar los datos de calificaciones:', error);
+          });
+      }
     });
   }
   
-  calculateAverageRating() {
+  calculateAverageRating(ratings: Calificacion[]) {
     let totalRating = 0;
-    for (const rating of this.ratings) {
+    for (const rating of ratings) {
       totalRating += +rating.calificacion; // Convertir a número utilizando el prefijo '+'
     }
-    console.log('Calificación Total:', totalRating);
-    console.log('Cantidad de Calificaciones:', this.ratings.length);
-    this.averageRating = totalRating / this.ratings.length;
-    console.log('Calificación Promedio:', this.averageRating);
+    return ratings.length > 0 ? totalRating / ratings.length : 0;
   }
   
-
+  
 
   saveTelefono(telefono: string) {
     const path = 'Usuarios';
@@ -187,9 +212,12 @@ getUserDataBank() {
     const updateDoc = { telefono };
     this.firestore.updateDoc(path, id, updateDoc).then(() => {
       console.log('Telefono actualizado con éxito');
+      this.telefono = telefono; // Asignar el nuevo valor a la propiedad `telefono` del componente
+      this.info!.telefono = Number(telefono); // Convertir a número y asignar el nuevo valor a la propiedad `telefono` del objeto `this.info`
     });
   }
-
+  
+  
   async resetPassword() {
     const path = 'Usuarios';
     const id = this.uid;

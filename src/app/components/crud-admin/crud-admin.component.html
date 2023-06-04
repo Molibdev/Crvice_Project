@@ -30,6 +30,7 @@
           <th>UID</th>
           <th>Nombre y Apellido</th>
           <th>Email</th>
+          <th>Calificaciones</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -40,6 +41,10 @@
             <td>{{ user.nombre }} {{ user.apellido }}</td>
             <td>{{ user.correo }}</td>
             <td>
+              <div class="linea">Numero de Calificaciones: {{user.NumeroCalificaciones ? user.NumeroCalificaciones : 0 }}</div>
+              <div>Calificacion Promedio: {{ user.PromedioCalificaciones ? user.PromedioCalificaciones : 0 }}</div>
+            </td>            
+                        <td>
               <div id="wrap" mat-button [matMenuTriggerFor]="editUser">
                 <a class="btn-slide">
                   <span class="circle"><mat-icon>edit_attributes</mat-icon></span>
