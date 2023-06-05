@@ -45,19 +45,17 @@
                     <label>Descripción:</label>
                     <p> {{ publicacion.descripcion }} </p>
                     <hr>
-                    <div class="div-botones" *ngIf="usuarioLogueado">
+                    <div class="div-botones" *ngIf="usuarioLogueado && +numeroPerfil === 2">
                       <div *ngFor="let user of users$ | async">
                         <button class="cerrar-sesion" *ngIf="user.uid === publicacion.uid" (click)="createChat(user)">Enviar Mensaje</button>
                       </div>    
                       <div *ngFor="let user of users$ | async">
                         <button class="cerrar-sesion" *ngIf="user.uid === publicacion.uid" (click)="solicitarTrabajo()">Solicitar Trabajo</button>
                       </div>
-                  </div>
-                  
-                    
-                </div>
-            </div>
+                    </div>
+          </div>
         </div>
+      </div>
     </section>
     <!-- seccion comentarios -->
     <div class="container contenedor-comentario">

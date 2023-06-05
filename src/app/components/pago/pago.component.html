@@ -24,7 +24,8 @@
             <p><strong>Tipo de cuenta:</strong> {{ dato.TipoCuenta }}</p>
             <p><strong>Banco:</strong> {{ dato.Banco }}</p>
           </div>
-          <p><strong>Precio:</strong> {{ trabajo.precio }}</p>
+          <p><strong>Precio Estimado del Trabajo:</strong> {{ trabajo.precio }}</p>
+          <p><strong>Precio Abono: </strong><b>{{ trabajo.precio ? calcularPrecio20Porciento(trabajo.precio) : 'N/A' }}</b></p>
           <p><strong>Comentario de transferencia:</strong> {{publicacion.titulo}}</p>
         </div>
       </div>
