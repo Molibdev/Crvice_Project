@@ -129,9 +129,9 @@ public formRegister: FormGroup = this.fb.group({
         case 'required':
           return 'Este campo es requerido.';
         case 'minlength':
-          return `Mínimo ${ errors['minlength'].requiredLength } caracters.`;
+          return `Mínimo ${ errors['minlength'].requiredLength } caracteres.`;
         case 'maxlength':
-          return `Máximo ${ errors['maxlength'].requiredLength } caracters.`;
+          return `Máximo ${ errors['maxlength'].requiredLength } caracteres.`;
         case'min':
           return 'Debe ser un número positivo.';
         case 'pattern':

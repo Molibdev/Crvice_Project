@@ -86,20 +86,31 @@ export class PagoComponent implements OnInit {
     }
 
     calcularPrecioUSD(precioCLP: number): void {
-        axios.get('https://api.exchangerate-api.com/v4/latest/CLP')
-          .then(response => {
-            const rate = response.data.rates.USD;
-            console.log(`1 CLP equivale a ${rate} USD`);
-            this.precioUSD = parseFloat((precioCLP * rate).toFixed(1));
-            console.log('El precio del trabajo en USD es:', this.precioUSD);
-          })
-          .catch(error => {
-            console.log(error);
-          });
-        this.isLoading = false;
-      }
+      const porcentaje = 0.2; // 20% del precio
+      const precio20Porciento = precioCLP * porcentaje;
+      
+      axios.get('https://api.exchangerate-api.com/v4/latest/CLP')
+        .then(response => {
+          const rate = response.data.rates.USD;
+          console.log(`1 CLP equivale a ${rate} USD`);
+          this.precioUSD = parseFloat((precio20Porciento * rate).toFixed(1));
+          console.log('El precio del trabajo en USD es:', this.precioUSD);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      
+      this.isLoading = false;
+    }
+    
 
-
+    calcularPrecio20Porciento(precio: string): number {
+      const precioCLP = Number(precio.replace(/[^\d]/g, ''));
+      const porcentaje = 0.2; // 20% del precio
+      const precio20Porciento = precioCLP * porcentaje;
+      return precio20Porciento;
+    }
+    
 
 private initConfig(): void {
     this.payPalConfig = {

@@ -27,6 +27,7 @@ export class PublicacionComponent implements OnInit {
   public fotos: string[] = [];
   fotoActual: string | undefined; // URL de la foto actualmente mostrada
   indiceFotoActual: number = 0; // Índice de la foto actual
+  numeroPerfil: number = 0;
 
   users$ = combineLatest([this.firebase.allUsers$, this.user$, this.searchControl.valueChanges.pipe(startWith(''))]).pipe(
     map(([users, user, searchString]) => users.filter(u => u.nombre?.toLowerCase().includes(searchString?.toLowerCase() ?? '') && u.uid !== user?.uid))
@@ -46,6 +47,12 @@ export class PublicacionComponent implements OnInit {
     // Verificar si el usuario ha iniciado sesión
     this.firebase.currentUserProfile$.subscribe(user => {
       this.usuarioLogueado = !!user;
+      if (user) {
+        const numeroPerfil = user.perfil; // Corregir la propiedad a "perfil"
+        // Aquí puedes hacer uso del número de perfil como desees
+        console.log('Número de perfil del usuario logueado:', numeroPerfil);
+        this.numeroPerfil = numeroPerfil; // Asignar el número de perfil al componente
+      }
     });
   
     const id = this.route.snapshot.paramMap.get('id');
