@@ -24,6 +24,16 @@
         </a>
       </div>
     </div>
+    <div class="wrap2-wrapper">
+      <div id="wrap2">
+        <a class="btn-slide" (click)="generatePdfLink()" download="InformeUsuario.pdf">
+          <span class="circle"><mat-icon>add_circle_outline</mat-icon></span>
+          <span class="title">Realizar informe...</span>
+          <span class="title-hover"><mat-icon>keyboard_arrow_right</mat-icon></span>
+        </a>
+      </div>
+    </div>    
+    
     <table>
       <thead>
         <tr>
@@ -44,7 +54,7 @@
               <div class="linea">Numero de Calificaciones: {{user.NumeroCalificaciones ? user.NumeroCalificaciones : 0 }}</div>
               <div>Calificacion Promedio: {{ user.PromedioCalificaciones ? user.PromedioCalificaciones : 0 }}</div>
             </td>            
-                        <td>
+            <td>
               <div id="wrap" mat-button [matMenuTriggerFor]="editUser">
                 <a class="btn-slide">
                   <span class="circle"><mat-icon>edit_attributes</mat-icon></span>
