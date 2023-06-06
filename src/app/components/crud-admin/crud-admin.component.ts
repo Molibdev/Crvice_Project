@@ -3,6 +3,16 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/models';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+
+// Rest of the code for generating the PDF report
+
+// Rest of the code for generating the PDF report
+
+
 
 
 @Component({
@@ -87,8 +97,82 @@ export class CrudAdminComponent implements OnInit{
     this.mostrarPrompt = false;
   }
   
+
+
+  generatePdfLink(): void {
+    const content = [];
+    const headers = ['UID', 'Nombre y Apellido', 'Email', 'Calificaciones'];
+    const data = [];
+  
+    // Agregar título
+    const title = { text: 'CRVICE', style: 'title', alignment: 'center' };
+    content.push(title);
+  
+    const subtitle = { text: 'Informe de Usuarios', style: 'subtitle', alignment: 'center' };
+    content.push(subtitle);
+  
+    // Agregar fecha
+    const currentDate = new Date();
+    const formattedDate = `${currentDate.getDate()} de ${this.getMonthName(currentDate.getMonth())} de ${currentDate.getFullYear()}`;
+    const date = { text: `Fecha: ${formattedDate}`, style: 'date', alignment: 'center' };
+    content.push(date);
+  
+    // Agregar encabezados
+    const headerRow = headers.map(header => ({ text: header, style: 'tableHeader' }));
+    data.push(headerRow);
+  
+    // Agregar filas de datos
+    this.filteredUsers.forEach(user => {
+      const row = [
+        { text: user.uid },
+        { text: `${user.nombre} ${user.apellido}` },
+        { text: user.correo },
+        {
+          stack: [
+            { text: `Número de Calificaciones: ${user.NumeroCalificaciones || 0}` },
+            { text: `Calificación Promedio: ${user.PromedioCalificaciones || 0}` }
+          ]
+        }
+      ];
+      data.push(row);
+    });
+  
+    // Agregar contenido al documento
+    content.push({
+      table: {
+        headerRows: 1,
+        widths: ['25%', '25%', '25%', '25%'], // Ajustar el ancho de las columnas
+        body: data
+      }
+    });
+  
+    // Definir estilos del documento
+    const styles = {
+      // Estilo para el título
+      title: { fontSize: 24, bold: true, alignment: 'center', margin: [0, 0, 0, 10] as [number, number, number, number] },
+      // Estilo para el subtítulo
+      subtitle: { fontSize: 16, bold: true, alignment: 'center', margin: [0, 0, 0, 10] as [number, number, number, number] },
+      // Estilo para la fecha
+      date: { fontSize: 12, margin: [0, 0, 0, 10] as [number, number, number, number] },
+      // Estilo para el encabezado de la tabla (sin cambios)
+      tableHeader: { bold: true, fillColor: '#eeeeee' }
+    };
+  
+    // Definir documento PDF
+    const docDefinition: any = { // Ajuste en la asignación de tipos
+      content: content,
+      styles: styles
+    };
+    // Generar y descargar el PDF
+    pdfMake.createPdf(docDefinition).download('InformeUsuarios.pdf');
+  }
+  
+  getMonthName(month: number): string {
+    const monthNames = [
+      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ];
+    return monthNames[month];
+  }
+  
 }
-
-
-
-

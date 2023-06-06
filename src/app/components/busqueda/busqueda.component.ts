@@ -14,7 +14,7 @@ export class BusquedaComponent implements OnInit {
   termino!: string;
   public isLoading: boolean = false;
   public fotosURLs: { [publicacionId: string]: Promise<string> } = {};
-  public imagenPredeterminada = '../../../assets/img/foto5.jpg';
+  public imagenPredeterminada = '../../../assets/img/foto6.jpg';
 
   constructor(private publicacionesService: PublicacionesService,
               private router: Router,
