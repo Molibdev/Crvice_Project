@@ -23,7 +23,7 @@ export class AdminEditPComponent implements OnInit {
   public fotos: string[] = [];
   fotoActual: string | undefined; // URL de la foto actualmente mostrada
   indiceFotoActual: number = 0; // Índice de la foto actual
-  public imagenPredeterminada = '../../../assets/img/foto5.jpg';
+  public imagenPredeterminada = '../../../assets/img/foto6.jpg';
   formSubmitted = false; // Propiedad para realizar un seguimiento del intento de envío del formulario
 
   constructor(

@@ -6,32 +6,33 @@
 <header>
     <app-navbar></app-navbar>
 </header>
-<div class="container">
-  <h1>Mis Publicaciones</h1>
-
-  <div class="places">
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
-      <div class="place" *ngFor="let publicacion of publicaciones$ | async">
-        <div class="info">
-          <h2>{{ publicacion.titulo }}</h2>
-          <small>Precio estimado: ${{ publicacion.precio }}</small>
-          <p>{{ publicacion.descripcion }}</p>
-          <button class="btna" (click)="abrirPublicacion(publicacion.id)">Editar</button>
-          <button class="eliminar" (click)="mostrarDialogo(publicacion)">Eliminar</button>
-          <div class="dialog-overlay" *ngIf="mostrarPrompt">
-            <div class="dialog-container">
-              <div class="dialog-content">
-                <h3>¿Estás seguro que deseas eliminar la publicación?</h3>
-                <div class="dialog-buttons">
-                  <button (click)="eliminarPublicacion()">Sí</button>
-                  <button (click)="cerrarDialogo()">No</button>
+<body>
+    <div class="container">
+      <h1>Mis Publicaciones</h1>
+        <div class="places">
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+        <div class="place" *ngFor="let publicacion of publicaciones$ | async">
+          <div class="info">
+            <h2>{{ publicacion.titulo }}</h2>
+            <small>Precio estimado: ${{ publicacion.precio }}</small>
+            <p>{{ publicacion.descripcion }}</p>
+            <button class="btna" (click)="abrirPublicacion(publicacion.id)">Editar</button>
+            <button class="eliminar" (click)="mostrarDialogo(publicacion)">Eliminar</button>
+            <div class="dialog-overlay" *ngIf="mostrarPrompt">
+              <div class="dialog-container">
+                <div class="dialog-content">
+                  <h3>¿Estás seguro que deseas eliminar la publicación?</h3>
+                  <div class="dialog-buttons">
+                    <button (click)="eliminarPublicacion()">Sí</button>
+                    <button (click)="cerrarDialogo()">No</button>
+                  </div>
+                </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-  </div>
-</div>
-
+    </div>
+</body>
 <app-footer></app-footer>
+</html>
