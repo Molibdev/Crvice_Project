@@ -78,13 +78,12 @@ export class RegisterComponent implements OnInit{
               private router: Router,
               private fb: FormBuilder,
               private toast: HotToastService) {}
-
+//Validación formulario
 public formRegister: FormGroup = this.fb.group({
   nombre: ['', [Validators.required]],
   apellido: ['', [Validators.required]],
   rut: ['', [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)]],
   dv: ['', [Validators.required, Validators.min(0), Validators.maxLength(1)]],
-  numeroDocumento:['', [Validators.required]],
   correo: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
   password: ['', [Validators.required, Validators.minLength(6)]],
   confirmarPassword: ['', [Validators.required]],
@@ -100,7 +99,7 @@ public formRegister: FormGroup = this.fb.group({
   ngOnInit(): void {
     
   }
-
+//Valida que contraseña y validar contraseña sean iguales
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmarPassword')?.value;
@@ -112,12 +111,12 @@ public formRegister: FormGroup = this.fb.group({
   
     return null;
   }
-
+//Valida que el formulario tiene errores y a sido tocado
   isValidField( field: string ): boolean | null {
     return this.formRegister.controls[field].errors
       && this.formRegister.controls[field].touched;
   }
-
+//Verifica el tipo de error para mostrar en pantalla
   getFieldError( field: string ): string | null {
 
     if ( !this.formRegister.controls[field] ) return null;
@@ -141,7 +140,7 @@ public formRegister: FormGroup = this.fb.group({
 
     return null;
   }
-
+//Registro de Usuario
   async registrar() {
     if ( this.formRegister.invalid ) {
       this.formRegister.markAllAsTouched();
@@ -174,12 +173,10 @@ public formRegister: FormGroup = this.fb.group({
     const rut = this.datos.rut+this.datos.dv; 
     const esValido = this.validarRut(rut);
 
-    if (esValido) {
-      console.log('El RUT es válido');
-    } else {
+    if (!esValido) {
       this.toast.error(
         'Error, el rut ingresado no es válido.'
-      );
+        );
       return;
     }
 
@@ -189,6 +186,9 @@ public formRegister: FormGroup = this.fb.group({
     console.log('datos ->', this.datos);
     const res = await this.auth.register(this.datos).catch( res =>  {
       console.log('error')
+      this.toast.error(
+        'Error, el email ingresado ya existe.'
+      );
     })
     if (res && res.user) {
       const path = 'Usuarios';
@@ -198,12 +198,12 @@ public formRegister: FormGroup = this.fb.group({
       await this.firestore.createDoc(this.datos, path, id)
       localStorage.setItem('correo', this.datos.correo);
       this.router.navigate(['/email-validation'])
+      this.toast.success('Cuenta creada correctamente.');
+      this.formRegister.reset();
     }
-    this.toast.success('Cuenta creada correctamente.');
 
-    this.formRegister.reset();
   }
-
+  //Verifica que la persona registrada sea mayor de edad
   mayorDeEdad(fechaNacimientoForm:Date):boolean{
     let fechaNacimiento= new Date(fechaNacimientoForm);
     let fechaActual= new Date();
@@ -221,7 +221,7 @@ public formRegister: FormGroup = this.fb.group({
     }
     
   }
-
+  //Valida a través del digito verificador que el rut sea válido
   validarRut(rut: string): boolean {
     rut = rut.replace(/\./g, '').toUpperCase(); 
     const rutSinDigitoVerificador = rut.slice(0, -1);
