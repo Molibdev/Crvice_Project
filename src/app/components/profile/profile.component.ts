@@ -315,6 +315,9 @@ getUserDataBank() {
   }
   cargarMenosComentarios() {
     this.contador = 1;
+    if(this.contador=1){
+      this.mostrarCargarMenos=false;
+    }
     this.mostrarCargarMas = true;
   
   }
