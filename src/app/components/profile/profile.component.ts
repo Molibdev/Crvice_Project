@@ -19,51 +19,52 @@ import { take } from 'rxjs/operators';
 })
 export class ProfileComponent implements OnInit {
 
-  uid: string = ''
-  info: User | null = null;
-  user$ = this.usersService.currentUserProfile$;
-  searchControl = new FormControl('');
+  // Propiedades del componente
+  uid: string = ''; // ID del usuario actual
+  info: User | null = null; // Información del usuario
+  user$ = this.usersService.currentUserProfile$; // Observable que emite el perfil del usuario actual
+  searchControl = new FormControl(''); // Control para buscar usuarios
   users$ = combineLatest([this.firestore.allUsers$, this.user$, this.searchControl.valueChanges.pipe(startWith(''))]).pipe(
     map(([users, user, searchString]) => users.filter(u => u.nombre?.toLowerCase().includes(searchString?.toLowerCase() ?? '') && u.uid !== user?.uid))
-  );
+  ); // Observable que emite la lista de usuarios filtrados
 
-  ratings: Calificacion[] = [];
-  datosBanco: userDataBank[] = [];
-  contador: number = 1;
-  mostrarCargarMenos: boolean = false;
-  mostrarCargarMas: boolean = true;
-  averageRating: number = 0;
-  showContainer: boolean = false;
-  idCuentaTrans: string = '';
-  mostrarConfirmacion: boolean = false;
+  ratings: Calificacion[] = []; // Lista de calificaciones del usuario
+  datosBanco: userDataBank[] = []; // Datos bancarios del usuario
+  contador: number = 1; // Contador para controlar la cantidad de comentarios cargados
+  mostrarCargarMenos: boolean = false; // Indicador para mostrar/ocultar el botón de cargar menos comentarios
+  mostrarCargarMas: boolean = true; // Indicador para mostrar/ocultar el botón de cargar más comentarios
+  averageRating: number = 0; // Promedio de calificaciones del usuario
+  showContainer: boolean = false; // Indicador para mostrar/ocultar el contenedor principal
+  idCuentaTrans: string = ''; // ID de la cuenta de transferencia seleccionada
+  mostrarConfirmacion: boolean = false; // Indicador para mostrar/ocultar la confirmación de eliminación
 
-  nombre: string = '';
-  apellido: string = '';
-  rut: string = '';
-  dv: string = '';
-  correo: string = '';
-  telefono: string = '';
-  direccion: string = '';
-  nacimiento: string = '';
-  perfil: string = '';
-  mostrarDialogo: boolean = false;
-  editingField: string = '';
-  chatListControl = new FormControl<string[]>([]);
-  adminId : string = '6VD9LeSM0qSBwP0AsyhylOZDMIx2'
-  public isLoading: boolean = false;
-  ratingsCount: number = 0;
+  nombre: string = ''; // Nombre del usuario
+  apellido: string = ''; // Apellido del usuario
+  rut: string = ''; // Rut del usuario
+  dv: string = ''; // Dígito verificador del rut del usuario
+  correo: string = ''; // Correo electrónico del usuario
+  telefono: string = ''; // Teléfono del usuario
+  direccion: string = ''; // Dirección del usuario
+  nacimiento: string = ''; // Fecha de nacimiento del usuario
+  perfil: string = ''; // Perfil del usuario
+  mostrarDialogo: boolean = false; // Indicador para mostrar/ocultar el diálogo de edición
+  editingField: string = ''; // Campo que se está editando en el diálogo
+  chatListControl = new FormControl<string[]>([]); // Control de la lista de chats del usuario
+  adminId: string = '6VD9LeSM0qSBwP0AsyhylOZDMIx2'; // ID del administrador
+  public isLoading: boolean = false; // Indicador de carga en progreso
+  ratingsCount: number = 0; // Cantidad de calificaciones del usuario
 
-  constructor(private auth: AuthService,
-              private router: Router,
-              private firestore: FirebaseService,
-              private imageUploadService: UploadImageService,
-              private usersService: UsersService,
-              private toast: HotToastService,
-              private chat: InteractionService) {
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private firestore: FirebaseService,
+    private imageUploadService: UploadImageService,
+    private usersService: UsersService,
+    private toast: HotToastService,
+    private chat: InteractionService
+  ) {}
 
-  }
-
-
+  // Método de inicialización del componente
   async ngOnInit() {
     this.isLoading = true;
     console.log('estoy en perfil');
@@ -79,27 +80,27 @@ export class ProfileComponent implements OnInit {
     }, 500);
   }
 
+  // Método para guardar un valor editado en el prompt personalizado
   onCustomPromptSave(value: string) {
     if (this.editingField === 'telefono') {
       this.saveTelefono(value);
-    } 
-    
-
+    }
     // Cerrar el prompt
     this.closePrompt();
   }
 
-  
-
+  // Método para mostrar el prompt personalizado
   mostrarPrompt(field: string) {
     this.editingField = field;
     this.mostrarDialogo = true;
   }
 
+  // Método para cerrar el prompt personalizado
   closePrompt() {
     this.mostrarDialogo = false;
   }
 
+  // Método para crear un chat con otro usuario
   createChat(otherUser: User) {
     this.chat.isExistingChat(otherUser?.uid).pipe(
       switchMap(chatId => {
@@ -111,11 +112,11 @@ export class ProfileComponent implements OnInit {
       })
     ).subscribe(chatId => {
       this.chatListControl.setValue([chatId]);
-    })
-    this.router.navigate(['/chat'])
+    });
+    this.router.navigate(['/chat']);
   }
 
-
+  // Método para obtener la información del usuario actual
   async getInfoUser() {
     const path = 'Usuarios';
     const id = this.uid;
@@ -133,18 +134,19 @@ export class ProfileComponent implements OnInit {
         this.isLoading = false;
       });
   }
-  
 
-getUserDataBank() {
-  const path = `Usuarios/${this.uid}/DatosTransferencia`;
-  this.firestore.getCollection<userDataBank>(path).subscribe(userDataBank => {
-    this.datosBanco = userDataBank;
-    if (this.datosBanco.length > 0) {
-      this.idCuentaTrans = this.datosBanco[0].IdCuenta; // Guardar el primer número de cuenta en idCuentaTrans
-    }
-  });
-}
+  // Método para obtener los datos bancarios del usuario
+  getUserDataBank() {
+    const path = `Usuarios/${this.uid}/DatosTransferencia`;
+    this.firestore.getCollection<userDataBank>(path).subscribe(userDataBank => {
+      this.datosBanco = userDataBank;
+      if (this.datosBanco.length > 0) {
+        this.idCuentaTrans = this.datosBanco[0].IdCuenta; // Guardar el primer número de cuenta en idCuentaTrans
+      }
+    });
+  }
 
+  // Método para borrar los datos bancarios del usuario
   borrarDatosBank(docId: string) {
     this.idCuentaTrans = docId;
     this.firestore.borrarDatosTransferencia(this.uid, docId)
@@ -155,32 +157,35 @@ getUserDataBank() {
       .catch((error: any) => {
         console.log('Error al eliminar los datos:', error);
       });
-      this.mostrarConfirmacion = false;
-      this.toast.warning('Se han eliminado los datos de transferencia de tu cuenta')
+    this.mostrarConfirmacion = false;
+    this.toast.warning('Se han eliminado los datos de transferencia de tu cuenta');
   }
 
+  // Método para mostrar la confirmación de borrado de datos bancarios
   confirmarBorrarDatos(): void {
     this.mostrarConfirmacion = true;
   }
 
+  // Método para cancelar el borrado de datos bancarios
   cancelarBorrarDatos(): void {
     this.mostrarConfirmacion = false;
   }
-  
+
+  // Método para obtener las calificaciones del usuario
   getCalificaciones() {
     const path = `Usuarios/${this.uid}/calificaciones`;
     this.firestore.getCollection<Calificacion>(path).subscribe(calificaciones => {
       const newRatingsCount = calificaciones.length;
       const newAverageRating = this.calculateAverageRating(calificaciones);
-  
+
       // Redondear el nuevo promedio a dos decimales
       const roundedAverageRating = Number(newAverageRating.toFixed(2));
-  
+
       if (newRatingsCount !== this.ratingsCount || roundedAverageRating !== this.averageRating) {
         this.ratings = calificaciones;
         this.ratingsCount = newRatingsCount;
         this.averageRating = roundedAverageRating;
-  
+
         const updateDoc = {
           NumeroCalificaciones: this.ratingsCount,
           PromedioCalificaciones: this.averageRating
@@ -195,7 +200,8 @@ getUserDataBank() {
       }
     });
   }
-  
+
+  // Método para calcular el promedio de las calificaciones
   calculateAverageRating(ratings: Calificacion[]) {
     let totalRating = 0;
     for (const rating of ratings) {
@@ -203,9 +209,8 @@ getUserDataBank() {
     }
     return ratings.length > 0 ? totalRating / ratings.length : 0;
   }
-  
-  
 
+  // Método para guardar el número de teléfono editado
   saveTelefono(telefono: string) {
     const path = 'Usuarios';
     const id = this.uid;
@@ -216,8 +221,8 @@ getUserDataBank() {
       this.info!.telefono = Number(telefono); // Convertir a número y asignar el nuevo valor a la propiedad `telefono` del objeto `this.info`
     });
   }
-  
-  
+
+  // Método para restablecer la contraseña del usuario
   async resetPassword() {
     const path = 'Usuarios';
     const id = this.uid;
@@ -236,10 +241,10 @@ getUserDataBank() {
             });
         }
       }
-      console.log('datos son ->', res);
     });
   }
 
+  // Método para cambiar la imagen de perfil del usuario
   uploadFile(event: any, user: User) {
     const { uid } = user;
     const upload$ = this.imageUploadService.uploadImage(event.target.files[0], `images/profile/${uid}`);
@@ -275,36 +280,44 @@ getUserDataBank() {
       .subscribe();
   }
 
+  // Método para cerrar la sesión del usuario
   logout() {
     this.auth.logout();
     console.log('se ha cerrado la sesion')
     this.router.navigate(['/login'])
   }
 
-
+  // Método para ir a la pagina nueva publicacion
   crearPublicacion(){
     this.router.navigate(['/nueva-publicacion'])
   }
 
+  // Método para ir a la pagina mis publicaciones
   verMisPublicaciones() {
     this.router.navigate(['/mis-publicaciones']);
   }
 
+ // Método para ir a la pagina mis solicitudes
   verMisSolicitudes() {
     this.router.navigate(['/solicitudes']);
   }
 
+ // Método para ir a la pagina mis contrataciones
   verMisContrataciones() {
     this.router.navigate(['/contrataciones']);
   }
+
+ // Método para ir a la pagina gestionar publicaciones
   gestPublicaciones() {
     this.router.navigate(['/gestionar-publicaciones']);
   }
 
+ // Método para ir a la pagina crud admin
   gestUsers() {
     this.router.navigate(['/crud-admin']);
   }
 
+ // Método para cargar mas comentarios
   cargarMasComentarios() {
     this.contador += 5;
     this.mostrarCargarMenos = true;
@@ -313,6 +326,8 @@ getUserDataBank() {
       this.mostrarCargarMas = false;
     }
   }
+
+  // Método para cargar menos comentarios
   cargarMenosComentarios() {
     this.contador = 1;
     if(this.contador=1){
@@ -321,6 +336,4 @@ getUserDataBank() {
     this.mostrarCargarMas = true;
   
   }
-
-  
 }

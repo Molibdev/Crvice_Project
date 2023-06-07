@@ -11,17 +11,20 @@ import { Publicacion } from 'src/app/models/publicacion';
   styleUrls: ['./trabajos.component.css']
 })
 export class TrabajosComponent implements OnInit {
-  public trabajos: Trabajo[] = [];
-  public isLoading: boolean= false;
+  public trabajos: Trabajo[] = []; // Array para almacenar los trabajos
+  public isLoading: boolean= false; // Variable para indicar si se está cargando
 
-  constructor(private firestore: AngularFirestore,private router: Router, private auth: AngularFireAuth) {}
+  constructor(
+    private firestore: AngularFirestore,
+    private router: Router,
+    private auth: AngularFireAuth
+  ) {}
 
   ngOnInit(): void {
-    this.isLoading = true;
+    this.isLoading = true; // Establecer isLoading a true para indicar que se está cargando
     this.auth.onAuthStateChanged((user) => {
       if (user) {
-        this.cargarTrabajos(user.uid);
-        
+        this.cargarTrabajos(user.uid); // Cargar los trabajos del usuario actual
       }
     });
   }
@@ -37,10 +40,10 @@ export class TrabajosComponent implements OnInit {
         if (trabajosSnapshot) {
           const trabajosPromises = trabajosSnapshot.docs.map((trabajoDoc) => {
             const trabajo: Trabajo = {
-              id: trabajoDoc.id, // Aquí se asigna el ID del trabajo
+              id: trabajoDoc.id, // Asignar el ID del trabajo
               ...trabajoDoc.data()
             } as Trabajo;
-            trabajo.trabajoId = trabajoDoc.id; // Asignar el valor del id generado automáticamente a la propiedad trabajoId
+            trabajo.trabajoId = trabajoDoc.id; // Asignar el valor del ID generado automáticamente a la propiedad trabajoId
             return this.firestore
               .collection<Publicacion>('Publicaciones')
               .doc(trabajo.idPublicacion)
@@ -57,8 +60,8 @@ export class TrabajosComponent implements OnInit {
               });
           });
           Promise.all(trabajosPromises).then((trabajos) => {
-            this.trabajos = trabajos;
-            this.isLoading = false;
+            this.trabajos = trabajos; // Asignar los trabajos al array
+            this.isLoading = false; // Establecer isLoading a false para indicar que se ha terminado de cargar
           });
         }
       });
@@ -70,7 +73,7 @@ export class TrabajosComponent implements OnInit {
         trabajoId: trabajo.id,
         publicacionId: trabajo.publicacion.id
       };
-      this.router.navigate(['/resp-solicitud'], { queryParams });
+      this.router.navigate(['/resp-solicitud'], { queryParams }); // Navegar a la página de respuesta de solicitud con los parámetros de consulta
     } else {
       console.error('El trabajo no tiene una publicación definida');
     }

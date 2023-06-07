@@ -14,12 +14,12 @@ import { HotToastService } from '@ngneat/hot-toast';
   styleUrls: ['./nueva-publicacion.component.css']
 })
 export class NuevaPublicacionComponent implements OnInit {
-  formulario: FormGroup;
-  uid: string = '';
-  fileInputRef: any[] = [];
-  urlImage: string = '';
-  maxPhotosAllowed = 4;
-  formularioEnviado = false;
+  formulario: FormGroup; // Formulario para la nueva publicación
+  uid: string = ''; // ID del usuario actual
+  fileInputRef: any[] = []; // Referencias a los elementos de entrada de archivo
+  urlImage: string = ''; // URL de la imagen
+  maxPhotosAllowed = 4; // Número máximo de fotos permitidas para la publicación
+  formularioEnviado = false; // Bandera para controlar si el formulario ha sido enviado
 
   constructor(
     private publicacionesService: PublicacionesService,
@@ -30,30 +30,34 @@ export class NuevaPublicacionComponent implements OnInit {
     private route: Router,
     private toast: HotToastService,
   ) {
+    // Inicializar el formulario con los campos y validadores necesarios
     this.formulario = new FormGroup({
-      titulo: new FormControl('', Validators.required),
-      rubro: new FormControl('', Validators.required),
-      descripcion: new FormControl('', Validators.required),
+      titulo: new FormControl('', Validators.required), // Campo título con validador de requerido
+      rubro: new FormControl('', Validators.required), // Campo rubro con validador de requerido
+      descripcion: new FormControl('', Validators.required), // Campo descripción con validador de requerido
       precio: new FormControl('', [
-        Validators.required,
-        Validators.pattern(/^\d{1,3}(?:\.\d{3})*(?:,\d{2})?$/),
+        Validators.required, // Campo precio con validador de requerido
+        Validators.pattern(/^\d{1,3}(?:\.\d{3})*(?:,\d{2})?$/) // Validador de patrón para el formato de precio
       ]),
-      
-      photoPost: new FormControl(),
-      uid: new FormControl(),
-      nombre: new FormControl(),
-      apellido: new FormControl()
+      photoPost: new FormControl(), // Control para subir fotos de la publicación
+      uid: new FormControl(), // Control para almacenar el ID del usuario
+      nombre: new FormControl(), // Control para almacenar el nombre del usuario
+      apellido: new FormControl() // Control para almacenar el apellido del usuario
     });
+
+    // Obtener el ID del usuario actual y establecerlo en el formulario
     this.authService.getUid().then((uid) => {
       if (uid) {
         this.uid = uid;
         this.formulario.controls['uid'].setValue(uid);
       }
     });
+
     this.fileInputRef = [];
   }
 
   async ngOnInit() {
+    // Obtener el nombre del usuario actual desde el servicio Firebase
     this.firebaseService.getUserName().subscribe((name) => {
       // Separa el nombre y apellido
       const [nombre, apellido] = name.split(' ');
@@ -100,10 +104,13 @@ export class NuevaPublicacionComponent implements OnInit {
       const numericPrecio = Number(precioValue.replace(/\./g, '').replace(/,/g, ''));
 
       console.log(this.formulario.value);
+
+      // Agregar la nueva publicación a través del servicio de publicaciones
       this.publicacionesService.addPublicacion(this.formulario.value)
         .then((publicacionId) => {
           console.log('ID de la publicación:', publicacionId);
 
+          // Subir las imágenes de la publicación
           this.uploadImages(publicacionId)
             .then(() => {
               this.toast.success('¡Publicación creada!');
@@ -124,6 +131,7 @@ export class NuevaPublicacionComponent implements OnInit {
   }
 
   private markAllFieldsAsTouched() {
+    // Marcar todos los campos del formulario como "touched"
     Object.keys(this.formulario.controls).forEach((field) => {
       const control = this.formulario.get(field);
       if (control) {
@@ -133,6 +141,7 @@ export class NuevaPublicacionComponent implements OnInit {
   }
 
   private uploadImages(publicacionId: string): Promise<void> {
+    // Método para subir las imágenes de la publicación
     return new Promise<void>(async (resolve, reject) => {
       for (let i = 0; i < this.fileInputRef.length; i++) {
         const files = this.fileInputRef[i].files;

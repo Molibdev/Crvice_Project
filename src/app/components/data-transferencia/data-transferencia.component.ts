@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./data-transferencia.component.css']
 })
 export class DataTransferenciaComponent implements OnInit {
-  userDataForm: FormGroup;
-  userData: userDataBank = {
+  userDataForm: FormGroup; // Formulario de datos del usuario
+  userData: userDataBank = { // Objeto para almacenar los datos del usuario
     idUsuarioCuenta: '',
     IdCuenta: '',
     NumCuenta: 0,
@@ -20,7 +20,7 @@ export class DataTransferenciaComponent implements OnInit {
     Banco: '',
   };
 
-  bancos = [
+  bancos = [ // Opciones de bancos para la selección
     'Banco de Chile',
     'Banco Estado',
     'Banco Santander',
@@ -33,12 +33,12 @@ export class DataTransferenciaComponent implements OnInit {
     'Banco Ripley'
   ];
 
-  tipoCuenta = [
+  tipoCuenta = [ // Opciones de tipo de cuenta para la selección
     'Cuenta Vista',
     'Cuenta Corriente',
   ];
 
-  uid: string = '';
+  uid: string = ''; // ID del usuario actual
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,13 +47,14 @@ export class DataTransferenciaComponent implements OnInit {
     private router: Router
   ) {
     this.userDataForm = this.formBuilder.group({
-      NumCuenta: ['', [Validators.required, Validators.pattern(/^\d{9,12}$/)]],
-      TipoCuenta: ['', Validators.required],
-      Banco: ['', Validators.required],
+      NumCuenta: ['', [Validators.required, Validators.pattern(/^\d{9,12}$/)]], // Campo del número de cuenta con validación de longitud
+      TipoCuenta: ['', Validators.required], // Campo del tipo de cuenta requerido
+      Banco: ['', Validators.required], // Campo del banco requerido
     });
   }
 
   ngOnInit(): void {
+    // Obtener el ID del usuario actual
     this.firebaseService.getCurrentUserUid().subscribe((uid: string | null) => {
       if (uid) {
         this.uid = uid;
@@ -62,24 +63,27 @@ export class DataTransferenciaComponent implements OnInit {
     });
   }
 
+  //Método para guardar los datos de transferencia en Firebase.
   guardarDatos() {
     if (this.userDataForm.valid) {
+      // Asignar los valores del formulario al objeto userData
       this.userData = {
         ...this.userDataForm.value,
         idUsuarioCuenta: this.uid
       };
-      this.firebaseService
-        .guardarDatosTransferencia(this.uid, this.userData)
+
+      // Guardar los datos de transferencia en Firebase
+      this.firebaseService.guardarDatosTransferencia(this.uid, this.userData)
         .then(() => {
           console.log('Datos guardados exitosamente');
           this.toast.success('Datos de tu cuenta de transferencias guardados correctamente!');
           this.router.navigate(['/profile']);
-          // Puedes agregar aquí alguna lógica adicional después de guardar los datos
         })
         .catch((error: any) => {
           console.log('Error al guardar los datos:', error);
         });
     } else {
+      // Mostrar mensaje de error si el formulario no es válido
       this.toast.error('Verifica los datos que ingresaste o ingresa datos válidos');
     }
   }

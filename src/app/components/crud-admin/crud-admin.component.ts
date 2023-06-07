@@ -8,37 +8,28 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
-// Rest of the code for generating the PDF report
-
-// Rest of the code for generating the PDF report
-
-
-
-
 @Component({
   selector: 'app-crud-admin',
   templateUrl: './crud-admin.component.html',
   styleUrls: ['./crud-admin.component.css']
 })
-export class CrudAdminComponent implements OnInit{
-
-  listUsers: User[] = [];
-  filteredUsers: User[] = [];
-  uid: string = ''
-  info: User | null = null;
-  searchEmail: string = '';
-  noResults: boolean = false;
-  users: any[] = [];
-  mostrarPrompt: boolean = false;
-  nombreActualizado: string = '';
-  usuarioActual!: User; 
-  campoSeleccionado!: string;
-  campoActualizado!: string;
-  
+export class CrudAdminComponent implements OnInit {
+  listUsers: User[] = []; // Lista de usuarios obtenidos desde Firebase
+  filteredUsers: User[] = []; // Lista de usuarios filtrados
+  uid: string = ''; // UID del usuario actual
+  info: User | null = null; // Información del usuario actual
+  searchEmail: string = ''; // Correo electrónico para filtrar usuarios
+  noResults: boolean = false; // Indicador para mostrar si no hay resultados de búsqueda
+  users: any[] = []; // Arreglo genérico de usuarios
+  mostrarPrompt: boolean = false; // Indicador para mostrar el diálogo de actualización
+  nombreActualizado: string = ''; // Valor actualizado del nombre del usuario
+  usuarioActual!: User; // Usuario actual seleccionado
+  campoSeleccionado!: string; // Campo seleccionado para actualizar
+  campoActualizado!: string; // Valor actualizado del campo seleccionado
 
   constructor(private firebase: FirebaseService, private auth: AuthService) {}
 
-
+  // Filtrar usuarios en función del correo electrónico ingresado
   filterUsers() {
     if (this.searchEmail === '') {
       this.filteredUsers = this.listUsers;
@@ -52,32 +43,30 @@ export class CrudAdminComponent implements OnInit{
     }
   }
 
-  
-
   async ngOnInit() {
     this.uid = (await this.auth.getUid()) || '';
+    // Obtener todos los usuarios desde Firebase
     this.firebase.allUsers$.subscribe((users: User[]) => {
       this.listUsers = users;
       this.filteredUsers = this.listUsers; // Asignar todos los usuarios a filteredUsers
       this.filterUsers(); // Aplicar el filtro inicialmente
     });
   }
-  
-
 
   canActivate(): void {
-    const userProfile = this.firebase.getUserProfile; // Replace with your own method to get the user's profile
+    const userProfile = this.firebase.getUserProfile; // Reemplazar con el método propio para obtener el perfil del usuario
     console.log(userProfile);
   }
 
-
+  // Mostrar el diálogo de actualización de un campo específico del usuario
   mostrarPromptCampo(user: User, campo: string) {
     this.usuarioActual = user; // Asignar el usuario actual a la variable
     this.campoActualizado = '';
     this.campoSeleccionado = campo;
     this.mostrarPrompt = true;
   }
-  
+
+  // Actualizar el valor de un campo específico del usuario
   actualizarCampo() {
     if (this.campoActualizado.trim() !== '') {
       console.log("El usuario ingresó el valor: " + this.campoActualizado);
@@ -86,41 +75,42 @@ export class CrudAdminComponent implements OnInit{
       const path = 'Usuarios';
       const id = this.usuarioActual.uid;
       const updateDoc = { [campo]: valorActualizado };
+      // Actualizar el documento en Firebase
       this.firebase.updateDoc(path, id, updateDoc).then(() => {
         console.log(`${campo} actualizado con éxito`);
         this.cerrarDialogo();
       });
     }
   }
-  
+
+  // Cerrar el diálogo de actualización
   cerrarDialogo() {
     this.mostrarPrompt = false;
   }
-  
 
-
+  // Generar y descargar un informe en formato PDF
   generatePdfLink(): void {
     const content = [];
     const headers = ['UID', 'Nombre y Apellido', 'Email', 'Calificaciones'];
     const data = [];
-  
+
     // Agregar título
     const title = { text: 'CRVICE', style: 'title', alignment: 'center' };
     content.push(title);
-  
+
     const subtitle = { text: 'Informe de Usuarios', style: 'subtitle', alignment: 'center' };
     content.push(subtitle);
-  
+
     // Agregar fecha
     const currentDate = new Date();
     const formattedDate = `${currentDate.getDate()} de ${this.getMonthName(currentDate.getMonth())} de ${currentDate.getFullYear()}`;
     const date = { text: `Fecha: ${formattedDate}`, style: 'date', alignment: 'center' };
     content.push(date);
-  
+
     // Agregar encabezados
     const headerRow = headers.map(header => ({ text: header, style: 'tableHeader' }));
     data.push(headerRow);
-  
+
     // Agregar filas de datos
     this.filteredUsers.forEach(user => {
       const row = [
@@ -136,7 +126,7 @@ export class CrudAdminComponent implements OnInit{
       ];
       data.push(row);
     });
-  
+
     // Agregar contenido al documento
     content.push({
       table: {
@@ -145,7 +135,7 @@ export class CrudAdminComponent implements OnInit{
         body: data
       }
     });
-  
+
     // Definir estilos del documento
     const styles = {
       // Estilo para el título
@@ -157,7 +147,7 @@ export class CrudAdminComponent implements OnInit{
       // Estilo para el encabezado de la tabla (sin cambios)
       tableHeader: { bold: true, fillColor: '#eeeeee' }
     };
-  
+
     // Definir documento PDF
     const docDefinition: any = { // Ajuste en la asignación de tipos
       content: content,
@@ -166,7 +156,8 @@ export class CrudAdminComponent implements OnInit{
     // Generar y descargar el PDF
     pdfMake.createPdf(docDefinition).download('InformeUsuarios.pdf');
   }
-  
+
+  // Obtener el nombre de un mes en base a su índice
   getMonthName(month: number): string {
     const monthNames = [
       'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -174,5 +165,4 @@ export class CrudAdminComponent implements OnInit{
     ];
     return monthNames[month];
   }
-  
 }

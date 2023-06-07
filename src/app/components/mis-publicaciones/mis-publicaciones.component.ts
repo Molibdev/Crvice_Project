@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth'; 
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
-import { Publicacion } from 'src/app/models/publicacion'; 
+import { Publicacion } from 'src/app/models/publicacion';
 import { PublicacionesService } from 'src/app/services/publicaciones.service';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
@@ -12,10 +12,10 @@ import { HotToastService } from '@ngneat/hot-toast';
   styleUrls: ['./mis-publicaciones.component.css']
 })
 export class MisPublicacionesComponent implements OnInit {
-  publicaciones$: Observable<Publicacion[]> | undefined;
-  public isLoading = false;
-  mostrarPrompt = false;
-  publicacionSeleccionada: Publicacion | undefined;
+  publicaciones$: Observable<Publicacion[]> | undefined; // Observable de array de Publicacion
+  public isLoading = false; // Indicador de carga
+  mostrarPrompt = false; // Bandera para mostrar un cuadro de diálogo
+  publicacionSeleccionada: Publicacion | undefined; // Publicacion seleccionada
 
   constructor(
     private publicacionesService: PublicacionesService,
@@ -26,8 +26,11 @@ export class MisPublicacionesComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
+
+    // Suscripción al estado de autenticación de AngularFireAuth
     this.auth.authState.subscribe(user => {
       if (user) {
+        // Obtener las publicaciones asociadas al usuario actual
         this.publicaciones$ = this.publicacionesService.getPublicacionesByUser(user.uid);
         this.publicaciones$.subscribe(publicaciones => {
           console.log(publicaciones);
@@ -38,13 +41,14 @@ export class MisPublicacionesComponent implements OnInit {
   }
 
   abrirPublicacion(id?: string) {
+    // Navegar a la página de edición de una publicación
     if (id) {
       this.router.navigate(['/editar-publicacion', id]);
     }
   }
-  
 
   mostrarDialogo(publicacion: Publicacion) {
+    // Mostrar el cuadro de diálogo para confirmar la eliminación de una publicación
     this.publicacionSeleccionada = publicacion;
     this.mostrarPrompt = true;
   }
@@ -67,6 +71,7 @@ export class MisPublicacionesComponent implements OnInit {
   }
 
   cerrarDialogo() {
+    // Cerrar el cuadro de diálogo
     this.mostrarPrompt = false;
     this.publicacionSeleccionada = undefined;
   }

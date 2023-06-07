@@ -14,6 +14,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 })
 export class RegisterComponent implements OnInit{
 
+  // Datos del usuario a registrar
   datos: User = {
     uid: '', 
     nombre: '',
@@ -28,11 +29,9 @@ export class RegisterComponent implements OnInit{
     numDireccion: 0,
     comuna: '',
     nacimiento: new Date(),
-    calificaciones: 0,
-    comentarios: '',
   }
 
-
+  // Lista de comunas disponibles
   comunas = [
     'Cerrillos',
     'Cerro Navia',
@@ -73,11 +72,15 @@ export class RegisterComponent implements OnInit{
   ];
   
 
-  constructor(private auth: AuthService,
-              private firestore: FirebaseService,
-              private router: Router,
-              private fb: FormBuilder,
-              private toast: HotToastService) {}
+  constructor(
+    private auth: AuthService,
+    private firestore: FirebaseService,
+    private router: Router,
+    private fb: FormBuilder,
+    private toast: HotToastService
+  ) {}
+
+
 //Validación formulario
 public formRegister: FormGroup = this.fb.group({
   nombre: ['', [Validators.required]],
@@ -99,6 +102,7 @@ public formRegister: FormGroup = this.fb.group({
   ngOnInit(): void {
     
   }
+
 //Valida que contraseña y validar contraseña sean iguales
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password')?.value;
@@ -111,11 +115,13 @@ public formRegister: FormGroup = this.fb.group({
   
     return null;
   }
+
 //Valida que el formulario tiene errores y a sido tocado
   isValidField( field: string ): boolean | null {
     return this.formRegister.controls[field].errors
       && this.formRegister.controls[field].touched;
   }
+
 //Verifica el tipo de error para mostrar en pantalla
   getFieldError( field: string ): string | null {
 
@@ -140,6 +146,7 @@ public formRegister: FormGroup = this.fb.group({
 
     return null;
   }
+
 //Registro de Usuario
   async registrar() {
     if ( this.formRegister.invalid ) {
@@ -148,7 +155,8 @@ public formRegister: FormGroup = this.fb.group({
     }
   
     console.log(this.datos);
-    
+
+    // Asignación de valores del formulario al objeto "datos"
     this.datos.nombre = this.formRegister.get('nombre')?.value;
     this.datos.apellido = this.formRegister.get('apellido')?.value;
     this.datos.rut = this.formRegister.get('rut')?.value;
@@ -203,6 +211,7 @@ public formRegister: FormGroup = this.fb.group({
     }
 
   }
+
   //Verifica que la persona registrada sea mayor de edad
   mayorDeEdad(fechaNacimientoForm:Date):boolean{
     let fechaNacimiento= new Date(fechaNacimientoForm);
@@ -221,6 +230,7 @@ public formRegister: FormGroup = this.fb.group({
     }
     
   }
+
   //Valida a través del digito verificador que el rut sea válido
   validarRut(rut: string): boolean {
     rut = rut.replace(/\./g, '').toUpperCase(); 
@@ -243,6 +253,4 @@ public formRegister: FormGroup = this.fb.group({
   
     return digitoVerificador === digitoVerificadorEsperado;
   }
-
-
 }
