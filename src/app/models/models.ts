@@ -14,8 +14,8 @@ export interface User {
     numDireccion: number;
     comuna: string;
     nacimiento: Date;
-    calificaciones: number;
-    comentarios: string;
+    calificaciones?: number;
+    comentarios?: string;
     photoURL?: string;
     PromedioCalificaciones?:number;
     NumeroCalificaciones?:number;

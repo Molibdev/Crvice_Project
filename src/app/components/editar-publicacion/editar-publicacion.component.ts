@@ -15,15 +15,14 @@ import { FirebaseService } from 'src/app/services/firebase.service';
   templateUrl: './editar-publicacion.component.html',
   styleUrls: ['./editar-publicacion.component.css']
 })
-
 export class EditarPublicacionComponent implements OnInit {
-  publicacion?: Publicacion;
-  newImages: File[] = [];
-  public isLoading: boolean = false;
-  public fotos: string[] = [];
+  publicacion?: Publicacion; // Objeto de publicación
+  newImages: File[] = []; // Nuevas imágenes seleccionadas
+  public isLoading: boolean = false; // Indicador de carga
+  public fotos: string[] = []; // Array de URLs de fotos
   fotoActual: string | undefined; // URL de la foto actualmente mostrada
   indiceFotoActual: number = 0; // Índice de la foto actual
-  public imagenPredeterminada = '../../../assets/img/foto6.jpg';
+  public imagenPredeterminada = '../../../assets/img/foto6.jpg'; // URL de la imagen predeterminada
   formSubmitted = false; // Propiedad para realizar un seguimiento del intento de envío del formulario
 
   constructor(
@@ -34,7 +33,6 @@ export class EditarPublicacionComponent implements OnInit {
     private toast: HotToastService,
     private router: Router,
     private firebase: FirebaseService
-
   ) {}
 
   ngOnInit() {
@@ -44,12 +42,12 @@ export class EditarPublicacionComponent implements OnInit {
       this.publicacionesService.getPublicacion(id).subscribe(publicacion => {
         this.publicacion = publicacion;
         localStorage.setItem('publicacionId', id);
-  
+
         // Obtener las URL de las fotos
         this.firebase.getFotosURL(publicacion.uid, id).subscribe(urls => {
           Promise.all(urls).then(resolvedUrls => {
             this.fotos = resolvedUrls;
-  
+
             if (this.fotos.length > 0) {
               this.fotoActual = this.fotos[0];
             } else {
@@ -60,12 +58,17 @@ export class EditarPublicacionComponent implements OnInit {
       });
     }
   }
-  
 
+  
+  // Método para manejar la selección de nuevas imágenes.
+  
   onNewFilesSelected(event: any) {
     this.newImages = event.target.files;
   }
 
+  
+  // Método para enviar el formulario de edición de publicación.
+  
   async onSubmit(form: NgForm) {
     this.formSubmitted = true; // Marcar que se ha intentado enviar el formulario
     console.log('Form submitted');
@@ -96,6 +99,9 @@ export class EditarPublicacionComponent implements OnInit {
     }
   }
 
+  
+  // Método para reemplazar las imágenes de una publicación.
+  
   async replaceImages(publicacionId: string, newImages: File[]) {
     const user = await this.authfirebase.currentUser;
     const storageRef = ref(this.storage, `images/posts/${user?.uid}/${publicacionId}`);
@@ -120,11 +126,16 @@ export class EditarPublicacionComponent implements OnInit {
     console.log('Reemplazo de imágenes completado.');
   }
 
-  volver(){
+  
+   //Método para volver a la lista de publicaciones del usuario.
+  
+  volver() {
     this.router.navigate(['/mis-publicaciones']);
   }
 
-
+  
+   //Método para mostrar la imagen anterior en el carrusel.
+  
   mostrarImagenAnterior() {
     this.indiceFotoActual--;
     if (this.indiceFotoActual < 0) {
@@ -133,6 +144,9 @@ export class EditarPublicacionComponent implements OnInit {
     this.fotoActual = this.fotos[this.indiceFotoActual];
   }
 
+ 
+  // Método para mostrar la siguiente imagen en el carrusel.
+ 
   mostrarImagenSiguiente() {
     this.indiceFotoActual++;
     if (this.indiceFotoActual >= this.fotos.length) {
@@ -140,5 +154,4 @@ export class EditarPublicacionComponent implements OnInit {
     }
     this.fotoActual = this.fotos[this.indiceFotoActual];
   }
-
 }

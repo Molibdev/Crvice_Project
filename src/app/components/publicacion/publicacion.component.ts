@@ -14,25 +14,28 @@ import { FirebaseService } from 'src/app/services/firebase.service';
   styleUrls: ['./publicacion.component.css']
 })
 export class PublicacionComponent implements OnInit {
-  publicacion?: Publicacion;
+
+  publicacion?: Publicacion; // Variable que almacena los datos de la publicación actual
   usuarioLogueado: boolean = false; // Variable para controlar si el usuario ha iniciado sesión
   averageRating: number = 0; // Variable para almacenar la calificación promedio
-  contador: number = 1;
-  mostrarCargarMenos: boolean = false;
-  ratings: Calificacion[] = [];
-  mostrarCargarMas: boolean = true;
-  public imagenPredeterminada = '../../../assets/img/foto5.jpg';
-  user$ = this.firebase.currentUserProfile$;
-  searchControl = new FormControl('');
-  public fotos: string[] = [];
-  fotoActual: string | undefined; // URL de la foto actualmente mostrada
-  indiceFotoActual: number = 0; // Índice de la foto actual
-  numeroPerfil: number = 0;
+  contador: number = 1; // Contador utilizado para cargar más comentarios
+  mostrarCargarMenos: boolean = false; // Indicador para mostrar el botón de cargar menos comentarios
+  ratings: Calificacion[] = []; // Arreglo que almacena las calificaciones y comentarios
+  mostrarCargarMas: boolean = true; // Indicador para mostrar el botón de cargar más comentarios
+  public imagenPredeterminada = '../../../assets/img/foto5.jpg'; // Ruta de la imagen predeterminada
+  user$ = this.firebase.currentUserProfile$; // Observable que representa el perfil del usuario actual
+  searchControl = new FormControl(''); // Control para la búsqueda de usuarios
+  public fotos: string[] = []; // Arreglo que almacena las URLs de las fotos
+  fotoActual: string | undefined; // URL de la foto actualmente mostrada en la galería
+  indiceFotoActual: number = 0; // Índice de la foto actual en la galería
+  numeroPerfil: number = 0; // Número de perfil del usuario actual
 
+  // Observable que combina varios flujos de datos para filtrar usuarios según un término de búsqueda y el usuario actual.
   users$ = combineLatest([this.firebase.allUsers$, this.user$, this.searchControl.valueChanges.pipe(startWith(''))]).pipe(
     map(([users, user, searchString]) => users.filter(u => u.nombre?.toLowerCase().includes(searchString?.toLowerCase() ?? '') && u.uid !== user?.uid))
   );
 
+  // Control de formulario utilizado para manejar una lista de chats.
   chatListControl = new FormControl<string[]>([]);
 
   constructor(
@@ -86,7 +89,7 @@ export class PublicacionComponent implements OnInit {
     }
   }
   
-
+  // Crear chat con otro usuario
   createChat(otherUser: User) {
     this.chat
       .isExistingChat(otherUser?.uid)
@@ -105,6 +108,7 @@ export class PublicacionComponent implements OnInit {
     this.router.navigate(['/chat']);
   }
 
+  // Enviar solicitud de trabajo
   solicitarTrabajo() {
     const id = this.publicacion?.id;
     const uid = this.publicacion?.uid;
@@ -116,6 +120,7 @@ export class PublicacionComponent implements OnInit {
     });
   }
 
+  // Mostrar la imagen anterior de la publicacion
   mostrarImagenAnterior() {
     this.indiceFotoActual--;
     if (this.indiceFotoActual < 0) {
@@ -124,6 +129,7 @@ export class PublicacionComponent implements OnInit {
     this.fotoActual = this.fotos[this.indiceFotoActual];
   }
 
+  // Mostrar la imagen siguiente de la publicacion
   mostrarImagenSiguiente() {
     this.indiceFotoActual++;
     if (this.indiceFotoActual >= this.fotos.length) {
@@ -132,6 +138,7 @@ export class PublicacionComponent implements OnInit {
     this.fotoActual = this.fotos[this.indiceFotoActual];
   }
 
+  // Calcular la calificacion promedio
   calculateAverageRating(uid: string) {
     const path = `Usuarios/${uid}/calificaciones`;
     this.firebase
@@ -149,6 +156,7 @@ export class PublicacionComponent implements OnInit {
       });
   }
 
+ // Cargar mas comentarios
   cargarMasComentarios() {
     this.contador += 5;
     this.mostrarCargarMenos = true;
@@ -157,6 +165,8 @@ export class PublicacionComponent implements OnInit {
       this.mostrarCargarMas = false;
     }
   }
+
+  // Cargar menos comentarios
   cargarMenosComentarios() {
     this.contador = 1;
     this.mostrarCargarMas = true;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, ReactiveFormsModule  } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,20 +8,21 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./forgot-password.component.css']
 })
 export class ForgotPasswordComponent implements OnInit {
-
   credenciales = {
     correo: '',
     password: '',
-  }
+  };
 
-  constructor( private auth: AuthService){
-    
-  }
+  constructor(private auth: AuthService) {}
 
+  
+   //Método para restablecer la contraseña.
+   
   async resetPassword() {
-    this.auth.resetPass(this.credenciales.correo)
+    this.auth
+      .resetPass(this.credenciales.correo)
       .then(() => {
-        // Email de recuperación de contraseña enviado
+        // Email de recuperación de contraseña enviado con éxito
         console.log('Email de recuperación de contraseña enviado');
       })
       .catch((error) => {
@@ -30,8 +31,5 @@ export class ForgotPasswordComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
-    
-  }
-
+  ngOnInit(): void {}
 }

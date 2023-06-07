@@ -15,15 +15,14 @@ import { FirebaseService } from 'src/app/services/firebase.service';
   templateUrl: './admin-edit-p.component.html',
   styleUrls: ['./admin-edit-p.component.css']
 })
-
 export class AdminEditPComponent implements OnInit {
-  publicacion?: Publicacion;
-  newImages: File[] = [];
-  public isLoading: boolean = false;
-  public fotos: string[] = [];
+  publicacion?: Publicacion; // Publicación actual
+  newImages: File[] = []; // Nuevas imágenes seleccionadas
+  public isLoading: boolean = false; // Indicador de carga
+  public fotos: string[] = []; // URLs de las fotos de la publicación
   fotoActual: string | undefined; // URL de la foto actualmente mostrada
   indiceFotoActual: number = 0; // Índice de la foto actual
-  public imagenPredeterminada = '../../../assets/img/foto6.jpg';
+  public imagenPredeterminada = '../../../assets/img/foto6.jpg'; // Ruta de la imagen predeterminada
   formSubmitted = false; // Propiedad para realizar un seguimiento del intento de envío del formulario
 
   constructor(
@@ -33,21 +32,26 @@ export class AdminEditPComponent implements OnInit {
     private authfirebase: AngularFireAuth,
     private toast: HotToastService,
     private router: Router,
-    private firebase: FirebaseService) { }
+    private firebase: FirebaseService
+  ) {}
 
   ngOnInit() {
     this.isLoading = true;
+
+    // Obtener el ID de la publicación de los parámetros de la URL
     const id = this.route.snapshot.paramMap.get('id');
+
     if (id) {
+      // Obtener la publicación con el ID especificado
       this.publicacionesService.getPublicacion(id).subscribe(publicacion => {
         this.publicacion = publicacion;
         localStorage.setItem('publicacionId', id);
-  
-        // Obtener las URL de las fotos
+
+        // Obtener las URL de las fotos de la publicación
         this.firebase.getFotosURL(publicacion.uid, id).subscribe(urls => {
           Promise.all(urls).then(resolvedUrls => {
             this.fotos = resolvedUrls;
-  
+
             if (this.fotos.length > 0) {
               this.fotoActual = this.fotos[0];
             } else {
@@ -58,8 +62,9 @@ export class AdminEditPComponent implements OnInit {
       });
     }
   }
-  
+
   onNewFilesSelected(event: any) {
+    // Seleccionar nuevas imágenes para reemplazar las existentes
     this.newImages = event.target.files;
   }
 
@@ -68,6 +73,7 @@ export class AdminEditPComponent implements OnInit {
     console.log('Form submitted');
     console.log('Form valid:', form.valid);
     console.log('Publication:', this.publicacion);
+
     if (form.valid && this.publicacion && this.publicacion.id) {
       console.log('Calling updatePublicacion method');
 
@@ -78,15 +84,20 @@ export class AdminEditPComponent implements OnInit {
         return;
       }
 
+      // Actualizar la publicación en el servicio de publicaciones
       this.publicacionesService.updatePublicacion(this.publicacion.id, this.publicacion);
+
       this.toast.success('La publicación ha sido editada');
       this.router.navigate(['/gestionar-publicaciones']);
+
       if (this.newImages.length > 0) {
+        // Reemplazar las imágenes existentes con las nuevas imágenes seleccionadas
         await this.replaceImages(this.publicacion.id, this.newImages);
       }
     } else {
       console.log('Form valid:', form.valid);
       console.log('this.publicacion:', this.publicacion);
+
       if (this.publicacion) {
         console.log('this.publicacion.id:', this.publicacion.id);
       }
@@ -95,24 +106,24 @@ export class AdminEditPComponent implements OnInit {
 
   async replaceImages(publicacionId: string, newImages: File[]) {
     const publicacion = this.publicacion; // Obtener la instancia de la publicación actual
-  
+
     if (!publicacion) {
       console.error('No se pudo obtener la información de la publicación.');
       return;
     }
-  
+
     const userId = publicacion.uid; // Obtener el ID del usuario que creó la publicación
     const storageRef = ref(this.storage, `images/posts/${userId}/${publicacionId}`);
     const existingImages = await listAll(storageRef);
-  
+
     // Eliminar las imágenes existentes
     await Promise.all(existingImages.items.map(item => deleteObject(item)));
-  
+
     // Subir las nuevas imágenes
     for (let i = 0; i < newImages.length; i++) {
       const file = newImages[i];
       const imgRef = ref(storageRef, file.name);
-  
+
       try {
         await uploadBytes(imgRef, file);
         console.log('Imagen subida:', file.name);
@@ -120,10 +131,10 @@ export class AdminEditPComponent implements OnInit {
         console.error('Error al subir imagen:', error);
       }
     }
-  
+
     console.log('Reemplazo de imágenes completado.');
   }
-  
+
   mostrarImagenAnterior() {
     this.indiceFotoActual--;
     if (this.indiceFotoActual < 0) {
@@ -140,8 +151,8 @@ export class AdminEditPComponent implements OnInit {
     this.fotoActual = this.fotos[this.indiceFotoActual];
   }
 
-  volver(){
+  volver() {
+    // Navegar de regreso a la página de gestión de publicaciones
     this.router.navigate(['/gestionar-publicaciones']);
   }
-  
 }

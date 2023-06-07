@@ -13,15 +13,15 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  info: User | null = null;
-  user$ = this.usersService.currentUserProfile$;
-  showLoginButton = false;
-  uid: string = '';
+  info: User | null = null; // Información del usuario actual
+  user$ = this.usersService.currentUserProfile$; // Observable del perfil de usuario actual
+  showLoginButton = false; // Bandera para mostrar el botón de inicio de sesión
+  uid: string = ''; // ID del usuario actual obtenido del almacenamiento local
 
   credenciales = {
     correo: '',
     password: '',
-  };
+  }; // Credenciales de inicio de sesión
 
   constructor(
     private usersService: UsersService,
@@ -36,10 +36,12 @@ export class NavbarComponent implements OnInit {
     setTimeout(() => {
       this.showLoginButton = true;
     }, 1500);
-    this.uid = this.getUidFromLocalStorage() || '';
+
+    this.uid = this.getUidFromLocalStorage() || ''; // Obtener el ID del usuario del almacenamiento local
   }
 
   async login() {
+    // Iniciar sesión con las credenciales proporcionadas
     console.log('credenciales ->', this.credenciales);
     try {
       const res = await this.auth.login(
@@ -69,6 +71,7 @@ export class NavbarComponent implements OnInit {
   }
 
   async getInfoNavbar() {
+    // Obtener la información del usuario actual para mostrar en la barra de navegación
     const path = 'Usuarios';
     const id = this.uid;
     this.firestore.getDoc<User>(path, id).subscribe((res) => {
@@ -80,6 +83,7 @@ export class NavbarComponent implements OnInit {
   }
 
   async resetPassword() {
+    // Restablecer la contraseña del usuario actual
     const path = 'Usuarios';
     const user = await this.authfirebase.currentUser;
     const id = user?.uid;
@@ -95,7 +99,7 @@ export class NavbarComponent implements OnInit {
                 // Email de recuperación de contraseña enviado
                 console.log('Email de recuperación de contraseña enviado');
                 this.toast.success(
-                  '¡Te enviamos un correo electronico para el cambio de tu contraseña!'
+                  '¡Te enviamos un correo electrónico para el cambio de tu contraseña!'
                 );
               })
               .catch((error) => {
@@ -116,6 +120,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
+    // Cerrar sesión del usuario actual
     this.auth.logout();
     console.log('se ha cerrado la sesion');
     this.toast.info('Cerrando sesión...');
@@ -123,10 +128,12 @@ export class NavbarComponent implements OnInit {
   }
 
   private getUidFromLocalStorage(): string | null {
+    // Obtener el ID del usuario almacenado en el almacenamiento local
     return localStorage.getItem('uid');
   }
 
   private saveUidToLocalStorage(uid: string) {
+    // Guardar el ID del usuario en el almacenamiento local
     localStorage.setItem('uid', uid);
   }
 }

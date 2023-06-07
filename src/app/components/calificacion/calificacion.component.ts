@@ -13,14 +13,14 @@ import { HotToastService } from '@ngneat/hot-toast';
 })
 export class CalificacionComponent implements OnInit {
 
-  calificacion: number = 0;
-  comentario: string = '';
-  usuarioCalificado: User | null = null;
-  usuarioId: string = '';
-  calificacionAnterior: number | null = null;
-  trabajoId: string = '';
-   idUsuarioPublicacion: string='';
-   
+  calificacion: number = 0; // Calificación seleccionada por el usuario
+  comentario: string = ''; // Comentario ingresado por el usuario
+  usuarioCalificado: User | null = null; // Perfil del usuario a calificar
+  usuarioId: string = ''; // ID del usuario actualmente logueado
+  calificacionAnterior: number | null = null; // Calificación anterior del usuario a calificar
+  trabajoId: string = ''; // ID del trabajo a calificar
+  idUsuarioPublicacion: string = ''; // ID del usuario que publicó el trabajo
+
   constructor(
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
@@ -31,58 +31,59 @@ export class CalificacionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Obtener el ID del usuario actualmente logueado
     this.usuarioId = this.publicaciones.uidUsuario || '';
+
+    // Obtener el ID del trabajo a calificar de los parámetros de la URL
     this.trabajoId = this.route.snapshot.queryParams['trabajoId'];
-    console.log('ID DEL USUARIO A CALIFICAR ->', this.usuarioId);
-    console.log('ID DEL TRABAJO ->', this.trabajoId);
+
+    // Obtener el perfil del usuario a calificar y su calificación anterior
     this.firebaseService.getUserProfile(this.usuarioId).subscribe((user) => {
       this.usuarioCalificado = user;
       this.calificacionAnterior = user.calificaciones || null;
     });
-  
-    // Access the value of idUsuarioPublicacion from the Trabajos collection document
+
+    // Obtener el valor de idUsuarioPublicacion del documento de la colección Trabajos
     this.firebaseService.getTrabajo(this.trabajoId).subscribe((trabajo) => {
       if (trabajo && trabajo.idUsuarioPublicacion) {
         const idUsuarioPublicacion = trabajo.idUsuarioPublicacion;
         console.log('Valor de idUsuarioPublicacion ->', idUsuarioPublicacion);
-        this.idUsuarioPublicacion= idUsuarioPublicacion;
+        this.idUsuarioPublicacion = idUsuarioPublicacion;
       } else {
         console.log('El objeto trabajo es indefinido o no tiene la propiedad idUsuarioPublicacion');
       }
     });
   }
-  
+
   async calificar() {
+    // Verificar si el usuario ya ha sido calificado previamente
     if (!this.usuarioCalificado) {
       this.toast.info('Este usuario ya ha sido calificado.');
       return;
     }
 
-    // Actualizar la calificación del usuario con el nuevo número
+    // Actualizar la calificación y comentarios del usuario
     this.usuarioCalificado.calificaciones = this.calificacion;
     this.usuarioCalificado.comentarios = this.comentario;
 
-    // Actualizar el perfil del usuario con la nueva calificación
+    // Actualizar el perfil del usuario en la base de datos
     await this.firebaseService.updateUserCalificaciones(
       this.usuarioCalificado.uid,
       this.usuarioCalificado.calificaciones,
       this.usuarioCalificado.comentarios
     );
 
-  
-
-    // Resetea la variable calificacion a 0
+    // Resetear las variables calificacion y uidUsuario
     this.calificacion = 0;
     this.publicaciones.uidUsuario = '';
 
-    // Redirigir a la pestaña de /contrataciones si es el mismo usuario
-
+    // Redirigir a la página de "contrataciones" si el usuario calificado es el mismo que publicó el trabajo
     if (this.usuarioCalificado.uid === this.idUsuarioPublicacion) {
       this.router.navigate(['/contrataciones']);
-      this.toast.success('Trabajor Calificado correctamente');
+      this.toast.success('Trabajador calificado correctamente');
     } else {
       this.router.navigate(['/solicitudes']);
-      this.toast.success('Cliente Calificado correctamente');
+      this.toast.success('Cliente calificado correctamente');
     }
   }
 }

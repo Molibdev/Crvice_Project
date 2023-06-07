@@ -8,18 +8,20 @@ import { Router } from '@angular/router';
 })
 export class IndexComponent {
 
-  constructor( private router: Router ){
-
+  constructor(private router: Router) {
+    // Constructor del componente
   }
 
+  // Método para navegar a la página de registro
   registro() {
-      this.router.navigate(['/register'])
+    this.router.navigate(['/register']);
   }
 
+  // Método para realizar una búsqueda y navegar a la página de resultados
   buscar(event: Event) {
-    const target = event.target as HTMLInputElement;
-    const termino = target.value;
-    this.router.navigate(['/busqueda', termino]);
+    const target = event.target as HTMLInputElement; // Obtener el elemento HTML del evento
+    const termino = target.value; // Obtener el valor del elemento
+    this.router.navigate(['/busqueda', termino]); // Navegar a la página de búsqueda con el término como parámetro
   }
 
 }
