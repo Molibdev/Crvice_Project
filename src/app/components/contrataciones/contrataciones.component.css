@@ -52,3 +52,7 @@ button:hover {
 .visibility-hidden{
     display:  hidden;
 }
+
+h2{
+    margin-top: 20px;
+}

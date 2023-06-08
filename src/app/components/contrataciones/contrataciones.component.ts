@@ -15,6 +15,7 @@ export class ContratacionesComponent implements OnInit {
   public isLoading: boolean = false; // Indicador de carga
   public sinContrataciones: boolean = false; // Indicador de falta de trabajos
 
+
   constructor(
     private firestore: AngularFirestore,
     private router: Router,
@@ -32,6 +33,38 @@ export class ContratacionesComponent implements OnInit {
     });
   }
 
+  get trabajosPendientes(): any[] {
+    return this.trabajos.filter(trabajo => trabajo.estado === 'Pendiente');
+  }
+  
+  get trabajosAceptados(): any[] {
+    return this.trabajos.filter(trabajo => trabajo.estado === 'Aceptado');
+  }
+
+  get trabajosCancelados(): any[] {
+    return this.trabajos.filter(trabajo => trabajo.estado === 'Cancelado');
+  }
+
+  get trabajosRespondidos(): any[] {
+    return this.trabajos.filter(trabajo => trabajo.estado === 'Respondido');
+  }
+
+  get trabajosCompletados(): any[] {
+    return this.trabajos.filter(trabajo => trabajo.estado === 'Completado');
+  }
+
+  get trabajosAbonados(): any[] {
+    return this.trabajos.filter(trabajo => trabajo.estado === 'Abonado');
+  }
+
+  get trabajosCalificadoPorCliente(): any[] {
+    return this.trabajos.filter(trabajo => trabajo.estado === 'Calificado Por Cliente');
+  }
+
+  get trabajosTerminados(): any[] {
+    return this.trabajos.filter(trabajo => trabajo.estado === 'Terminado');
+  }
+  
   private cargarTrabajos(usuarioId: string): void {
     // Carga los trabajos del usuario desde la base de datos
     this.firestore

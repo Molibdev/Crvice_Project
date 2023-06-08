@@ -30,7 +30,7 @@
       
       <div class="div-button">
         <button type="submit" class="buttona" *ngIf="trabajo.estado === 'Pendiente'" (click)="actualizarTrabajo()" [disabled]="trabajo.estado !== 'Pendiente'">Responder</button>
-        <button type="submit" class="buttona" *ngIf="trabajo.estado !== 'Abonado' && trabajo.estado !== 'Calificado Por Cliente' && trabajo.estado !== 'Terminado'" (click)="rechazarTrabajo()" [disabled]="trabajo.estado !== 'Pendiente'">Rechazar Propuesta</button>
+        <button type="submit" class="buttona" *ngIf="trabajo.estado !== 'Abonado' && trabajo.estado !== 'Calificado Por Cliente' && trabajo.estado !== 'Terminado' && trabajo.estado !== 'Completado'" (click)="rechazarTrabajo()" [disabled]="trabajo.estado !== 'Pendiente'">Rechazar Propuesta</button>
         <button type="submit" class="buttona" *ngIf="trabajo.estado === 'Abonado'" (click)="verUbicacion()">Ver ubicacion</button>
         <button type="submit" class="buttona" *ngIf="trabajo.estado === 'Calificado Por Cliente'" (click)="completarTrabajo()">Calificar al Cliente</button>
 
@@ -47,7 +47,7 @@
   <p>Calificación General: {{ averageRating | number: '1.2-2' }}</p>
   <div class="comentario" *ngFor="let calificacion of ratings.slice(0, contador)">
     <div>
-      <img class="img-comentario" src="../../../assets/img/foto1.jpg" alt="">
+      <img class="img-comentario" src="../../../assets/img/img_comentario.jpg" alt="">
     </div>
     <div class="div-comentario">
       <p>

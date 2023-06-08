@@ -22,7 +22,7 @@ export class PublicacionComponent implements OnInit {
   mostrarCargarMenos: boolean = false; // Indicador para mostrar el botón de cargar menos comentarios
   ratings: Calificacion[] = []; // Arreglo que almacena las calificaciones y comentarios
   mostrarCargarMas: boolean = true; // Indicador para mostrar el botón de cargar más comentarios
-  public imagenPredeterminada = '../../../assets/img/foto5.jpg'; // Ruta de la imagen predeterminada
+  public imagenPredeterminada = '../../../assets/img/foto6.jpg'; // Ruta de la imagen predeterminada
   user$ = this.firebase.currentUserProfile$; // Observable que representa el perfil del usuario actual
   searchControl = new FormControl(''); // Control para la búsqueda de usuarios
   public fotos: string[] = []; // Arreglo que almacena las URLs de las fotos
