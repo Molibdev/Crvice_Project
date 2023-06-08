@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,21 +8,138 @@
 </header>
 <div class="container">
   
-  <h1>Solicitud de Trabajo Relizadas</h1>
+  <h1>Solicitud de Trabajo Realizadas</h1>
 
-  <div class="places">
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
-    <div class="place" *ngFor="let trabajo of trabajos">
-      
-      <div class="info">
-        <p><b>Titulo de la publicación:</b> {{ trabajo.publicacion?.titulo }} </p>
-        <p><b>Precio Trabajo:</b> ${{ trabajo.precio }}</p>
-        <p><b>Estado:</b> {{ trabajo.estado }}</p>
-        <button *ngIf="trabajo.estado !== 'Cancelado' && trabajo.estado !== 'Terminado'" (click)="responderSolicitud(trabajo)">Responder</button>
+    <!-- Solicitudes Abonadas -->
+    <div *ngIf="trabajosAbonados.length > 0">
+      <h2>Solicitudes Abonadas</h2>
+      <div class="places">
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+        <div class="place" *ngFor="let trabajo of trabajosAbonados">
+          <div class="info">
+            <p><b>Título de la publicación:</b> {{ trabajo.publicacion?.titulo }} </p>
+            <p><b>Precio Trabajo:</b> ${{ trabajo.precio }}</p>
+            <p><b>Estado:</b> {{ trabajo.estado }}</p>
+            <button *ngIf="trabajo.estado !== 'Cancelado' && trabajo.estado !== 'Terminado'" (click)="responderSolicitud(trabajo)">Responder</button>
+          </div>
+        </div>
       </div>
     </div>
     
+  <!-- Solicitudes Aceptadas -->
+  <div *ngIf="trabajosAceptados.length > 0">
+    <h2>Solicitudes Aceptadas</h2>
+    <div class="places">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <div class="place" *ngFor="let trabajo of trabajosAceptados">
+        <div class="info">
+          <p><b>Título de la publicación:</b> {{ trabajo.publicacion?.titulo }} </p>
+          <p><b>Precio Trabajo:</b> ${{ trabajo.precio }}</p>
+          <p><b>Estado:</b> {{ trabajo.estado }}</p>
+          <button *ngIf="trabajo.estado !== 'Cancelado' && trabajo.estado !== 'Terminado'" (click)="responderSolicitud(trabajo)">Responder</button>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- Solicitudes Respondidas -->
+  <div *ngIf="trabajosRespondidos.length > 0">
+    <h2>Solicitudes Respondidas</h2>
+    <div class="places">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <div class="place" *ngFor="let trabajo of trabajosRespondidos">
+        <div class="info">
+          <p><b>Título de la publicación:</b> {{ trabajo.publicacion?.titulo }} </p>
+          <p><b>Precio Trabajo:</b> ${{ trabajo.precio }}</p>
+          <p><b>Estado:</b> {{ trabajo.estado }}</p>
+          <button *ngIf="trabajo.estado !== 'Cancelado' && trabajo.estado !== 'Terminado'" (click)="responderSolicitud(trabajo)">Responder</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Solicitudes Pendientes -->
+  <div *ngIf="trabajosPendientes.length > 0">
+    <h2>Solicitudes Pendientes</h2>
+    <div class="places">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <div class="place" *ngFor="let trabajo of trabajosPendientes">
+        <div class="info">
+          <p><b>Título de la publicación:</b> {{ trabajo.publicacion?.titulo }} </p>
+          <p><b>Precio Trabajo:</b> ${{ trabajo.precio }}</p>
+          <p><b>Estado:</b> {{ trabajo.estado }}</p>
+          <button *ngIf="trabajo.estado !== 'Cancelado' && trabajo.estado !== 'Terminado'" (click)="responderSolicitud(trabajo)">Responder</button>        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <!-- Solicitudes Completadas -->
+    <div *ngIf="trabajosCompletados.length > 0">
+      <h2>Solicitudes Completadas</h2>
+      <div class="places">
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+        <div class="place" *ngFor="let trabajo of trabajosCompletados">
+          <div class="info">
+            <p><b>Título de la publicación:</b> {{ trabajo.publicacion?.titulo }} </p>
+            <p><b>Precio Trabajo:</b> ${{ trabajo.precio }}</p>
+            <p><b>Estado:</b> {{ trabajo.estado }}</p>
+            <button *ngIf="trabajo.estado !== 'Cancelado' && trabajo.estado !== 'Terminado'" (click)="responderSolicitud(trabajo)">Responder</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Solicitudes Calificadas -->
+    <div *ngIf="trabajosCalificadoPorCliente.length > 0">
+      <h2>Solicitudes Calificadas</h2>
+      <div class="places">
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+        <div class="place" *ngFor="let trabajo of trabajosCalificadoPorCliente">
+          <div class="info">
+            <p><b>Título de la publicación:</b> {{ trabajo.publicacion?.titulo }} </p>
+            <p><b>Precio Trabajo:</b> ${{ trabajo.precio }}</p>
+            <p><b>Estado:</b> {{ trabajo.estado }}</p>
+            <button *ngIf="trabajo.estado !== 'Cancelado' && trabajo.estado !== 'Terminado'  && trabajo.estado !== 'Calificado Por Cliente'" (click)="responderSolicitud(trabajo)">Responder</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!-- Solicitudes Terminadas -->
+  <div *ngIf="trabajosTerminados.length > 0">
+    <h2>Solicitudes Terminadas</h2>
+    <div class="places">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <div class="place" *ngFor="let trabajo of trabajosTerminados">
+        <div class="info">
+          <p><b>Título de la publicación:</b> {{ trabajo.publicacion?.titulo }} </p>
+          <p><b>Precio Trabajo:</b> ${{ trabajo.precio }}</p>
+          <p><b>Estado:</b> {{ trabajo.estado }}</p>
+          <button *ngIf="trabajo.estado !== 'Cancelado' && trabajo.estado !== 'Terminado'" (click)="responderSolicitud(trabajo)">Responder</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Solicitudes Aceptadas -->
+    <div *ngIf="trabajosCancelados.length > 0">
+      <h2>Solicitudes Canceladas</h2>
+      <div class="places">
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+        <div class="place" *ngFor="let trabajo of trabajosCancelados">
+          <div class="info">
+            <p><b>Título de la publicación:</b> {{ trabajo.publicacion?.titulo }} </p>
+            <p><b>Precio Trabajo:</b> ${{ trabajo.precio }}</p>
+            <p><b>Estado:</b> {{ trabajo.estado }}</p>
+            <button *ngIf="trabajo.estado !== 'Cancelado' && trabajo.estado !== 'Terminado'" (click)="responderSolicitud(trabajo)">Responder</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Sin Contrataciones -->
   <div *ngIf="sinContrataciones" class="sin-solicitudes">
     <p class="p-sin-solicitudes">Aún no cuenta con contrataciones</p>
   </div>

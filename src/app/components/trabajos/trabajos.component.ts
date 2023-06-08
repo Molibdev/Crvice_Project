@@ -13,6 +13,8 @@ import { Publicacion } from 'src/app/models/publicacion';
 export class TrabajosComponent implements OnInit {
   public trabajos: Trabajo[] = []; // Array para almacenar los trabajos
   public isLoading: boolean= false; // Variable para indicar si se está cargando
+  public sinContrataciones: boolean = false; // Indicador de falta de trabajos
+  mostrarTrabajos: boolean = true; // Propiedad mostrarTrabajos
 
   constructor(
     private firestore: AngularFirestore,
@@ -78,4 +80,37 @@ export class TrabajosComponent implements OnInit {
       console.error('El trabajo no tiene una publicación definida');
     }
   }
+  
+  get trabajosPendientes(): any[] {
+    return this.trabajos.filter(trabajo => trabajo.estado === 'Pendiente');
+  }
+  
+  get trabajosAceptados(): any[] {
+    return this.trabajos.filter(trabajo => trabajo.estado === 'Aceptado');
+  }
+
+  get trabajosCancelados(): any[] {
+    return this.trabajos.filter(trabajo => trabajo.estado === 'Cancelado');
+  }
+
+  get trabajosRespondidos(): any[] {
+    return this.trabajos.filter(trabajo => trabajo.estado === 'Respondido');
+  }
+
+  get trabajosCompletados(): any[] {
+    return this.trabajos.filter(trabajo => trabajo.estado === 'Completado');
+  }
+
+  get trabajosAbonados(): any[] {
+    return this.trabajos.filter(trabajo => trabajo.estado === 'Abonado');
+  }
+
+  get trabajosCalificadoPorCliente(): any[] {
+    return this.trabajos.filter(trabajo => trabajo.estado === 'Calificado Por Cliente');
+  }
+
+  get trabajosTerminados(): any[] {
+    return this.trabajos.filter(trabajo => trabajo.estado === 'Terminado');
+  }
+  
 }
