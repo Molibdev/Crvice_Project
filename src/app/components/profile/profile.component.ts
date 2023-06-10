@@ -37,6 +37,7 @@ export class ProfileComponent implements OnInit {
   showContainer: boolean = false; // Indicador para mostrar/ocultar el contenedor principal
   idCuentaTrans: string = ''; // ID de la cuenta de transferencia seleccionada
   mostrarConfirmacion: boolean = false; // Indicador para mostrar/ocultar la confirmación de eliminación
+  mostrarPromptt: boolean = false;  // Indicador para mostrar/ocultar mensaje de calificacion mala
 
   nombre: string = ''; // Nombre del usuario
   apellido: string = ''; // Apellido del usuario
@@ -197,8 +198,19 @@ export class ProfileComponent implements OnInit {
           .catch((error: any) => {
             console.log('Error al actualizar los datos de calificaciones:', error);
           });
-      }
-    });
+          if (this.ratingsCount >= 5 && this.averageRating < 2) {
+            this.mostrarPromptt = true; // Mostrar el diálogo
+            this.auth.logout();
+          }
+        }
+      });
+  }
+
+
+  
+  cerrarDialogo() {
+    // Cerrar el cuadro de diálogo
+    this.mostrarPromptt = false;
   }
 
   // Método para calcular el promedio de las calificaciones
@@ -284,7 +296,7 @@ export class ProfileComponent implements OnInit {
   logout() {
     this.auth.logout();
     console.log('se ha cerrado la sesion')
-    this.router.navigate(['/login'])
+    this.router.navigate(['/index'])
   }
 
   // Método para ir a la pagina nueva publicacion
