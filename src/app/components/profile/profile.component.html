@@ -150,6 +150,18 @@
       </ng-template>
     </mat-menu>
 </body>
+<div class="dialog-overlay" *ngIf="mostrarPromptt">
+  <div class="dialog-container">
+    <div class="dialog-content">
+      <h1>Lo sentimos</h1>
+      <h2> Tienes una calificación menor a 2 estrellas después de 5 calificaciones.</h2>
+      <h2> No podrás seguir interactuando con los servicios.</h2>
+      <div class="dialog-buttons">
+        <button (click)="cerrarDialogo()">Entendido</button>
+      </div>
+    </div>
+  </div>
+</div>
 <app-footer></app-footer>
 </html>
 
