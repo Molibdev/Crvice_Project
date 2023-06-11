@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
   mostrarDialogo: boolean = false; // Indicador para mostrar/ocultar el diálogo de edición
   editingField: string = ''; // Campo que se está editando en el diálogo
   chatListControl = new FormControl<string[]>([]); // Control de la lista de chats del usuario
-  adminId: string = '6VD9LeSM0qSBwP0AsyhylOZDMIx2'; // ID del administrador
+  adminId: string = 'NjCAv96kIoOQmzi29GLyXXMCEUv1'; // ID del administrador
   public isLoading: boolean = false; // Indicador de carga en progreso
   ratingsCount: number = 0; // Cantidad de calificaciones del usuario
 
