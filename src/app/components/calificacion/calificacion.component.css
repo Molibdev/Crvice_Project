@@ -1,5 +1,5 @@
 body, html{
-    background-image: linear-gradient(to top, #48c6ef 0%, #6f86d6 100%);
+    background-image: linear-gradient(to top, #ffffff 0%, #ffffff 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,7 +12,7 @@ body, html{
 
 .nueva-publicacion {
     background-color: white;
-    width: 490px;
+    width: 550px;
     height: auto;
     display: flex;
     align-items: center;
