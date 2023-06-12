@@ -61,6 +61,10 @@ const routes: Routes = [
   { path: 'gest-editar-publicacion/:id', component: AdminEditPComponent },
   { path: 'crud-admin', component: CrudAdminComponent,
   ...canActivate(() => redirectUnauthorizedTo(['/login'])) },
+  {
+    path: '**',
+    redirectTo: 'index',
+  },
 
 ];
 
