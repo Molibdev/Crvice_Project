@@ -10,7 +10,7 @@
 <div class="container">
     <h1>Publicaciones</h1>
     <div class="search">
-        <input type="text" id="rutInput" class="searchTerm" placeholder="Buscar publicacion por rut del usuario..." [(ngModel)]="rutUsuario" (input)="filtrarPublicaciones()" />
+        <input type="text" id="rutInput" class="searchTerm" placeholder="Buscar publicación por rut del usuario o ID..." [(ngModel)]="rutUsuario" (input)="filtrarPublicaciones()" />
     </div>
     <div class="places">
         <div class="place" *ngFor="let publicacion of publicacionesFiltradas">
