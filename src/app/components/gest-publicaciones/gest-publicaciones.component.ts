@@ -19,6 +19,7 @@ export class GestPublicacionesComponent implements OnInit {
   noHayPublicaciones: boolean = false; // Variable para verificar si no hay publicaciones
   mostrarPrompt: boolean = false; // Variable para controlar si se muestra el diálogo de eliminación
   publicacionSeleccionada: any; // Variable para almacenar la publicación seleccionada
+  public idPublicacion: string = ''; // ID de la publicación para filtrar publicaciones
 
   constructor(
     private publicacionService: PublicacionesService, 
@@ -51,26 +52,27 @@ export class GestPublicacionesComponent implements OnInit {
     });
   }
 
-  // Filtrar las publicaciones por rut de usuario
   filtrarPublicaciones() {
-    if (this.rutUsuario) {
-      const rutFiltrado = this.rutUsuario.replace(/\./g, '').toUpperCase(); // Eliminar puntos y convertir a mayúsculas
-      this.publicaciones.subscribe(data => {
-        this.publicacionesFiltradas = data.filter((publicacion: any) => {
-          const rutPublicacion = publicacion.rut.replace(/\./g, '').toUpperCase(); // Eliminar puntos y convertir a mayúsculas
-          const dvPublicacion = publicacion.dv.toUpperCase(); // Convertir dígito verificador a mayúsculas
-          const rutCompleto = rutPublicacion + '-' + dvPublicacion; // Rut completo (sin puntos y con guión)
-          return rutCompleto.includes(rutFiltrado); // Verificar si el rut filtrado está presente en el rut de la publicación
-        });
-        this.noHayPublicaciones = this.publicacionesFiltradas.length === 0; // Verificar si no hay publicaciones
+    const filtro = this.rutUsuario.toLowerCase(); // Convertir a minúsculas para búsqueda
+  
+    this.publicaciones.subscribe(data => {
+      this.publicacionesFiltradas = data.filter((publicacion: any) => {
+        const rutPublicacion = publicacion.rut.replace(/\./g, '').toLowerCase(); // Eliminar puntos y convertir a minúsculas
+        const dvPublicacion = publicacion.dv.toLowerCase(); // Convertir dígito verificador a minúsculas
+        const rutCompleto = rutPublicacion + '-' + dvPublicacion; // Rut completo (sin puntos y con guión)
+        const idPublicacion = publicacion.id.toLowerCase(); // Convertir ID a minúsculas
+        
+        return (
+          rutCompleto.includes(filtro) || // Verificar si el filtro está presente en el rut completo de la publicación
+          idPublicacion.includes(filtro) // Verificar si el filtro está presente en el ID de la publicación
+        );
       });
-    } else {
-      this.publicaciones.subscribe(data => {
-        this.publicacionesFiltradas = data;
-        this.noHayPublicaciones = false; // Restablecer la variable cuando no hay rut filtrado
-      });
-    }
+      
+      this.noHayPublicaciones = this.publicacionesFiltradas.length === 0; // Verificar si no hay publicaciones
+    });
   }
+  
+  
 
   // Redirigir a la página de edición de una publicación
   editarPublicacion(id?: string) {
