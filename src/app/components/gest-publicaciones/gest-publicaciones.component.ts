@@ -6,6 +6,8 @@ import { PublicacionesService } from 'src/app/services/publicaciones.service';
 import { User } from 'src/app/models/models';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
+import { AuthService } from 'src/app/services/auth.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-gest-publicaciones',
@@ -25,10 +27,11 @@ export class GestPublicacionesComponent implements OnInit {
     private publicacionService: PublicacionesService, 
     private firestore: AngularFirestore, 
     private router: Router, 
-    private toast: HotToastService 
-  ) { }
+    private toast: HotToastService ,
+    private auth: AuthService,
+    private firebase: FirebaseService,  ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     // Obtener las publicaciones y realizar operaciones adicionales
     this.publicaciones = this.publicacionService.getPublicaciones().pipe(
       switchMap(publicaciones => {
@@ -50,8 +53,27 @@ export class GestPublicacionesComponent implements OnInit {
     this.publicaciones.subscribe(data => {
       this.publicacionesFiltradas = data;
     });
+    await this.canActivate();
+
   }
 
+  async canActivate(): Promise<boolean> {
+    const uid = await this.auth.getUid();
+    if (uid) {
+      const userProfile = await this.firebase.getUserProfiles(uid).toPromise();
+      if (userProfile && userProfile.perfil === 3) {
+        return true; // Allow access to the component for users with perfil 3
+      } else {
+        this.router.navigate(['/index']);
+        return false; // Redirect other users to the index
+      }
+    } else {
+      this.router.navigate(['/index']);
+      return false; // Redirect unauthenticated users to the index
+    }
+  }
+  
+  
   filtrarPublicaciones() {
     const filtro = this.rutUsuario.toLowerCase(); // Convertir a minúsculas para búsqueda
   

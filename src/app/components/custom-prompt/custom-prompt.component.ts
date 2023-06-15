@@ -4,7 +4,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   selector: 'app-custom-prompt',
   template: `
 <div class="custom-prompt">
-  <h4>Editar</h4>
+  <h4>Nuevo Teléfono</h4>
   <a class="close-button" (click)="closePrompt()"><mat-icon>close</mat-icon></a>
   <input [(ngModel)]="inputValue" placeholder="..." />
   <button (click)="save()">Guardar</button>
