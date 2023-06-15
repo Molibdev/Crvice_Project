@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection  } from '@angular/fire/compat/firestore';
+import { Action, AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, DocumentSnapshot  } from '@angular/fire/compat/firestore';
 import { collectionData, query, Firestore,  } from '@angular/fire/firestore';
-import {
-  doc,
-  docData,
-} from '@angular/fire/firestore';
+import {doc,docData,} from '@angular/fire/firestore';
 import { collection } from 'firebase/firestore';
 import {  map, Observable, of, switchMap } from 'rxjs';
 import { Trabajo, User, userDataBank } from '../models/models';
@@ -74,6 +71,18 @@ export class FirebaseService {
     );
   }
 
+  getUserProfiles(uid: string): Observable<User> {
+    const userRef = this.firestore.collection('Usuarios').doc<User>(uid);
+    return userRef.snapshotChanges().pipe(
+      map((action: Action<DocumentSnapshot<User>>) => {
+        const snapshot = action.payload;
+        const data = snapshot.data();
+        const id = snapshot.id;
+        return { id, ...data } as User;
+      })
+    );
+  }
+
   getUserProfile(uid: string): Observable<User> {
     return this.getDoc<User>('Usuarios', uid).pipe(
       map((user) => {
@@ -84,6 +93,8 @@ export class FirebaseService {
       })
     );
   }
+  
+  
 
   updateUserCalificaciones(uid: string, calificacion: number, comentario: string) {
     const calificacionesRef = this.firestore.collection('Usuarios').doc(uid).collection('calificaciones').doc();

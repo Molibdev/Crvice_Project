@@ -5,6 +5,10 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { take, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
@@ -27,7 +31,8 @@ export class CrudAdminComponent implements OnInit {
   campoSeleccionado!: string; // Campo seleccionado para actualizar
   campoActualizado!: string; // Valor actualizado del campo seleccionado
 
-  constructor(private firebase: FirebaseService, private auth: AuthService) {}
+  constructor(private firebase: FirebaseService, private auth: AuthService,    private router: Router,
+    ) {}
 
   // Filtrar usuarios en función del correo electrónico ingresado
   filterUsers() {
@@ -42,21 +47,36 @@ export class CrudAdminComponent implements OnInit {
       this.noResults = this.filteredUsers.length === 0;
     }
   }
-
   async ngOnInit() {
-    this.uid = (await this.auth.getUid()) || '';
-    // Obtener todos los usuarios desde Firebase
+    this.uid = await this.auth.getUid() || ''; // Assign an empty string as fallback for undefined
+  
     this.firebase.allUsers$.subscribe((users: User[]) => {
       this.listUsers = users;
-      this.filteredUsers = this.listUsers; // Asignar todos los usuarios a filteredUsers
-      this.filterUsers(); // Aplicar el filtro inicialmente
+      this.filteredUsers = this.listUsers;
+      this.filterUsers();
     });
+  
+    await this.canActivate();
   }
+  
+  async canActivate(): Promise<boolean> {
+    const uid = await this.auth.getUid();
+    if (uid) {
+      const userProfile = await this.firebase.getUserProfiles(uid).toPromise();
+      if (userProfile && userProfile.perfil === 3) {
+        return true; // Allow access to the component for users with perfil 3
+      } else {
+        this.router.navigate(['/index']);
+        return false; // Redirect other users to the index
+      }
+    } else {
+      this.router.navigate(['/index']);
+      return false; // Redirect unauthenticated users to the index
+    }
+  }
+  
+  
 
-  canActivate(): void {
-    const userProfile = this.firebase.getUserProfile; // Reemplazar con el método propio para obtener el perfil del usuario
-    console.log(userProfile);
-  }
 
   // Mostrar el diálogo de actualización de un campo específico del usuario
   mostrarPromptCampo(user: User, campo: string) {
